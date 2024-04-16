@@ -351,7 +351,7 @@
   },
   "Blur" : false,
   "Vertical Spacing" : 1,
-  "Normal Font" : "LigaSFMonoNerdFont-Regular 12",
+  "Normal Font" : "DankMonoNF-Regular 14",
   "Ansi 7 Color" : {
     "Red Component" : 0.66274509803921566,
     "Color Space" : "sRGB",
