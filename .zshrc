@@ -34,6 +34,7 @@ alias brewupgrade="brew update && brew upgrade"
 alias projects="cd ~/Projects"
 alias config="cd ~/.config/"
 alias nvimconf="cd ~/.config/nvim"
+alias cat="bat"
 alias f="fzf"
 
 # Generated for envman. Do not edit.
