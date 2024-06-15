@@ -37,6 +37,7 @@ alias lg="lazygit"
 alias air='$(go env GOPATH)/bin/air'
 alias gs="git switch"
 alias gp="git pull --rebase"
+alias ...="cd .. && cd .."
 
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
