@@ -1,6 +1,3 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
@@ -29,25 +26,31 @@ znap source marlonrichert/zsh-autocomplete
 znap eval fnm 'fnm env'
 znap fpath _fnm 'fnm completions --shell zsh'
 
-# For a full list of active aliases, run `alias`.
 alias brewupgrade="brew update && brew upgrade"
 alias projects="cd ~/Projects"
 alias config="cd ~/.config/"
 alias nvimconf="cd ~/.config/nvim"
 alias cat="bat"
 alias f="fzf"
+alias cd="z" # zoxide
+alias lg="lazygit"
+alias air='$(go env GOPATH)/bin/air'
+alias gs="git switch"
+alias gp="git pull --rebase"
 
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
-znap eval fzf --zsh
+znap eval fuzzyfinder 'fzf --zsh'
 
 if [[ "$ZPROF" = true ]]; then
   zprof
 fi
 
 source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
+
+znap eval zoxide "zoxide init zsh"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
