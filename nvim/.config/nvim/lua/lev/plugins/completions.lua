@@ -58,7 +58,7 @@ return {
 					format = lspkind.cmp_format({
 						mode = "symbol",
 						max_width = function()
-							return math.floor(0.50 * vim.o.columns)
+							return math.floor(0.80 * vim.o.columns)
 						end,
 						ellipsis_char = "...",
 						symbol_map = { Copilot = "" },
