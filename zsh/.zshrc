@@ -1,7 +1,3 @@
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # Zprof to measure execution time
 if [[ "$ZPROF" = true ]]; then
   zmodload zsh/zprof
@@ -45,13 +41,11 @@ alias ...="cd .. && cd .."
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 znap eval fuzzyfinder 'fzf --zsh'
 
+znap eval zoxide "zoxide init zsh"
+
+znap eval omp "oh-my-posh init zsh --config $HOME/zen.toml"
+
 if [[ "$ZPROF" = true ]]; then
   zprof
 fi
 
-source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
-
-znap eval zoxide "zoxide init zsh"
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
