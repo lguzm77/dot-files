@@ -16,5 +16,7 @@ To signal `stow` to move the files to the desired location Usage
 ```
 stow <module-name>
 ```
+# Setup script
 
+Run `sh setup.sh` to install all dependencies and tools.
 

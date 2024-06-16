@@ -23,9 +23,6 @@ znap eval fnm 'fnm env'
 znap fpath _fnm 'fnm completions --shell zsh'
 
 alias brewupgrade="brew update && brew upgrade"
-alias projects="cd ~/Projects"
-alias config="cd ~/.config/"
-alias nvimconf="cd ~/.config/nvim"
 alias cat="bat"
 alias f="fzf"
 alias cd="z" # zoxide
@@ -34,6 +31,8 @@ alias air='$(go env GOPATH)/bin/air'
 alias gs="git switch"
 alias gp="git pull --rebase"
 alias ...="cd .. && cd .."
+alias ls="eza"
+alias c="clear"
 
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
