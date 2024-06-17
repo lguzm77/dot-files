@@ -21,7 +21,7 @@ fi
 
 echo "Updating homebrew and installing shell tools"
 brew update 
-shell_tools=("neovim eza zoxide bat docker ripgrep koekeishiya/formulae/yabai koekeishiya/formulae/skhd fzf kubectl stow")
+shell_tools=("neovim eza zoxide bat docker ripgrep koekeishiya/formulae/yabai koekeishiya/formulae/skhd fzf kubectl stow jandedobbeleer/oh-my-posh/oh-my-posh")
 for tool in "${shell_tools[@]}";
 do
   brew install $tool;
