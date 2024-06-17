@@ -21,22 +21,11 @@ fi
 
 echo "Updating homebrew and installing shell tools"
 brew update 
-shell_tools=("neovim eza zoxide bat docker ripgrep koekeishiya/formulae/yabai koekeishiya/formulae/skhd fzf kubectl")
+shell_tools=("neovim eza zoxide bat docker ripgrep koekeishiya/formulae/yabai koekeishiya/formulae/skhd fzf kubectl stow")
 for tool in "${shell_tools[@]}";
 do
   brew install $tool;
 done 
-
-echo "installing GNU stow"
-if ! command -v stow; then
-  sudo curl https://mirror.us-midwest-1.nexcess.net/gnu/stow/stow-latest.tar.gz | sudo tar -xz
-  cd stow-* # the latest release version might change 
-  # Autotools install according to stow-*/INSTALL.md
-  sh configure
-  make install
-else
-  echo "stow is already installed"
-fi 
 
 echo "Running stow on all modules"
 # In stow, each folder is a module containing the desired symlink path to follow
