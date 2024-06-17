@@ -66,7 +66,7 @@ alias c="clear"
 
 # shell integrations
 znap eval zoxide "zoxide init zsh"
-znap eval omp "oh-my-posh init zsh --config $HOME/zen.toml"
+znap eval omp "oh-my-posh --init --shell zsh --config $HOME/zen.toml"
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 znap eval _kubectl 'kubectl completion zsh'
 
