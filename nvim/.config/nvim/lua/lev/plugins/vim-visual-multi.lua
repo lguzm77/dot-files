@@ -6,9 +6,10 @@ local function visual_cursors_with_delay()
 	-- Press 'A' in normal mode after the delay.
 	vim.cmd('silent! execute "normal! A"')
 end
-
+-- TODO: improve this
 return {
 	"mg979/vim-visual-multi",
+	enable = false,
 	events = { "BufReadPre", "BufNewFile" },
 	init = function()
 		vim.g.VM_default_mappings = 0 -- turn off vim-visual-multi defaults
