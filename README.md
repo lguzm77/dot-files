@@ -1,12 +1,12 @@
 # Lev's Personal Dotfiles
-Personal dotfiles, these will be managed by GNU Stow
+Personal dotfiles, these will be managed by GNU Stow. Some goodies include
 
-- iTerm2 config in .json [deprecated, actively using kitty term instead]
-- kitty terminal configuration
-- .zshrc
-- setup.sh
-- nvim setup
+- Some nice fonts 
+- Kitty terminal configuration
+- Personal neovim configuration
+- Personal .zshrc configuration 
 - k9s tokyo night skyn
+- Personal setup script (cross platform!)
 
 # Usage
 
@@ -20,3 +20,9 @@ stow <module-name>
 
 Run `sh setup.sh` to install all dependencies and tools.
 
+# Improvements backlog
+
+- setup.sh 
+    - Migrate package manager from homebrew to nix.
+    - Setup git credentials and private key for ssh acccess. 
+    - Clone all repositories

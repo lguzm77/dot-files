@@ -70,6 +70,9 @@ znap eval omp "oh-my-posh --init --shell zsh --config $HOME/zen.toml"
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 znap eval _kubectl 'kubectl completion zsh'
 
+# Use this block to import any additinonal configurations
+# . my-config.zshrc 
+
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 
