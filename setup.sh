@@ -21,7 +21,8 @@ fi
 
 echo "Updating homebrew and installing shell tools"
 brew update 
-shell_tools=("neovim eza zoxide bat docker ripgrep koekeishiya/formulae/yabai koekeishiya/formulae/skhd fzf kubectl stow jandedobbeleer/oh-my-posh/oh-my-posh")
+shell_tools=("neovim eza zoxide bat docker ripgrep koekeishiya/formulae/yabai koekeishiya/formulae/skhd fzf kubectl stow jandedobbeleer/oh-my-posh/oh-my-posh elixir")
+
 for tool in "${shell_tools[@]}";
 do
   brew install $tool;
@@ -33,6 +34,7 @@ for module in $(ls -d */)/;
 do 
   stow $module;
 done
+# TODO: setup git credentials and clone all repos
 
 echo "Finished setup script"
 
