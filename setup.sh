@@ -19,9 +19,18 @@ else
   echo "homebrew is already installed"
 fi 
 
-echo "Updating homebrew and installing shell tools"
+echo "Updating homebrew"
 brew update 
-shell_tools=("neovim eza zoxide bat docker ripgrep koekeishiya/formulae/yabai koekeishiya/formulae/skhd fzf kubectl stow jandedobbeleer/oh-my-posh/oh-my-posh elixir")
+
+echo "Installing all development tools"
+development_tools=("minikube elixir neovim docker kubectl elixir")
+for tool in "${development_tools[@]}";
+do 
+  brew install $tool;
+done 
+
+echo "Installing all shell tools"
+shell_tools=("eza zoxide bat ripgrep koekeishiya/formulae/yabai koekeishiya/formulae/skhd fzf stow jandedobbeleer/oh-my-posh/oh-my-posh")
 
 for tool in "${shell_tools[@]}";
 do
