@@ -22,20 +22,23 @@ fi
 echo "Updating homebrew"
 brew update 
 
-echo "Installing all development tools"
-development_tools=("minikube elixir neovim docker kubectl elixir")
-for tool in "${development_tools[@]}";
-do 
-  brew install $tool;
-done 
+function installUsingHomebrew(){
+  local softwareNames=("$@") # Create a local copy of the array 
+  echo $softwareNames
 
-echo "Installing all shell tools"
+  for softwareName in "${softwareNames[@]}";
+  do 
+    brew install $softwareName
+  done 
+}
+
+echo "Installing development tools using homebrew"
+development_tools=("minikube elixir neovim docker kubectl fnm") # fnm stands for fast node manager
+installUsingHomebrew "${development_tools[@]}"
+  
+echo "Installing shell tools using homebrew"
 shell_tools=("eza zoxide bat ripgrep koekeishiya/formulae/yabai koekeishiya/formulae/skhd fzf stow jandedobbeleer/oh-my-posh/oh-my-posh")
-
-for tool in "${shell_tools[@]}";
-do
-  brew install $tool;
-done 
+installUsingHomebrew "${shell_tools[@]}"
 
 echo "Running stow on all modules"
 # In stow, each folder is a module containing the desired symlink path to follow
@@ -43,7 +46,6 @@ for module in $(ls -d */)/;
 do 
   stow $module;
 done
-# TODO: setup git credentials and clone all repos
 
 echo "Finished setup script"
 
