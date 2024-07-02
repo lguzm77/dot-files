@@ -46,7 +46,7 @@ keymap.set("v", ">", ">gv", opts)
 -- Navigation and centering is handled by cinnamon.lua
 keymap.set("n", "n", "nzzzv", opts)
 keymap.set("n", "N", "Nzzzv", opts)
---vim.api.nvim_set_keymap("n", "{", "{zz", opts)
---vim.api.nvim_set_keymap("n", "<C-d>", "<C-d>zz", opts) -- zz centers your cursor
---vim.api.nvim_set_keymap("n", "<C-u>", "<C-u>zz", opts)
---vim.api.nvim_set_keymap("n", "}", "}zz", opts)
+vim.api.nvim_set_keymap("n", "{", "{zz", opts)
+vim.api.nvim_set_keymap("n", "<C-d>", "<C-d>zz", opts) -- zz centers your cursor
+vim.api.nvim_set_keymap("n", "<C-u>", "<C-u>zz", opts)
+vim.api.nvim_set_keymap("n", "}", "}zz", opts)
