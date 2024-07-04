@@ -5,7 +5,7 @@ return {
 		require("tokyonight").setup({
 			style = "storm",
 		})
-		local number_color = "#bb9af7"
+		local number_color = "#7aa2f7"
     local number_line_color = "#CEB25E"
 		vim.cmd("colorscheme tokyonight")
 		vim.api.nvim_set_hl(0, "LineNrAbove", { fg = number_color, bold = true })
