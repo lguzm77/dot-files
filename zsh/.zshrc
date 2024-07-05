@@ -57,11 +57,13 @@ alias brewupgrade="brew update && brew upgrade"
 alias cat="bat"
 alias f="fzf"
 alias cd="z" # zoxide
-alias lg="lazygit"
+
 alias air='$(go env GOPATH)/bin/air'
+
+alias gl="lazygit"
 alias gs="git switch"
+alias gu="git undo" # git alias for git reset --soft HEAD^
 alias gp="git pull --rebase"
-alias ...="cd .. && cd .."
 alias c="clear"
 
 # shell integrations
