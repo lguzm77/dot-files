@@ -25,10 +25,10 @@ return {
 
 			telescope.setup({
 				defaults = {
-					path_display = { "truncate" },
+					path_display = { "shorten" },
 					layout_config = {
 						horizontal = {
-							preview_width = 0.5, -- make preview window occupy 50% of the screen
+							preview_width = 0.7, -- toggle preview window size
 						},
 					},
 					mappings = {
@@ -76,8 +76,8 @@ return {
 			keymap.set("n", "<leader>/", function()
 				builtin.current_buffer_fuzzy_find(themes.get_dropdown({
 					winblend = 10,
-					previewer = false,
-					layout_config = { width = 0.7 },
+					previewer = true,
+					layout_config = { width = 0.8 },
 				}))
 			end, { desc = "[/] Fuzzy search in current buffer" })
 			keymap.set("n", "<leader>gc", builtin.git_commits, { desc = "search commits for buffer" })
