@@ -27,6 +27,7 @@ return {
     },
     config = function()
       require("octo").setup({ enable_builtin = true })
+      vim.cmd([[hi OctoEditable guibg=none]]) -- removes background colors in diff showing
     end,
     keys = { { "<leader>O", "<cmd>Octo<cr>", desc = "Octo" } },
   },
