@@ -23,17 +23,17 @@ echo "Updating homebrew"
 brew update 
 
 function installUsingHomebrew(){
-  local softwareNames=("$@") # Create a local copy of the array 
-  echo $softwareNames
+  local packageNames=("$@") # Create a local copy of the array 
+  echo $packageNames
 
-  for softwareName in "${softwareNames[@]}";
+  for packageName in "${packageNames[@]}";
   do 
-    brew install $softwareName
+    brew install $packageName
   done 
 }
 
 echo "Installing development tools using homebrew"
-development_tools=("minikube elixir neovim docker kubectl fnm") # fnm stands for fast node manager
+development_tools=("minikube elixir neovim docker kubectl fnm graphiz python") # fnm stands for fast node manager
 installUsingHomebrew "${development_tools[@]}"
   
 echo "Installing shell tools using homebrew"
