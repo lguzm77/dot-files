@@ -3,6 +3,11 @@ if [[ "$ZPROF" = true ]]; then
   zmodload zsh/zprof
 fi
 
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # Download Znap, if it's not there yet.
 [[ -r ~/Repos/znap/znap.zsh ]] ||
     git clone --depth 1 -- \
@@ -68,17 +73,20 @@ alias c="clear"
 
 # shell integrations
 znap eval zoxide "zoxide init zsh"
-znap eval omp "oh-my-posh --init --shell zsh --config $HOME/zen.toml"
-export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+export FZF_DEFAULT_OPTS='--height 50% --layout=reverse --border'
 znap eval _kubectl 'kubectl completion zsh'
-
+source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 # Use this block to import any additinonal configurations
 # . my-config.zshrc 
 
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
 if [[ "$ZPROF" = true ]]; then
   zprof
 fi
+
 

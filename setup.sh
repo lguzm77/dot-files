@@ -37,7 +37,7 @@ development_tools=("minikube elixir neovim docker kubectl fnm graphiz python") #
 installUsingHomebrew "${development_tools[@]}"
   
 echo "Installing shell tools using homebrew"
-shell_tools=("eza zoxide bat ripgrep koekeishiya/formulae/yabai koekeishiya/formulae/skhd fzf stow jandedobbeleer/oh-my-posh/oh-my-posh")
+shell_tools=("eza zoxide bat ripgrep koekeishiya/formulae/yabai koekeishiya/formulae/skhd fzf stow powerlevel10k") 
 installUsingHomebrew "${shell_tools[@]}"
 
 echo "Running stow on all modules"
