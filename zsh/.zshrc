@@ -42,6 +42,7 @@ HISTDUP=erase
 setopt appendhistory
 setopt sharehistory
 setopt hist_ignore_space # do not append a command to the history log if it has a space at the beginning
+setopt hist_ignore_all_dups
 setopt hist_save_no_dups # do not save duplicates in the history log
 setopt hist_ignore_dups
 setopt hist_find_no_dups
@@ -50,6 +51,8 @@ setopt hist_find_no_dups
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no # disable default menu and replace with fzf
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # Aliases 
 alias ls="eza"
@@ -81,6 +84,7 @@ source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
 
 if [[ "$ZPROF" = true ]]; then
   zprof
