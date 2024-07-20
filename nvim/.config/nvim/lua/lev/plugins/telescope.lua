@@ -65,7 +65,6 @@ return {
 
 			local keymap = vim.keymap
 			local builtin = require("telescope.builtin")
-			local themes = require("telescope.themes")
 
 			-- TODO: Add command that searches for a word in the current buffer/file
 
@@ -73,7 +72,10 @@ return {
 			keymap.set("n", "<leader>fr", builtin.oldfiles, { desc = "Fuzzy find recent files" })
 			keymap.set("n", "<leader>fs", builtin.live_grep, { desc = "Find string in cwd" })
 
-			keymap.set("n", "<leader>fw", builtin.grep_string, { desc = "Find word under cursor in cwd" })
+			keymap.set("n", "<leader>fw", function()
+				local current_buffer_name = vim.api.nvim_buf_get_name(0)
+				builtin.grep_string({ search_dirs = { current_buffer_name } })
+			end, { desc = "Find word under cursor in cwd" })
 			keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find todos" })
 			keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Find Keymaps" })
 			keymap.set("n", "<leader>gc", builtin.git_commits, { desc = "search commits for buffer" })
