@@ -67,19 +67,15 @@ return {
 			local builtin = require("telescope.builtin")
 			local themes = require("telescope.themes")
 
-			keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files in cwd" })
-			keymap.set("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Fuzzy find recent files" })
-			keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep<cr>", { desc = "Find string in cwd" })
-			keymap.set("n", "<leader>fw", "<cmd>Telescope grep_string<cr>", { desc = "Find word under cursor in cwd" })
+			-- TODO: Add command that searches for a word in the current buffer/file
+
+			keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Fuzzy find files in cwd" })
+			keymap.set("n", "<leader>fr", builtin.oldfiles, { desc = "Fuzzy find recent files" })
+			keymap.set("n", "<leader>fs", builtin.live_grep, { desc = "Find string in cwd" })
+
+			keymap.set("n", "<leader>fw", builtin.grep_string, { desc = "Find word under cursor in cwd" })
 			keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find todos" })
 			keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Find Keymaps" })
-			keymap.set("n", "<leader>/", function()
-				builtin.current_buffer_fuzzy_find(themes.get_dropdown({
-					winblend = 10,
-					previewer = true,
-					layout_config = { width = 0.8 },
-				}))
-			end, { desc = "[/] Fuzzy search in current buffer" })
 			keymap.set("n", "<leader>gc", builtin.git_commits, { desc = "search commits for buffer" })
 		end,
 	},
