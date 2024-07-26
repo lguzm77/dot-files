@@ -15,7 +15,11 @@ return {
 	config = function()
 		local noice = require("noice")
 
-		noice.setup({})
+		noice.setup({
+			presets = {
+				command_palette = true,
+			},
+		})
 
 		local keymap = vim.keymap
 		keymap.set("n", "<leader>nd", "<cmd>NoiceDismiss<CR>", { desc = "Dismiss Noice notification" })
