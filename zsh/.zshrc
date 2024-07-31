@@ -73,7 +73,7 @@ alias py="python3"
 
 # shell integrations
 znap eval zoxide "zoxide init zsh"
-export FZF_DEFAULT_OPTS='--height 50% --layout=reverse --border'
+export FZF_DEFAULT_OPTS='--height 80% --layout=reverse --border'
 znap eval _kubectl 'kubectl completion zsh'
 source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 # Use this block to import any additinonal configurations
