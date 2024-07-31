@@ -14,6 +14,7 @@ return {
 		mason_lspconfig.setup({
 			auto_install = true,
 			ensure_installed = {
+        "yaml-language-server"
 				"tsserver",
 				"gopls",
 				"omnisharp",

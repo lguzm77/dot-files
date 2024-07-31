@@ -18,6 +18,8 @@ return {
 			},
 		})
 
+    --TODO: rework mason installation
+
 		-- install linters and formatters
 		mason_tool_installer.setup({
 			ensure_installed = {
