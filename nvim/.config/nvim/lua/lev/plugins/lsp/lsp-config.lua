@@ -18,6 +18,7 @@ return {
 				"tsserver",
 				"gopls",
 				"omnisharp",
+        "lua_ls",
 			},
 		})
 
