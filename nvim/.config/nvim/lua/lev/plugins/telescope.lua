@@ -24,6 +24,17 @@ return {
 
 			telescope.setup({
 				defaults = {
+					wrap_results = true,
+					vimgrep_arguments = {
+						"rg",
+						"--color=never",
+						"--no-heading",
+						"--with-filename",
+						"--line-number",
+						"--column",
+						"--smart-case",
+            "--hidden",
+					},
 					path_display = { "shorten" },
 					layout_config = {
 						horizontal = {
