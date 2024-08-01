@@ -8,6 +8,10 @@ return {
 			"nvim-tree/nvim-web-devicons",
 			"folke/todo-comments.nvim",
 		},
+		keys = {
+			{ "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Fuzzy find files in cwd" },
+			{ "<leader>fs", "<cmd>Telescope live_grep<cr>", desc = "Find string in cwd" },
+		},
 		config = function()
 			local telescope = require("telescope")
 			local actions = require("telescope.actions")
@@ -33,7 +37,7 @@ return {
 						"--line-number",
 						"--column",
 						"--smart-case",
-            "--hidden",
+						"--hidden",
 					},
 					path_display = { "shorten" },
 					layout_config = {
@@ -69,9 +73,7 @@ return {
 			local keymap = vim.keymap
 			local builtin = require("telescope.builtin")
 
-			keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Fuzzy find files in cwd" })
 			keymap.set("n", "<leader>fr", builtin.oldfiles, { desc = "Fuzzy find recent files" })
-			keymap.set("n", "<leader>fs", builtin.live_grep, { desc = "Find string in cwd" })
 
 			keymap.set("n", "<leader>fw", function()
 				local current_buffer_name = vim.api.nvim_buf_get_name(0)
