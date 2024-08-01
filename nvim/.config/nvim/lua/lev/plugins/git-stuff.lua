@@ -34,6 +34,7 @@ return {
 	{
 		"tpope/vim-fugitive",
 		dependencies = { "tpope/vim-rhubarb" },
+    event = "BufRead",
 		config = function()
 			-- Custom :Browse command
 			vim.api.nvim_create_user_command("Browse", function(opts)
