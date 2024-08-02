@@ -62,7 +62,6 @@ return {
       dashboard.button("r", " " .. " Recent files",    "<cmd> Telescope oldfiles <cr>"),
       dashboard.button("g", " " .. " Find text",       "<cmd> Telescope live_grep <cr>"),
       dashboard.button("o", " " .. " Open parent directory", "<cmd>Oil<cr>"),
-      dashboard.button("c", " " .. " Config",          "<cmd> lua require('lazyvim.util').telescope.config_files()() <cr>"),
       dashboard.button("s", " " .. " Restore Session", "<cmd>SessionRestore<cr>"),
       dashboard.button("m", " " .. " Mason",     "<cmd> Mason <cr>"),
       dashboard.button("l", "󰒲 " .. " Lazy",            "<cmd> Lazy <cr>"),
