@@ -9,6 +9,7 @@ return {
 			"folke/todo-comments.nvim",
 			"nvim-telescope/telescope-ui-select.nvim",
 		},
+    cmd= "Telescope",
 		keys = {
 			{ "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Fuzzy find files in cwd" },
 			{ "<leader>fs", "<cmd>Telescope live_grep<cr>", desc = "Find string in cwd" },
