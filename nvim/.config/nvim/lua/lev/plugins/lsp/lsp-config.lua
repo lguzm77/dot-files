@@ -5,6 +5,7 @@ return {
 		{ "antosha417/nvim-lsp-file-operations", config = true },
 		{ "folke/neodev.nvim", opts = {} },
 	},
+  event = "BufReadPre",
 	config = function()
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 		local capabilities = cmp_nvim_lsp.default_capabilities()
