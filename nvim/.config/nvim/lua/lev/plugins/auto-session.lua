@@ -1,6 +1,7 @@
 return {
 	"rmagatti/auto-session",
   cmd = "SessionRestore",
+  event = "BufWinEnter",
 	keys = {
 
 		{ "<leader>wr", "<cmd>SessionRestore<CR>", desc = "Restore session for cwd" },
