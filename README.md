@@ -24,5 +24,4 @@ Run `sh setup.sh` to install all dependencies and tools.
 
 - setup.sh 
     - Migrate package manager from homebrew to nix.
-    - Setup git credentials and private key for ssh acccess. 
-    - Clone all repositories
+- Migrate all configuration to a single .config folder for easier management
