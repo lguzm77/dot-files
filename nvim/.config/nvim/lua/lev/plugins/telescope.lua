@@ -7,6 +7,7 @@ return {
 			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 			"nvim-tree/nvim-web-devicons",
 			"folke/todo-comments.nvim",
+			"nvim-telescope/telescope-ui-select.nvim",
 		},
 		keys = {
 			{ "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Fuzzy find files in cwd" },
@@ -88,6 +89,7 @@ return {
 	},
 	{
 		"nvim-telescope/telescope-ui-select.nvim",
+    event = "BufReadPre",
 		config = function()
 			require("telescope").setup({
 				extensions = {
