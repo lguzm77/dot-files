@@ -33,30 +33,41 @@ return {
 			end,
 		})
 
+		local telescopeConfig = require("telescope.config")
+		-- Clone the default Telescope configuration
+		local vimgrep_arguments = { unpack(telescopeConfig.values.vimgrep_arguments) }
+
+		-- I want to search in hidden/dot files.
+		table.insert(vimgrep_arguments, "--hidden")
+		-- I don't want to search in the `.git` directory.
+		table.insert(vimgrep_arguments, "--glob")
+		table.insert(vimgrep_arguments, "!**/.git/*")
 		telescope.setup({
 			defaults = {
 				wrap_results = true,
-				vimgrep_arguments = {
-					"rg",
-					"--color=never",
-					"--no-heading",
-					"--with-filename",
-					"--line-number",
-					"--column",
-					"--smart-case",
-					"--hidden",
-				},
+				vimgrep_arguments = vimgrep_arguments,
 				path_display = { "truncate" },
 				layout_config = { horizontal = { preview_width = 0.6 } },
 				mappings = {
 					-- insert mode mappings
+          -- -- TODO: why aren't these mappings working?
 					i = {
 						["<C-q>"] = actions.send_selected_to_qflist + custom_actions.open_trouble_qflist,
+						["<C-j>"] = actions.cycle_history_next,
+						["<C-k>"] = actions.cycle_history_prev,
+						["<C-s>"] = actions.cycle_previewers_next,
+						["<C-a>"] = actions.cycle_previewers_prev,
 					},
 				},
 				extensions = {
 					["ui-select"] = {
 						require("telescope.themes").get_dropdown({}),
+					},
+				},
+				pickers = {
+					find_files = {
+						-- `hidden = true` will still show the inside of `.git/` as it's not `.gitignore`d.
+						find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
 					},
 				},
 			},
