@@ -13,6 +13,7 @@ return {
 			-- For major updates, this must be adjusted manually.
 			version = "^1.0.0",
 		},
+    -- TODO: integrate neoclip
 	},
 	cmd = "Telescope",
 	keys = {
@@ -84,8 +85,6 @@ return {
 			end,
 		})
 
-		-- TODO: check what other extensions are available to you.
-		-- Do any enhance your workflow? Why?
 		telescope.load_extension("fzf")
 		telescope.load_extension("noice")
 		-- TODO: what does this extension do?
