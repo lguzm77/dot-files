@@ -34,7 +34,9 @@ return {
 
     local shell_tools = {
       "shellcheck",
+      "beautysh",
     }
+
 
 		-- install linters and formatters
 		mason_tool_installer.setup({
@@ -42,6 +44,7 @@ return {
 				"stylua",
 				"codespell",
 				"marksman",
+        "buf",
         unpack(javascript_tools),
         unpack(go_tools),
         unpack(shell_tools),

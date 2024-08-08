@@ -15,6 +15,9 @@ return {
 				["*"] = { "codespell" },
 				go = { "gofumpt" },
 				sh = { "shellcheck" },
+				markdown = { "prettierd" },
+				bash = { "beautysh" },
+        proto = { "buf" },
 			},
 		})
 

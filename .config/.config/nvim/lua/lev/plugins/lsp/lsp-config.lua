@@ -12,6 +12,7 @@ return {
 		local lspconfig = require("lspconfig")
 		local mason_lspconfig = require("mason-lspconfig")
 
+    -- Language servers installed by Mason
 		mason_lspconfig.setup({
 			auto_install = true,
 			ensure_installed = {
