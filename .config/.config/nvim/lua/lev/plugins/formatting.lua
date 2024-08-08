@@ -5,19 +5,20 @@ return {
 		local conform = require("conform")
 
 		conform.setup({
-			-- install additional formatters via Mason 
+			-- install additional formatters via Mason
 			formatters_by_ft = {
 				lua = { "stylua" },
-				javascript = { "prettier" },
-				typescript = { "prettier" },
-				yaml = { "prettier" },
+				javascript = { "prettierd" },
+				typescript = { "prettierd" },
+				yaml = { "prettierd" },
 				csharp = { "csharpier" },
 				["*"] = { "codespell" },
-        go = { "gofumpt" },
+				go = { "gofumpt" },
+				sh = { "shellcheck" },
 			},
 		})
 
-		vim.keymap.set({ "n", "v" }, "<leader>fa", function()
+		vim.keymap.set({ "n", "v" }, "<leader>l", function()
 			conform.format({
 				lsp_fallback = true,
 				async = false,
