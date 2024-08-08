@@ -4,6 +4,7 @@ return {
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 	},
+  event = "BufReadPre",
 	config = function()
 		local mark = require("harpoon.mark")
 		local ui = require("harpoon.ui")

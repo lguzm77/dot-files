@@ -47,6 +47,10 @@ do
   stow $module;
 done
 
+# Most of my config files (nvim and kitty for now) live in the .config folder
+stow ./config
+
+
 echo "Finished installing tools, setting up home directory folders and tools"
 cd $HOME
 

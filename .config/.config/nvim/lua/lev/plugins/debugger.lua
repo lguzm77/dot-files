@@ -1,7 +1,7 @@
 return {
 	{
 		"rcarriga/nvim-dap-ui",
-		event = "VeryLazy", -- check all events with :h VeryLazy
+		event = "BufReadPre", -- check all events with :h VeryLazy
 		dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
 		config = function()
 			local dap = require("dap")
@@ -20,12 +20,12 @@ return {
 	},
 	{
 		"mfussenegger/nvim-dap",
+		keys = {
+			{ "<leader>dt", "<cmd>DapToggleBreakPoint<cr>", desc = "Toggle breakpoint" },
+			{ "<leader>dc", "<cmd>DapContinue<cr>", desc = "Continue execution" },
+		},
 		config = function()
 			local dap = require("dap")
-
-			vim.keymap.set("n", "<leader>dt", dap.toggle_breakpoint, {desc = "Toggle breakpoint"})
-			vim.keymap.set("n", "<leader>dc", dap.continue, {desc = "Continue execution"})
-
 			dap.adapters["pwa-node"] = {
 				type = "server",
 				host = "127.0.0.1",
