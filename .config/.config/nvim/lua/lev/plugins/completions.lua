@@ -35,6 +35,7 @@ return {
 
 			vim.opt.completeopt = "menu,menuone,noselect"
 			cmp.setup({
+				completion = { completeopt = "menu,menuone,preview,noselect" },
 				snippet = {
 					expand = function(args)
 						require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
@@ -45,8 +46,10 @@ return {
 					documentation = cmp.config.window.bordered(),
 				},
 				mapping = cmp.mapping.preset.insert({
-					["<C-;>"] = cmp.mapping.scroll_docs(-4),
-					["<C-'>"] = cmp.mapping.scroll_docs(4),
+					["<C-n"] = cmp.mapping.select_next_item(),
+					["<C-p"] = cmp.mapping.select_prev_item(),
+					["<C-u>"] = cmp.mapping.scroll_docs(-4),
+					["<C-d>"] = cmp.mapping.scroll_docs(4),
 					["<C-Space>"] = cmp.mapping.complete(),
 					["<C-e>"] = cmp.mapping.abort(),
 					["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
