@@ -18,19 +18,33 @@ return {
 			},
 		})
 
-    --TODO: rework mason installation
+		--TODO: rework mason installation
+
+		local javascript_tools = {
+			"prettier",
+			"prettierd",
+			"eslint_d",
+			"js-debug-adapter",
+		}
+
+		local go_tools = {
+			"gofumpt",
+			"golangci-lint",
+		}
+
+    local shell_tools = {
+      "shellcheck",
+    }
 
 		-- install linters and formatters
 		mason_tool_installer.setup({
 			ensure_installed = {
-				"prettier",
 				"stylua",
-				"eslint_d",
 				"codespell",
-				"golangci-lint",
-				"gofumpt",
 				"marksman",
-        'js-debug-adapter',
+        unpack(javascript_tools),
+        unpack(go_tools),
+        unpack(shell_tools),
 			},
 		})
 	end,
