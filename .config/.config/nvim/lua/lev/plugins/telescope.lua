@@ -13,7 +13,7 @@ return {
 			-- For major updates, this must be adjusted manually.
 			version = "^1.0.0",
 		},
-    -- TODO: integrate neoclip
+		-- TODO: integrate neoclip
 	},
 	cmd = "Telescope",
 	keys = {
@@ -24,7 +24,7 @@ return {
 		local telescope = require("telescope")
 		local actions = require("telescope.actions")
 		local transform_mod = require("telescope.actions.mt").transform_mod
-
+		local lga_actions = require("telescope-live-grep-args.actions")
 		local trouble = require("trouble")
 
 		-- custom trouble action
@@ -65,6 +65,11 @@ return {
 					["ui-select"] = {
 						require("telescope.themes").get_dropdown({}),
 					},
+					live_grep_args = {
+						auto_quoting = true,
+            -- TODO: rethink mapping here
+						mappings = { i = { ["<C-i>"] = lga_actions.quote_prompt() } },
+					},
 				},
 				pickers = {
 					find_files = {
@@ -101,7 +106,7 @@ return {
 
 		keymap.set("n", "<leader>fw", function()
 			local current_buffer_name = vim.api.nvim_buf_get_name(0)
-        -- TODO: how do you execute a vim command using the api? So we can remove the builtin import
+			-- TODO: how do you execute a vim command using the api? So we can remove the builtin import
 			builtin.grep_string({ search_dirs = { current_buffer_name } })
 		end, { desc = "Find word under cursor in current buffer" })
 
