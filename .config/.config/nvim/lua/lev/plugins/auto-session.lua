@@ -1,6 +1,7 @@
 return {
 	"rmagatti/auto-session",
   cmd = "SessionRestore",
+  event = "VeryLazy",
 	keys = {
 
 		{ "<leader>wr", "<cmd>SessionRestore<CR>", desc = "Restore session for cwd" },
