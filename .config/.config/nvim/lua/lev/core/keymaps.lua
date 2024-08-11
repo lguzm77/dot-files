@@ -6,7 +6,7 @@ local non_recursive_option = {
 
 -- greatest remap ever, search and replace all occurrences of the current buffer with your register's content
 keymap.set("v","<leader>p", "\"_dP", non_recursive_option)
-keymap.set("i", "jk", "<ESC>", { desc = "Exit insert mode with jk" })
+keymap.set("i", "jj", "<ESC>", { desc = "Exit insert mode with jk" })
 
 -- window management
 keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" }) -- split window vertically
