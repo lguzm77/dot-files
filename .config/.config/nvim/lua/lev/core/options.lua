@@ -24,5 +24,4 @@ opt.swapfile = false
 opt.backup = false
 opt.signcolumn = "yes"
 opt.scrolloff = 20 -- how many lines to show above and below cursor
-opt.guicursor = ""
 opt.conceallevel = 2
