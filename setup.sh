@@ -1,4 +1,6 @@
 #! /usr/bin/env bash
+set -o errexit # stop script if error is raised.
+set -o nounset # raise an error if a variable is unset.
 
 echo "Starting setup script"
 
@@ -37,8 +39,12 @@ development_tools=("minikube elixir neovim docker kubectl fnm graphviz python") 
 installUsingHomebrew "${development_tools[@]}"
   
 echo "Installing shell tools using homebrew"
-shell_tools=("eza zoxide bat ripgrep koekeishiya/formulae/yabai koekeishiya/formulae/skhd fzf stow powerlevel10k") 
+shell_tools=("eza zoxide bat ripgrep fzf stow powerlevel10k") 
 installUsingHomebrew "${shell_tools[@]}"
+
+echo "Installing workspace tools using homebrew"
+workspace_tools=("--cask nikitabobko/tap/aerospace")
+installUsingHomebrew "${workspace_tools[@]}"
 
 echo "Running stow on all modules"
 # In stow, each folder is a module containing the desired symlink path to follow
@@ -48,7 +54,8 @@ do
 done
 
 # Most of my config files (nvim and kitty for now) live in the .config folder
-stow ./config
+echo "Running stow on the config folder"
+stow .config
 
 
 echo "Finished installing tools, setting up home directory folders and tools"
