@@ -19,7 +19,7 @@ return {
 
 		require("ufo").setup({
 			provider_selector = function(bufnr, filetype, buftype)
-				return { "lsp", "treesitter" }
+				return { "lsp", "indent" }
 			end,
 		})
 	end,
