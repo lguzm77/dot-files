@@ -3,7 +3,7 @@ return {
 	dependencies = { "nvim-tree/nvim-web-devicons" },
 	cmd = "Oil",
 	keys = {
-		{ "-", "<cmd>Oil --float<CR>", desc = "Open parent directory" },
+		{ "-", "<cmd>Oil<CR>", desc = "Open parent directory" },
 	},
 	config = function()
 		require("oil").setup({
