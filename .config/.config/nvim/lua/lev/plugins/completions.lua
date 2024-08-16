@@ -60,7 +60,9 @@ return {
 				formatting = {
 					format = lspkind.cmp_format({
 						mode = "symbol",
-						max_width = 0, -- occupy all available space
+						max_width = function()
+							return 0.9 * vim.o.columns
+						end,
 						ellipsis_char = "...",
 						symbol_map = { Copilot = "" },
 					}),
