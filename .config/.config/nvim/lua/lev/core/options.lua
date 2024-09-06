@@ -18,6 +18,12 @@ vim.cmd("cd %:p:h") -- set current directory as base
 vim.cmd("set wrap")
 vim.cmd("set breakindent")
 vim.cmd("set linebreak")
+vim.cmd("set foldlevel=20") -- how deep do we want our folds to go
+vim.cmd("set foldmethod=expr")
+vim.cmd("set foldexpr=nvim_treesitter#foldexpr()") -- treesitter dependency
+vim.opt.nofoldenable = true
+vim.opt.foldlevelstart = 99
+
 opt.laststatus = 3 -- lock vim status bar to the bottom
 
 opt.swapfile = false
