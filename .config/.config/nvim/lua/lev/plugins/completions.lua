@@ -1,4 +1,3 @@
-local enableCopilot = true
 return {
 	{
 		"hrsh7th/nvim-cmp",
@@ -12,16 +11,12 @@ return {
 			"rafamadriz/friendly-snippets",
 			"L3MON4D3/LuaSnip",
 			"onsails/lspkind.nvim",
-			"zbirenbaum/copilot-cmp",
 		},
 
 		config = function()
 			local cmp = require("cmp")
 			local lspkind = require("lspkind")
-			local copilot = require("copilot_cmp")
 			require("luasnip.loaders.from_vscode").lazy_load()
-
-			copilot.setup()
 
 			local completion_sources = {
 				{ name = "nvim_lsp" },
@@ -29,9 +24,6 @@ return {
 				{ name = "buffer" }, -- text within the current buffer
 				{ name = "path" }, -- file system paths
 			}
-
-			-- Guarantee that copilot is the last element
-			table.insert(completion_sources, { name = "copilot" })
 
 			vim.opt.completeopt = "menu,menuone,noselect"
 			cmp.setup({
@@ -60,11 +52,7 @@ return {
 				formatting = {
 					format = lspkind.cmp_format({
 						mode = "symbol",
-						max_width = function()
-							return 0.9 * vim.o.columns
-						end,
 						ellipsis_char = "...",
-						symbol_map = { Copilot = "" },
 					}),
 				},
 			})
@@ -77,6 +65,7 @@ return {
 				},
 			})
 
+
 			-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 			cmp.setup.cmdline(":", {
 				mapping = cmp.mapping.preset.cmdline(),
@@ -87,17 +76,6 @@ return {
 				}),
 				matching = { disallow_symbol_nonprefix_matching = false },
 			})
-
-			vim.keymap.set("n", "<leader>ac", function()
-				enableCopilot = not enableCopilot
-				if not enableCopilot then
-					table.remove(completion_sources, table.maxn(completion_sources)) -- copilot will be the last element
-				elseif completion_sources[{ name = "copilot" }] == nil then
-					table.insert(completion_sources, { name = "copilot" })
-				end
-				require("cmp").setup({ sources = cmp.config.sources(completion_sources) })
-				vim.notify("Copilot cmp is now " .. (enableCopilot and "enabled" or "disabled"))
-			end, { desc = "Toggle autocomplete" })
 		end,
 	},
 }
