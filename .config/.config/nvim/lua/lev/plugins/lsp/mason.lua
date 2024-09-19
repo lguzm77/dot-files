@@ -22,7 +22,6 @@ return {
 
 		local javascript_tools = {
 			"prettier",
-			"prettierd",
 			"eslint_d",
 			"js-debug-adapter",
 		}

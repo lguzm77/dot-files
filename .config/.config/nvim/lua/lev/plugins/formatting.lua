@@ -8,14 +8,14 @@ return {
 			-- install additional formatters via Mason
 			formatters_by_ft = {
 				lua = { "stylua" },
-				javascript = { "prettierd" },
-				typescript = { "prettierd" },
-				yaml = { "prettierd" },
+				javascript = { "prettier" },
+				typescript = { "prettier" },
+				yaml = { "prettier" },
 				csharp = { "csharpier" },
 				["*"] = { "codespell" },
 				go = { "gofumpt" },
 				sh = { "shellcheck" },
-				markdown = { "prettierd" },
+				markdown = { "prettier" },
 				bash = { "beautysh" },
         proto = { "buf" },
 			},
