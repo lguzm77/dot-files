@@ -10,14 +10,16 @@ return {
 				lua = { "stylua" },
 				javascript = { "prettier" },
 				typescript = { "prettier" },
-				yaml = { "prettier" },
+				yaml = { "yamlfix" },
+				json = { "prettier" },
 				csharp = { "csharpier" },
 				["*"] = { "codespell" },
 				go = { "gofumpt" },
 				sh = { "shellcheck" },
 				markdown = { "prettier" },
 				bash = { "beautysh" },
-        proto = { "buf" },
+        sh = {"shellcheck"},
+				proto = { "buf" },
 			},
 		})
 
@@ -25,7 +27,7 @@ return {
 			conform.format({
 				lsp_fallback = true,
 				async = false,
-				timeout_ms = 500,
+				timeout_ms = 1000,
 			})
 		end, { desc = "Format file or range (in visual)" })
 	end,

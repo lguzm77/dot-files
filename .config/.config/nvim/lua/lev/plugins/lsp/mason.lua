@@ -44,6 +44,7 @@ return {
 				"codespell",
 				"marksman",
         "buf",
+        "yamlfix",
         unpack(javascript_tools),
         unpack(go_tools),
         unpack(shell_tools),
