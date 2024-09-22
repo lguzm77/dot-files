@@ -92,7 +92,6 @@ return {
 
 		telescope.load_extension("fzf")
 		telescope.load_extension("noice")
-		-- TODO: what does this extension do?
 		telescope.load_extension("ui-select")
 		vim.g.zoxide_use_select = true
 
