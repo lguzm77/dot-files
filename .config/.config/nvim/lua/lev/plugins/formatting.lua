@@ -15,7 +15,6 @@ return {
 				csharp = { "csharpier" },
 				["*"] = { "codespell" },
 				go = { "gofumpt" },
-				sh = { "shellcheck" },
 				markdown = { "prettier" },
 				bash = { "beautysh" },
         sh = {"shellcheck"},
