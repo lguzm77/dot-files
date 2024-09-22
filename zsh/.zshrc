@@ -17,7 +17,7 @@ source ~/Repos/znap/znap.zsh  # Start Znap
 znap eval fnm 'fnm env'
 znap fpath _fnm 'fnm completions --shell zsh'
 znap eval fzfint "fzf --zsh" # enabled by ctrl-r
-
+export FZF_DEFAULT_OPTS='--height 80% --layout=reverse --border'
 # Install zsnap plugins
 # znap source repo -- example 
 znap source zsh-users/zsh-autosuggestions
@@ -30,7 +30,9 @@ autoload -U compinit && compinit
 
 # keybindings
 # check what other keybinding options you have
-bindkey -e # emacs keybindings
+
+# check what other keybinding options you have
+bindkey jj vi-cmd-mode
 bindkey '^p' history-beginning-search-backward
 bindkey '^n' history-beginning-search-forward
 
@@ -55,11 +57,13 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # Aliases 
-alias ls="eza -l --icons --git -a"
+alias l="eza -l --icons --git -a"
+alias lt="eza --tree --level=2 --long --icons --git"
+alias ltree="eza --tree --level=2  --icons --git"
+
 alias brewupgrade="brew update && brew upgrade"
 alias cat="bat"
 alias f="fzf"
-alias cd="z" # zoxide
 
 alias air='$(go env GOPATH)/bin/air'
 
@@ -77,7 +81,6 @@ alias py="python3"
 
 # shell integrations
 znap eval zoxide "zoxide init zsh"
-export FZF_DEFAULT_OPTS='--height 80% --layout=reverse --border'
 znap eval _kubectl 'kubectl completion zsh'
 source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 # Use this block to import any additinonal configurations
@@ -88,8 +91,6 @@ source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-echo "Welcome to your terminal, Lev!"
 
 if [[ "$ZPROF" = true ]]; then
   zprof
