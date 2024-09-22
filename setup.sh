@@ -34,8 +34,9 @@ function installUsingHomebrew(){
   done 
 }
 
+# TODO: Migrate all homebrew tools to a homebrew/leaves.txt file
 echo "Installing development tools using homebrew"
-development_tools=("minikube elixir neovim docker kubectl fnm graphviz python") # fnm stands for fast node manager
+development_tools=("minikube elixir neovim docker kubectl fnm graphviz python xh k9s") # fnm stands for fast node manager
 installUsingHomebrew "${development_tools[@]}"
   
 echo "Installing shell tools using homebrew"
