@@ -1,2 +1,4 @@
 [alias]
   undo = reset --soft HEAD^
+[rerere]
+  enabled = true
