@@ -67,6 +67,9 @@ alias gl="lazygit"
 alias gs="git switch"
 alias gu="git undo" # git alias for git reset --soft HEAD^
 alias gp="git pull --rebase"
+alias gr="git restore"
+alias gst="git status"
+
 alias nv="nvim"
 alias c="clear"
 alias mermaid="mmdc"
