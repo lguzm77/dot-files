@@ -55,7 +55,7 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # Aliases 
-alias ls="eza"
+alias ls="eza -l --icons --git -a"
 alias brewupgrade="brew update && brew upgrade"
 alias cat="bat"
 alias f="fzf"
