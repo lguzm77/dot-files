@@ -31,11 +31,12 @@ return {
 			"golangci-lint",
 		}
 
-    local shell_tools = {
-      "shellcheck",
-      "beautysh",
-    }
+		local shell_tools = {
+			"shellcheck",
+			"beautysh",
+		}
 
+		local yaml_tools = { "yamlfix", "yamllint" }
 
 		-- install linters and formatters
 		mason_tool_installer.setup({
@@ -43,11 +44,11 @@ return {
 				"stylua",
 				"codespell",
 				"marksman",
-        "buf",
-        "yamlfix",
-        unpack(javascript_tools),
-        unpack(go_tools),
-        unpack(shell_tools),
+				"buf",
+				unpack(yaml_tools),
+				unpack(javascript_tools),
+				unpack(go_tools),
+				unpack(shell_tools),
 			},
 		})
 	end,
