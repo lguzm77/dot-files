@@ -9,7 +9,7 @@ return {
 			"hrsh7th/cmp-cmdline", -- source for command line completions
 			"saadparwaiz1/cmp_luasnip",
 			"rafamadriz/friendly-snippets",
-			"L3MON4D3/LuaSnip",
+			"L3MON4D3/LuaSnip", -- Snippet engine
 			"onsails/lspkind.nvim",
 		},
 

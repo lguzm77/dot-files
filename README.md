@@ -13,7 +13,7 @@ Personal dotfiles, these will be managed by GNU Stow. Some goodies include
 Each bundle of files is stored in its own module with the desired installation path.
 To signal `stow` to move the files to the desired location Usage
 
-```
+```bash
 stow <module-name>
 ```
 # Setup script
@@ -25,3 +25,4 @@ Run `sh setup.sh` to install all dependencies and tools.
 - setup.sh 
     - Migrate package manager from homebrew to nix.
 - Migrate all configuration to a single .config folder for easier management
+- Re-architect repo based on devops-toolbox
