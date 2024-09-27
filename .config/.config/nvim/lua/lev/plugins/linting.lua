@@ -1,4 +1,5 @@
 return {
+  -- TODO: evaluate moving all linting and formatter jazz to mason.lua
 	"mfussenegger/nvim-lint",
 	event = { "BufReadPre", "BufNewFile" },
 	config = function()

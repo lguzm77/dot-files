@@ -8,16 +8,6 @@ return {
 		local mason = require("mason")
 		local mason_tool_installer = require("mason-tool-installer")
 
-		mason.setup({
-			ui = {
-				icons = {
-					package_installed = "✓",
-					package_pending = "➜",
-					package_uninstalled = "✗",
-				},
-			},
-		})
-
 		--TODO: rework mason installation
 
 		local javascript_tools = {
@@ -49,6 +39,16 @@ return {
 				unpack(javascript_tools),
 				unpack(go_tools),
 				unpack(shell_tools),
+			},
+		})
+
+		mason.setup({
+			ui = {
+				icons = {
+					package_installed = "✓",
+					package_pending = "➜",
+					package_uninstalled = "✗",
+				},
 			},
 		})
 	end,
