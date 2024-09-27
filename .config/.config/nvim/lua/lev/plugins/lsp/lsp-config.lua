@@ -13,7 +13,7 @@ return {
 		local mason_lspconfig = require("mason-lspconfig")
 
 		local javascriptSlashTypescriptTools = {
-			"tsserver",
+			"ts_ls",
 		}
 
 		-- Language servers installed by Mason
