@@ -6,6 +6,7 @@ return {
 
 		conform.setup({
 			-- install additional formatters via Mason
+      -- TODO: add prettierd
 			formatters_by_ft = {
 				lua = { "stylua" },
 				javascript = { "prettier" },

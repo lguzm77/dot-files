@@ -1,5 +1,5 @@
 return {
-  -- TODO: evaluate moving all linting and formatter jazz to mason.lua
+	-- TODO: evaluate moving all linting and formatter jazz to mason.lua
 	"mfussenegger/nvim-lint",
 	event = { "BufReadPre", "BufNewFile" },
 	config = function()
@@ -10,13 +10,15 @@ return {
 			typescript = { "eslint_d" },
 			yaml = { "yamllint" },
 			protobuf = { "buf" },
+			terraform = { "tflint" },
 			["*"] = { "codespell" },
 		}
 
 		local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
 
 		-- auto trigger on certain events
-		vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave", "TextChanged" }, {
+    -- TextChanged removed this event, evaluate if it affects your workflow
+		vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
 			group = lint_augroup,
 			callback = function()
 				lint.try_lint()

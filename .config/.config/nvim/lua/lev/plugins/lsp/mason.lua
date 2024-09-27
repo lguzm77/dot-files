@@ -39,6 +39,7 @@ return {
 				unpack(javascript_tools),
 				unpack(go_tools),
 				unpack(shell_tools),
+				"tflint",
 			},
 		})
 

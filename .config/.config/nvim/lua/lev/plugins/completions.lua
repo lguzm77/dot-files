@@ -1,4 +1,5 @@
 return {
+  -- TODO: move this to lsp.lua
 	{
 		"hrsh7th/nvim-cmp",
 		event = "InsertEnter", -- load plugin just before entering insert mode
@@ -7,10 +8,10 @@ return {
 			"hrsh7th/cmp-buffer", -- source for text in buffer
 			"hrsh7th/cmp-path", -- ssource for file system paths
 			"hrsh7th/cmp-cmdline", -- source for command line completions
-			"saadparwaiz1/cmp_luasnip",
+			"saadparwaiz1/cmp_luasnip", -- lua snippets
 			"rafamadriz/friendly-snippets",
 			"L3MON4D3/LuaSnip", -- Snippet engine
-			"onsails/lspkind.nvim",
+			"onsails/lspkind.nvim", -- pictograms
 		},
 
 		config = function()
