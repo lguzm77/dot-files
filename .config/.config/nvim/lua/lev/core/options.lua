@@ -10,13 +10,20 @@ vim.cmd("set shiftwidth=2")
 
 vim.g.mapleader = " "
 
+-- Set highlight on search
+vim.o.hlsearch = true
+
+-- Make line numbers default
 vim.wo.number = true
-vim.wo.relativenumber = true
+vim.o.relativenumber = true
 
 vim.cmd("cd %:p:h") -- set current directory as base
 
 vim.cmd("set wrap")
-vim.cmd("set breakindent")
+
+-- Enable break indent
+vim.o.breakindent = true
+
 vim.cmd("set linebreak")
 vim.cmd("set foldlevel=20") -- how deep do we want our folds to go
 vim.cmd("set foldmethod=expr")
@@ -31,3 +38,13 @@ opt.backup = false
 opt.signcolumn = "yes"
 opt.scrolloff = 20 -- how many lines to show above and below cursor
 opt.conceallevel = 2
+
+-- Save undo history
+vim.o.undofile = true
+
+-- Case insensitive searching UNLESS /C or capital in search
+vim.o.ignorecase = true
+vim.o.smartcase = true
+
+ -- Set completeopt to have a better completion experience
+vim.o.completeopt = 'menuone,noselect'
