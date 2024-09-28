@@ -1,28 +1,17 @@
 # Lev's Personal Dotfiles
-Personal dotfiles, these will be managed by GNU Stow. Some goodies include
 
-- Some nice fonts 
-- Kitty terminal configuration
-- Personal neovim configuration
-- Personal .zshrc configuration 
-- k9s tokyo night skyn
-- Personal setup script (cross platform!)
+Personal dotfiles, managed by GNU Stow.
 
 # Usage
 
-Each bundle of files is stored in its own module with the desired installation path.
-To signal `stow` to move the files to the desired location Usage
+Before running `setup,sh` install all the dependencies using homebrew (for now hehehe):
 
 ```bash
-stow <module-name>
+# Leaving a machine
+brew leaves > leaves.txt
+
+#Fresh installation
+xargs brew install < leaves.txt
 ```
-# Setup script
 
-Run `sh setup.sh` to install all dependencies and tools.
-
-# Improvements backlog
-
-- setup.sh 
-    - Migrate package manager from homebrew to nix.
-- Migrate all configuration to a single .config folder for easier management
-- Re-architect repo based on devops-toolbox
+Then execute `sh setup.sh`
