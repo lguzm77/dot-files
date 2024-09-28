@@ -21,42 +21,8 @@ else
   echo "homebrew is already installed"
 fi 
 
-echo "Updating homebrew"
-brew update 
-
-function installUsingHomebrew(){
-  local packageNames=("$@") # Create a local copy of the array 
-  echo $packageNames
-
-  for packageName in "${packageNames[@]}";
-  do 
-    brew install $packageName
-  done 
-}
-
-# TODO: Migrate all homebrew tools to a homebrew/leaves.txt file
-echo "Installing development tools using homebrew"
-development_tools=("minikube elixir neovim docker kubectl fnm graphviz python xh k9s yamllint") # fnm stands for fast node manager
-installUsingHomebrew "${development_tools[@]}"
-  
-echo "Installing shell tools using homebrew"
-shell_tools=("eza zoxide bat ripgrep fzf stow powerlevel10k") 
-installUsingHomebrew "${shell_tools[@]}"
-
-echo "Installing workspace tools using homebrew"
-workspace_tools=("--cask nikitabobko/tap/aerospace")
-installUsingHomebrew "${workspace_tools[@]}"
-
-echo "Running stow on all modules"
-# In stow, each folder is a module containing the desired symlink path to follow
-for module in $(ls -d */)/;
-do 
-  stow $module;
-done
-
-# Most of my config files (nvim and kitty for now) live in the .config folder
-echo "Running stow on the config folder"
-stow .config
+echo "Running stow on cwd"
+stow .
 
 
 echo "Finished installing tools, setting up home directory folders and tools"
