@@ -3,7 +3,7 @@ return {
   event = "VeryLazy",
 	config = function()
 		local notify = require("notify")
-		notify.setup({ top_down = false, width = 30 })
+		notify.setup({ top_down = true, width = 30 })
 		vim.notify = notify
 	end,
 }
