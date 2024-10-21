@@ -52,7 +52,6 @@ return {
 				layout_config = { horizontal = { preview_width = 0.6 } },
 				mappings = {
 					-- insert mode mappings
-					-- -- TODO: why aren't these mappings working?
 					i = {
 						["<C-q>"] = actions.send_selected_to_qflist + custom_actions.open_trouble_qflist,
 						["<C-j>"] = actions.cycle_history_next,
@@ -61,21 +60,26 @@ return {
 						["<C-a>"] = actions.cycle_previewers_prev,
 					},
 				},
-				extensions = {
-					["ui-select"] = {
-						require("telescope.themes").get_dropdown({}),
-					},
-					live_grep_args = {
-						auto_quoting = true,
-            -- TODO: rethink mapping here
-						mappings = { i = { ["<C-i>"] = lga_actions.quote_prompt() } },
+			},
+			extensions = {
+				["ui-select"] = {
+					require("telescope.themes").get_dropdown({}),
+				},
+				live_grep_args = {
+					auto_quoting = true,
+					-- TODO: rethink mapping here
+					mappings = {
+						i = {
+							["<C-o>"] = lga_actions.quote_prompt(),
+							["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
+						},
 					},
 				},
-				pickers = {
-					find_files = {
-						-- `hidden = true` will still show the inside of `.git/` as it's not `.gitignore`d.
-						find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
-					},
+			},
+			pickers = {
+				find_files = {
+					-- `hidden = true` will still show the inside of `.git/` as it's not `.gitignore`d.
+					find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
 				},
 			},
 		})

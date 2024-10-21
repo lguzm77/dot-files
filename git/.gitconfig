@@ -2,3 +2,6 @@
   undo = reset --soft HEAD^
 [rerere]
   enabled = true
+[user]
+	email = lguzmm77@icloud.com
+	name = lguzm77
