@@ -46,7 +46,7 @@ return {
 
 			dashboard.button("l", "Lazy", ":Lazy<CR>"),
 
-			dashboard.button("q", "ﰌ  Quit", ":qa<CR>", {}),
+			dashboard.button("q", "Quit", ":qa<CR>", {}),
 		}
 		require("alpha").setup(dashboard.config)
 	end,
