@@ -30,8 +30,6 @@ autoload -U compinit && compinit
 
 # keybindings
 # check what other keybinding options you have
-
-# check what other keybinding options you have
 bindkey jj vi-cmd-mode
 bindkey '^p' history-beginning-search-backward
 bindkey '^n' history-beginning-search-forward
@@ -76,10 +74,10 @@ alias gp="git pull --rebase"
 alias gr="git restore"
 alias gst="git status"
 
-alias nv="nvim"
+alias v="nvim"
 alias c="clear"
-alias mermaid="mmdc"
-alias py="python3"
+alias m="mmdc"
+alias p="python3"
 
 # shell integrations
 znap eval zoxide "zoxide init zsh"
