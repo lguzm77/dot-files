@@ -3,7 +3,7 @@ local wezterm = require("wezterm")
 
 -- This will hold the configuration.
 local config = wezterm.config_builder()
-local actions = wezterm.action
+local action = wezterm.action
 
 config.font = wezterm.font("Dank Mono")
 config.font_size = 14
@@ -17,43 +17,38 @@ config.macos_window_background_blur = 10
 
 config.color_scheme = "rose-pine"
 
-config.leader = {
-	-- Leader key is ctrl-a
-	key = "s",
-	mods = "CTRL",
-	timeout_milliseconds = 2000,
-}
-
+config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1000 }
 config.keys = {
-
+	-- splitting
 	{
-		-- leader+[ leads to copy mode
-		key = "[",
 		mods = "LEADER",
-		action = wezterm.action.ActivateCopyMode,
+		key = "-",
+		action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
+	},
+	{
+		mods = "LEADER",
+		key = "=",
+		action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
+	},
+	{
+		--maximize a window
+		mods = "LEADER",
+		key = "m",
+		action = wezterm.action.TogglePaneZoomState,
+	},
+	-- rotate panes
+	{
+		mods = "LEADER",
+		key = "Space",
+		action = wezterm.action.RotatePanes("Clockwise"),
+	},
+	-- show the pane selection mode, but have it swap the active and selected panes
+	{
+		mods = "LEADER",
+		key = "0",
+		action = wezterm.action.PaneSelect({
+			mode = "SwapWithActive",
+		}),
 	},
 }
-
-config.keys = {
-
-	{
-		key = "c",
-		mods = "LEADER",
-		action = actions.SpawnTab("CurrentPaneDomain"),
-	},
-}
-
-config.keys = {
-	{
-		key = "n",
-		mods = "LEADER",
-		action = actions.ActivateTabRelative(1),
-	},
-	{
-		key = "p",
-		mods = "LEADER",
-		action = actions.ActivateTabRelative(-1),
-	},
-}
-
 return config
