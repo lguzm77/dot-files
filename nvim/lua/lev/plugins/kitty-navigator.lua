@@ -1,6 +1,7 @@
 return {
 	"MunsMan/kitty-navigator.nvim",
   event = "VeryLazy",
+  enabled = false, -- enable manually
 	build = { "cp navigate_kitty.py ~/.config/kitty", "cp pass_keys.py ~/.config/kitty" },
 	opts = {
 		keybindings = {
