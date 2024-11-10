@@ -21,6 +21,7 @@ return {
 	{
 		"zbirenbaum/copilot.lua",
 		cmd = "Copilot",
+    enabled = false,
 		event = "InsertEnter",
 		config = function()
 			require("copilot").setup({
@@ -42,6 +43,7 @@ return {
 		-- config inspired by https://github.com/jellydn/lazy-nvim-ide/blob/main/lua/plugins/extras/copilot-chat-v2.lua
 		"CopilotC-Nvim/CopilotChat.nvim",
 		branch = "canary",
+    enabled = false,
 		event = "BufReadPre",
 		dependencies = {
 			{ "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
