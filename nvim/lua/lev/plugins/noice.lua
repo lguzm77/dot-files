@@ -1,6 +1,6 @@
 return {
 	"folke/noice.nvim",
-	event = "BufRead",
+	event = "VeryLazy",
 	opts = {
 		-- add any options here
 	},
