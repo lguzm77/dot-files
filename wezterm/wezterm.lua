@@ -3,19 +3,28 @@ local wezterm = require("wezterm")
 
 -- This will hold the configuration.
 local config = wezterm.config_builder()
-local action = wezterm.action
 
 config.font = wezterm.font("Dank Mono")
 config.font_size = 14
+config.line_height = 1.1
+config.default_cursor_style = "BlinkingBar"
+config.enable_tab_bar = true -- modify title bars
+config.window_frame = {
+	-- The overall background color of the tab bar when
+	-- the window is focused
+	active_titlebar_bg = "transparent",
 
-config.enable_tab_bar = true
+	-- The overall background color of the tab bar when
+	-- the window is not focused
+	inactive_titlebar_bg = "#333333",
+}
 
 config.window_decorations = "RESIZE"
-
-config.window_background_opacity = 0.8
-config.macos_window_background_blur = 10
-
-config.color_scheme = "rose-pine"
+--
+-- config.window_background_opacity = 0.85
+-- config.macos_window_background_blur = 20
+--
+config.color_scheme = "rose-pine-moon"
 
 local function is_vim(pane)
 	-- this is set by the plugin, and unset on ExitPre in Neovim
@@ -50,7 +59,7 @@ local function split_nav(resize_or_move, key)
 	}
 end
 
-config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1000 }
+config.leader = { key = "s", mods = "CTRL", timeout_milliseconds = 1000 }
 config.keys = {
 	-- splitting
 	{
@@ -93,6 +102,13 @@ config.keys = {
 	split_nav("resize", "j"),
 	split_nav("resize", "k"),
 	split_nav("resize", "l"),
+  -- Spawn a new tab
+  {
+    key = "t",
+    mods = "LEADER",
+    action = wezterm.action.SpawnTab("CurrentPaneDomain")
+  }
 }
+
 
 return config
