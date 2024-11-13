@@ -102,13 +102,24 @@ config.keys = {
 	split_nav("resize", "j"),
 	split_nav("resize", "k"),
 	split_nav("resize", "l"),
-  -- Spawn a new tab
-  {
-    key = "t",
-    mods = "LEADER",
-    action = wezterm.action.SpawnTab("CurrentPaneDomain")
-  }
-}
+	-- Spawn a new tab
+	{
+		key = "t",
+		mods = "LEADER",
+		action = wezterm.action.SpawnTab("CurrentPaneDomain"),
+	},
+	-- move between tabs
+	{
+		key = "n",
+		mods = "LEADER",
+		action = wezterm.action.ActivateTabRelative(1),
+	},
+	{
 
+		key = "p",
+		mods = "LEADER",
+		action = wezterm.action.ActivateTabRelative(-1),
+	},
+}
 
 return config
