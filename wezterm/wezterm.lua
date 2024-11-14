@@ -21,6 +21,13 @@ config.window_frame = {
 }
 
 config.window_decorations = "RESIZE"
+
+config.window_padding = {
+	left = 5,
+	right = 5,
+	top = 5,
+	bottom = 5,
+}
 --
 -- config.window_background_opacity = 0.85
 -- config.macos_window_background_blur = 20
@@ -120,6 +127,16 @@ config.keys = {
 		key = "p",
 		mods = "LEADER",
 		action = wezterm.action.ActivateTabRelative(-1),
+	},
+	{
+		key = "x",
+		mods = "LEADER",
+		action = wezterm.action.CloseCurrentPane({ confirm = true }),
+	},
+	{
+		key = "w",
+		mods = "LEADER",
+		action = wezterm.action.CloseCurrentTab({ confirm = true }),
 	},
 }
 
