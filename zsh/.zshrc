@@ -78,6 +78,7 @@ alias v="nvim"
 alias c="clear"
 alias m="mmdc"
 alias p="python3"
+alias e="exit"
 
 # shell integrations
 znap eval zoxide "zoxide init zsh"
