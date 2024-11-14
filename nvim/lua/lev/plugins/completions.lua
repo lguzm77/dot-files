@@ -1,6 +1,7 @@
 return {
 	{
 		"L3MON4D3/LuaSnip",
+		event = "VeryLazy",
 		version = "v2.3",
 		config = function()
 			local ls = require("luasnip")
