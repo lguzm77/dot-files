@@ -6,7 +6,7 @@ local config = wezterm.config_builder()
 
 -- config.font = wezterm.font("Dank Mono", { weight = "DemiBold", stretch = "Expanded" })
 config.font = wezterm.font("JetBrains Mono")
-config.font_size = 14
+config.font_size = 13
 config.line_height = 1.1
 config.default_cursor_style = "BlinkingBar"
 config.enable_tab_bar = true -- modify title bars
