@@ -9,16 +9,10 @@ config.font = wezterm.font("JetBrains Mono")
 config.font_size = 13
 config.line_height = 1.1
 config.default_cursor_style = "BlinkingBar"
+
+-- TODO: separate configuration into modules
 config.enable_tab_bar = true -- modify title bars
 config.window_frame = {
-	-- The overall background color of the tab bar when
-	-- the window is focused
-	active_titlebar_bg = "transparent",
-
-	-- The overall background color of the tab bar when
-	-- the window is not focused
-	inactive_titlebar_bg = "#333333",
-
 	font = wezterm.font({ family = "JetBrains Mono", weight = "Bold" }),
   font_size = 11
 }
