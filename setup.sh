@@ -68,5 +68,13 @@ else
 fi
 # Usage mmdc -i input.mmd -o output.png -t dark -b transparent
 
+# Create a directory where all your projects will be placed
+if [! -d "projects"]; then
+  mkdir projects
+  echo "Created projects directory"
+else
+  echo "projects directory already exists" 
+fi 
+
 echo "Finished setup script"
 
