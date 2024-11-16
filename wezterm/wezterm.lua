@@ -13,6 +13,8 @@ config.default_cursor_style = "BlinkingBar"
 
 -- TODO: separate configuration into modules
 config.enable_tab_bar = true -- modify title bars
+config.use_fancy_tab_bar = false
+config.hide_tab_bar_if_only_one_tab = true
 config.window_frame = {
 	font = wezterm.font({ family = "JetBrains Mono", weight = "Bold" }),
 	font_size = 11,
@@ -34,17 +36,19 @@ config.macos_window_background_blur = 30
 config.color_scheme = "rose-pine-moon"
 
 -- configure tab line
-local function segments_for_right_status(window)
+local function segments_for_right_status(window, pane)
+	-- this returns a table of strings
 	return {
 		window:active_workspace(),
-		wezterm.strftime("%a %b %-d %H:%M"),
+		-- Format is based on rust chrono https://docs.rs/chrono/0.4.19/chrono/format/strftime/index.html
+		wezterm.strftime("%a %b %-d %I:%M %p"),
 		wezterm.hostname(),
 	}
 end
 
-wezterm.on("update-status", function(window, _)
+wezterm.on("update-status", function(window, pane)
 	local SOLID_LEFT_ARROW = utf8.char(0xe0b2)
-	local segments = segments_for_right_status(window)
+	local segments = segments_for_right_status(window, pane)
 
 	local color_scheme = window:effective_config().resolved_palette
 	-- Note the use of wezterm.color.parse here, this returns
@@ -56,12 +60,9 @@ wezterm.on("update-status", function(window, _)
 	-- Each powerline segment is going to be coloured progressively
 	-- darker/lighter depending on whether we're on a dark/light colour
 	-- scheme. Let's establish the "from" and "to" bounds of our gradient.
-	local gradient_to, gradient_from = bg
-	if appearance.is_dark() then
-		gradient_from = gradient_to:lighten(0.2)
-	else
-		gradient_from = gradient_to:darken(0.2)
-	end
+	local gradient_to, gradient_from = bg, nil
+	-- we are only in dark color
+	gradient_from = gradient_to:lighten(0.2)
 
 	-- Yes, WezTerm supports creating gradients, because why not?! Although
 	-- they'd usually be used for setting high fidelity gradients on your terminal's
