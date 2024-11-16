@@ -9,7 +9,7 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
 automatically-unhide-macos-hidden-apps = true
 
-accordion-padding = 36
+accordion-padding = 30
 
 [gaps]
 inner.horizontal = 16
