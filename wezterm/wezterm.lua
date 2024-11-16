@@ -14,7 +14,6 @@ config.default_cursor_style = "BlinkingBar"
 -- TODO: separate configuration into modules
 config.enable_tab_bar = true -- modify title bars
 config.use_fancy_tab_bar = false
-config.hide_tab_bar_if_only_one_tab = true
 config.window_frame = {
 	font = wezterm.font({ family = "JetBrains Mono", weight = "Bold" }),
 	font_size = 11,
