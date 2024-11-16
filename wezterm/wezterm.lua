@@ -18,6 +18,9 @@ config.window_frame = {
 	-- The overall background color of the tab bar when
 	-- the window is not focused
 	inactive_titlebar_bg = "#333333",
+
+	font = wezterm.font({ family = "JetBrains Mono", weight = "Bold" }),
+  font_size = 11
 }
 
 config.window_decorations = "RESIZE"
@@ -28,10 +31,11 @@ config.window_padding = {
 	top = 5,
 	bottom = 5,
 }
---
--- config.window_background_opacity = 0.85
--- config.macos_window_background_blur = 20
---
+
+-- Slightly transparent and blurred background
+config.window_background_opacity = 0.9
+config.macos_window_background_blur = 30
+
 config.color_scheme = "rose-pine-moon"
 
 local function is_vim(pane)
@@ -39,6 +43,8 @@ local function is_vim(pane)
 	return pane:get_user_vars().IS_NVIM == "true"
 end
 
+-- config borrowed from 
+-- https://github.com/mrjones2014/smart-splits.nvim
 local direction_keys = {
 	h = "Left",
 	j = "Down",
