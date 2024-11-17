@@ -4,19 +4,20 @@ local config = wezterm.config_builder()
 local tabbar = require("tabbar")
 local keybindings = require("keybindings")
 
--- config.font = wezterm.font("Dank Mono", { weight = "DemiBold", stretch = "Expanded" })
 config.font = wezterm.font("JetBrains Mono")
 config.font_size = 13
 config.line_height = 1.1
 config.default_cursor_style = "BlinkingBar"
 
--- TODO: separate configuration into modules
-config.enable_tab_bar = true -- modify title bars
+config.enable_tab_bar = true
 config.use_fancy_tab_bar = false
+config.tab_and_split_indices_are_zero_based = true
 config.window_frame = {
 	font = wezterm.font({ family = "JetBrains Mono", weight = "Bold" }),
-	font_size = 11,
+	font_size = 10,
 }
+
+config.tab_max_width = 32
 
 config.window_decorations = "RESIZE"
 
