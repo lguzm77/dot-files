@@ -9,15 +9,15 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
 automatically-unhide-macos-hidden-apps = true
 
-accordion-padding = 30
+accordion-padding = 20
 
 [gaps]
-inner.horizontal = 16
-inner.vertical =   16
-outer.left =       16
-outer.bottom =     16
-outer.top =        16
-outer.right =      16
+inner.horizontal = 10
+inner.vertical =   10
+outer.left =       10
+outer.bottom =     10
+outer.top =        10
+outer.right =      10
 
 [mode.main.binding]
 # See: https://nikitabobko.github.io/AeroSpace/goodness#open-a-new-window-with-applescript
@@ -34,10 +34,10 @@ outer.right =      16
 # alt-w = 'close'
 
 # Focus window
-ctrl-shift-h = 'focus --boundaries-action wrap-around-the-workspace left'
-ctrl-shift-j = 'focus --boundaries-action wrap-around-the-workspace down'
-ctrl-shift-k = 'focus --boundaries-action wrap-around-the-workspace up'
-ctrl-shift-l = 'focus --boundaries-action wrap-around-the-workspace right'
+cmd-ctrl-h = 'focus --boundaries-action wrap-around-the-workspace left'
+cmd-ctrl-j = 'focus --boundaries-action wrap-around-the-workspace down'
+cmd-ctrl-k = 'focus --boundaries-action wrap-around-the-workspace up'
+cmd-ctrl-l = 'focus --boundaries-action wrap-around-the-workspace right'
 # Focus recently used window
 alt-quote = 'exec-and-forget aerospace focus-back-and-forth || aerospace workspace-back-and-forth'
 
