@@ -3,6 +3,7 @@ local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 local tabbar = require("tabbar")
 local keybindings = require("keybindings")
+local appearance = require("appearance")
 
 config.font = wezterm.font("JetBrains Mono")
 config.font_size = 13
@@ -32,7 +33,7 @@ config.window_padding = {
 config.window_background_opacity = 0.9
 config.macos_window_background_blur = 30
 
-config.color_scheme = "rose-pine-moon"
+appearance.set_up_appearance(config)
 
 tabbar.set_up_tabbar()
 
