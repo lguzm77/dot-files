@@ -34,7 +34,6 @@ return {
 		end,
 	},
 	{
-		-- TODO: evaluate moving all linting and formatter jazz to mason.lua
 		"mfussenegger/nvim-lint",
 		event = { "BufReadPre", "BufNewFile" },
 		config = function()
@@ -51,8 +50,6 @@ return {
 
 			local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
 
-			-- auto trigger on certain events
-			-- TextChanged removed this event, evaluate if it affects your workflow
 			vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
 				group = lint_augroup,
 				callback = function()
