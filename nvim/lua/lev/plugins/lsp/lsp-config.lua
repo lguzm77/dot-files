@@ -2,7 +2,6 @@ return {
 	{
 		"williamboman/mason.nvim",
 		dependencies = {
-			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 		},
 		config = function()
@@ -59,13 +58,16 @@ return {
 			"hrsh7th/cmp-nvim-lsp",
 			{ "antosha417/nvim-lsp-file-operations", config = true },
 			{ "folke/neodev.nvim", opts = {} },
+			"williamboman/mason-lspconfig.nvim",
 		},
 		event = "BufReadPre",
 		config = function()
+			-- TODO: rework lsp configuration
 			local cmp_nvim_lsp = require("cmp_nvim_lsp")
 			local capabilities = cmp_nvim_lsp.default_capabilities()
-			local lspconfig = require("lspconfig")
 			local mason_lspconfig = require("mason-lspconfig")
+
+			local lspconfig = require("lspconfig")
 
 			local javascriptSlashTypescriptTools = {
 				"ts_ls",
@@ -140,28 +142,39 @@ return {
 				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 			end
 
-			mason_lspconfig.setup_handlers({
-				-- default handler for installed servers
-				function(server_name)
-					lspconfig[server_name].setup({
-						capabilities = capabilities,
-					})
-				end,
-				--specific handlers
-				["omnisharp"] = function()
-					local omnisharp_exec_path = vim.fn.stdpath("data") .. "/mason/packages/libexec/OmniSharp.dll"
-					lspconfig.omnisharp.setup({
-						capabilities = capabilities,
-						cmd = { "dotnet", omnisharp_exec_path },
-						settings = {
-							RoslynExtensionsOptions = {
-								EnableAnalyzersSupport = true,
-								AnalyzeOpenDocumentsOnly = true,
-							},
-						},
-					})
-				end,
+			lspconfig.ts_ls.setup({
+				capabilities = capabilities,
+				init_options = {
+					preferences = {
+						disableSuggestions = true,
+					},
+				},
 			})
+
+      -- TODO: setup all lsp handlers here
+
+			-- mason_lspconfig.setup_handlers({
+			-- 	-- default handler for installed servers
+			-- 	function(server_name)
+			-- 		lspconfig[server_name].setup({
+			-- 			capabilities = capabilities,
+			-- 		})
+			-- 	end,
+			-- 	--specific handlers
+			-- 	["omnisharp"] = function()
+			-- 		local omnisharp_exec_path = vim.fn.stdpath("data") .. "/mason/packages/libexec/OmniSharp.dll"
+			-- 		lspconfig.omnisharp.setup({
+			-- 			capabilities = capabilities,
+			-- 			cmd = { "dotnet", omnisharp_exec_path },
+			-- 			settings = {
+			-- 				RoslynExtensionsOptions = {
+			-- 					EnableAnalyzersSupport = true,
+			-- 					AnalyzeOpenDocumentsOnly = true,
+			-- 				},
+			-- 			},
+			-- 		})
+			-- 	end,
+			-- })
 		end,
 	},
 }
