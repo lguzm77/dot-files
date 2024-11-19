@@ -35,6 +35,7 @@ return {
 		config = function()
 			require("bamboo").setup({
 				-- optional configuration here
+				dim_inactive = true,
 			})
 			require("bamboo").load()
 		end,
