@@ -151,7 +151,11 @@ return {
 				},
 			})
 
-      -- TODO: setup all lsp handlers here
+			lspconfig.lua_ls.setup({
+				capabilities = capabilities,
+			})
+
+			-- TODO: setup all lsp handlers here
 
 			-- mason_lspconfig.setup_handlers({
 			-- 	-- default handler for installed servers
