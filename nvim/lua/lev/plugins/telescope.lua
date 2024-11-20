@@ -70,8 +70,8 @@ return {
 					-- TODO: rethink mapping here
 					mappings = {
 						i = {
-							["<C-o>"] = lga_actions.quote_prompt(),
-							["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
+							["<C-q>"] = lga_actions.quote_prompt(),
+							["<C-w>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
 						},
 					},
 				},
