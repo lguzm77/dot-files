@@ -36,6 +36,7 @@ return {
 			require("bamboo").setup({
 				-- optional configuration here
 				-- dim_inactive = true,
+				transparent = true,
 			})
 			require("bamboo").load()
 		end,
