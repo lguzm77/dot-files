@@ -11,6 +11,9 @@ return {
 			enabled = true,
 			timeout = 3000,
 		},
+		lazygit = { enabled = true, dependencies = {
+			"nvim-lua/plenary.nvim",
+		} },
 		quickfile = { enabled = true },
 		statuscolumn = { enabled = true },
 		words = { enabled = true },
