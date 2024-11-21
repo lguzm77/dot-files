@@ -21,6 +21,8 @@ local function segments_for_right_status(window)
 	}
 end
 
+
+
 function module.set_up_tabbar()
 	wezterm.on("update-status", function(window, _)
 		local SOLID_LEFT_ARROW = utf8.char(0xe0b2)
@@ -75,11 +77,14 @@ function module.set_up_tabbar()
 	-- second listener that shows if the leader key is active
 	wezterm.on("update-right-status", function(window, _)
 		local SOLID_LEFT_ARROW = ""
-		local ARROW_FOREGROUND = { Foreground = { Color = "#c6a0f6" } }
+
+		local color_scheme = window:effective_config().resolved_palette
+
+		local ARROW_FOREGROUND = { Foreground = { Color = color_scheme.foreground } }
 		local prefix = ""
 
 		if window:leader_is_active() then
-			prefix = " " .. utf8.char(0x1f30a) -- ocean wave
+			prefix = " " .. utf8.char(0x1F5FF) -- moyai 
 			SOLID_LEFT_ARROW = utf8.char(0xe0b2)
 		end
 
@@ -88,12 +93,13 @@ function module.set_up_tabbar()
 		end -- arrow color based on if tab is first pane
 
 		window:set_left_status(wezterm.format({
-			{ Background = { Color = "#b7bdf8" } },
+			{ Background = { Color = color_scheme.background } },
 			{ Text = prefix },
 			ARROW_FOREGROUND,
 			{ Text = SOLID_LEFT_ARROW },
 		}))
 	end)
 end
+
 
 return module
