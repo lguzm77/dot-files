@@ -11,9 +11,9 @@ return {
 			delete_to_trash = true,
 			skip_confirm_for_simple_edits = true,
 			float = {
-				padding = 5,
-				max_width = 70,
-        max_height = 70,
+				padding = 2,
+				max_width = 90,
+				max_height = 25,
 			},
 			view_options = {
 				show_hidden = true,
