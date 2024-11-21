@@ -128,6 +128,18 @@ function module.set_up_keybindings(config)
 			-- Present a list of existing workspaces
 			action = wezterm.action.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }),
 		},
+		{
+			key = "r",
+			mods = "LEADER",
+			action = wezterm.action.PromptInputLine({
+				description = "Enter new name for tab",
+				action = wezterm.action_callback(function(window, _, line)
+					if line then
+						window:active_tab():set_title(line)
+					end
+				end),
+			}),
+		},
 	}
 end
 
