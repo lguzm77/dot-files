@@ -90,7 +90,7 @@ function module.set_up_keybindings(config)
 		},
 		-- Spawn a new tab
 		{
-			key = "]",
+			key = "a",
 			mods = "LEADER",
 			action = wezterm.action.SpawnTab("CurrentPaneDomain"),
 		},
