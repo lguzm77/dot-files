@@ -6,7 +6,23 @@ return {
 	---@type snacks.Config
 	opts = {
 		bigfile = { enabled = true },
-		dashboard = { enabled = false },
+		dashboard = {
+			enabled = true,
+			preset = {
+        -- TODO: center 
+				header = [[
+		　  　　 　　/＾>》, -―‐‐＜＾}
+			　　　 ./:::/,≠´::::::ヽ.
+			　　　　/::::〃::::／}::丿ハ
+		  　　　./:::::i{l|／　ﾉ／ }::}
+			　　 /:::::::瓜イ＞　´＜ ,:ﾉ
+			　 ./::::::|ﾉﾍ.{､　(_ﾌ_ノﾉイ＿
+			　 |:::::::|／}｀ｽ /          /
+  	  	    	.　|::::::|(_:::つ/ ThinkPad /　neovim!
+	  	      	.￣￣￣￣￣￣￣＼/＿＿＿＿＿/￣￣￣￣￣
+    ]],
+			},
+		},
 		notifier = {
 			enabled = true,
 			timeout = 3000,
