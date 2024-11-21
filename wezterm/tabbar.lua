@@ -61,7 +61,7 @@ function module.set_up_tabbar()
 			local is_first = i == 1
 
 			if is_first then
-				table.insert(elements, { Background = { Color = "none" } })
+				table.insert(elements, { Background = { Color = color_scheme.background } })
 			end
 			table.insert(elements, { Foreground = { Color = gradient[i] } })
 			table.insert(elements, { Text = SOLID_LEFT_ARROW })
