@@ -1,14 +1,15 @@
 local wezterm = require("wezterm")
 
-local config = wezterm.config_builder()
 local tabbar = require("tabbar")
 local keybindings = require("keybindings")
 local appearance = require("appearance")
+local config = wezterm.config_builder()
 
 config.font = wezterm.font("JetBrains Mono")
 config.font_size = 13
 config.line_height = 1.1
 config.default_cursor_style = "BlinkingBar"
+config.native_macos_fullscreen_mode = true
 
 config.enable_tab_bar = true
 config.use_fancy_tab_bar = false
@@ -27,6 +28,15 @@ config.window_padding = {
 	right = 5,
 	top = 5,
 	bottom = 5,
+}
+
+config.mouse_bindings = {
+  -- Open URLs with CMD+Click
+  {
+    event = { Up = { streak = 1, button = 'Left' } },
+    mods = 'CMD',
+    action = wezterm.action.OpenLinkAtMouseCursor,
+  }
 }
 
 -- Slightly transparent and blurred background
