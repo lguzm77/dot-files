@@ -79,6 +79,7 @@ alias c="clear"
 alias m="mmdc"
 alias p="python3"
 alias e="exit"
+alias t="touch"
 
 # shell integrations
 znap eval zoxide "zoxide init zsh"
