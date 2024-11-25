@@ -9,7 +9,7 @@ return {
 			local mason_tool_installer = require("mason-tool-installer")
 
 			local javascript_tools = {
-				"prettier",
+				"prettierd",
 				"eslint_d",
 				"js-debug-adapter",
 			}

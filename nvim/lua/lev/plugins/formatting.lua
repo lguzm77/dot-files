@@ -7,17 +7,16 @@ return {
 
 			conform.setup({
 				-- install additional formatters via Mason
-				-- TODO: add prettierd
 				formatters_by_ft = {
 					lua = { "stylua" },
-					javascript = { "prettier" },
-					typescript = { "prettier" },
+					javascript = { "prettierd" },
+					typescript = { "prettierd" },
 					yaml = { "yamlfix" },
-					json = { "prettier" },
+					json = { "prettierd" },
 					csharp = { "csharpier" },
 					["*"] = { "codespell" },
 					go = { "gofumpt" },
-					markdown = { "prettier" },
+					markdown = { "prettierd" },
 					bash = { "beautysh" },
 					sh = { "shellcheck" },
 					proto = { "buf" },
