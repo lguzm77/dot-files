@@ -19,29 +19,32 @@ return {
 	-- 		vim.api.nvim_set_hl(0, "LineNrBelow", { fg = number_color, bold = true })
 	-- 	end,
 	-- },
-	-- {
-	-- 	"eldritch-theme/eldritch.nvim",
-	-- 	lazy = false,
-	-- 	priority = 1000,
-	-- 	opts = {},
-	-- 	config = function()
-	-- 		vim.cmd("colorscheme eldritch")
-	-- 	end,
-	-- },
 	{
-		"ribru17/bamboo.nvim",
+		"eldritch-theme/eldritch.nvim",
 		lazy = false,
 		priority = 1000,
 		config = function()
-			require("bamboo").setup({
-				-- optional configuration here
-				-- dim_inactive = true,
+			require("eldritch").setup({
 				transparent = true,
+				dim_inactive = false,
 			})
-			require("bamboo").load()
+			vim.cmd("colorscheme eldritch")
 		end,
 	},
-
+	-- {
+	-- 	"ribru17/bamboo.nvim",
+	-- 	lazy = false,
+	-- 	priority = 1000,
+	-- 	config = function()
+	-- 		require("bamboo").setup({
+	-- 			-- optional configuration here
+	-- 			-- dim_inactive = true,
+	-- 			transparent = true,
+	-- 		})
+	-- 		require("bamboo").load()
+	-- 	end,
+	-- },
+	--
 	-- {
 	-- 	"rose-pine/neovim",
 	--    enabled = false,
