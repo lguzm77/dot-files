@@ -20,7 +20,7 @@ end
 
 function module.set_up_appearance(config)
 	if is_dark() then
-		config.color_scheme = "Bamboo"
+		config.color_scheme = "cyberpunk"
 	else
 		config.color_scheme = "Bamboo Light"
 	end
