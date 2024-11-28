@@ -14,6 +14,13 @@ fi
 
 echo "Installing homebrew packages\n"
 xargs brew install < "$HOME/dot-files/homebrew/leaves.txt"
+# Install wezterm, does not appear in leaves.txt 
+echo "Installing wezterm"
+brew install --cask wezterm
+
+# Install aerospace, does not appear in leaves.txt
+echo "Installing aerospace"
+brew install --cask nikitabobko/tap/aerospace
 
 echo "Running stow on cwd\n"
 stow .
