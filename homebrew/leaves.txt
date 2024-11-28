@@ -1,7 +1,9 @@
 bash
 bat
 bc
+chafa
 coreutils
+deno
 docker
 elixir
 exercism
@@ -12,7 +14,6 @@ fzf
 gawk
 gh
 gnu-sed
-go@1.22
 graphviz
 k9s
 lazygit
@@ -20,10 +21,10 @@ minikube
 mkcert
 neovim
 node
-powerlevel10k
 pure
 ripgrep
 stow
+tealdeer
 xh
 zoxide
 zplug
