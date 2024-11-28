@@ -21,6 +21,7 @@ minikube
 mkcert
 neovim
 node
+powerlevel10k
 pure
 ripgrep
 stow
