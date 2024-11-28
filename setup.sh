@@ -2,34 +2,28 @@
 set -o errexit # stop script if error is raised.
 set -o nounset # raise an error if a variable is unset.
 
-echo "Starting setup script"
+echo "Starting setup script\n"
 
-echo "Installing the kitty terminal emulator"
-# check if kitty is installed
-
-if ! command -v kitty >&2; then 
-  curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
-else 
-  echo "kitty is already installed"
-fi 
-
-echo "Installing the homebrew package manager"
+echo "Installing the homebrew package manager\n"
 # check if homebrew is installed
 if ! command -v brew >&2; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 else 
-  echo "homebrew is already installed"
+  echo "homebrew is already installed\n"
 fi 
 
-echo "Running stow on cwd"
+echo "Installing homebrew packages\n"
+xargs brew install < "$HOME/dot-files/homebrew/leaves.txt"
+
+echo "Running stow on cwd\n"
 stow .
 
 
 echo "Finished installing tools, setting up home directory folders and tools"
-cd $HOME
+cd "$HOME"
 
 # TODO: can you add colors to the echo lines?
-echo "Setting up Python environment for diagrams"
+echo "Setting up Python environment for diagrams\n"
 
 function installDiagrams(){
 mkdir architecture-diagrams
@@ -69,7 +63,7 @@ fi
 # Usage mmdc -i input.mmd -o output.png -t dark -b transparent
 
 # Create a directory where all your projects will be placed
-if [! -d "projects"]; then
+if [ ! -d "projects" ]; then
   mkdir projects
   echo "Created projects directory"
 else
