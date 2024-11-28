@@ -1,5 +1,4 @@
 return {
-
 	"folke/snacks.nvim",
 	priority = 1000,
 	lazy = false,
@@ -10,8 +9,8 @@ return {
 			enabled = true,
 			preset = {
 				keys = {
-					{ icon = "👻", key = "s", desc = "Restore Previous CWD Session", action = ":SessionRestore" },
 					{ icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
+					{ icon = " ", key = "s", desc = "Restore Previous CWD Session", action = ":SessionRestore" },
 					{ icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
 					{
 						icon = " ",
@@ -31,7 +30,6 @@ return {
 						desc = "Config",
 						action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
 					},
-					{ icon = " ", key = "s", desc = "Restore Session", section = "session" },
 					{
 						icon = "󰒲 ",
 						key = "L",
