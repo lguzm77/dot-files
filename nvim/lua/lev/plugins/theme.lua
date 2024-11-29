@@ -1,8 +1,11 @@
 return {
 	{
 		"rebelot/kanagawa.nvim",
+    -- event = "VeryLazy",
+    priority = 1000,
 		config = function()
 			require("kanagawa").setup({
+        compile = true, -- NOTE: you will need to run :KanagawaCompile each time you modify your config
 				transparent = true,
 				overrides = function(colors)
 					local theme = colors.theme
@@ -64,7 +67,6 @@ return {
 							color = { fg = "#ff9e64" },
 						},
 						{ "copilot" },
-						{ "encoding" },
 						{ "filetype" },
 					},
 					lualine_y = { "progress" },
