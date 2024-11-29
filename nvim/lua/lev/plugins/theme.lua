@@ -1,11 +1,11 @@
 return {
 	{
 		"rebelot/kanagawa.nvim",
-    -- event = "VeryLazy",
-    priority = 1000,
+		-- event = "VeryLazy",
+		priority = 1000,
 		config = function()
 			require("kanagawa").setup({
-        compile = true, -- NOTE: you will need to run :KanagawaCompile each time you modify your config
+				compile = true, -- NOTE: you will need to run :KanagawaCompile each time you modify your config
 				transparent = true,
 				overrides = function(colors)
 					local theme = colors.theme
@@ -61,11 +61,6 @@ return {
 					lualine_b = { "branch", "diff", "diagnostics" },
 					lualine_c = { "filename" },
 					lualine_x = {
-						{
-							require("noice").api.status.mode.get,
-							cond = require("noice").api.status.mode.has,
-							color = { fg = "#ff9e64" },
-						},
 						{ "copilot" },
 						{ "filetype" },
 					},
