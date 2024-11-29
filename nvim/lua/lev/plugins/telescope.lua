@@ -120,7 +120,7 @@ return {
 		keymap.set("n", "<leader>gc", builtin.git_commits, { desc = "search git commits" })
 		keymap.set(
 			"n",
-			"<leader>gb",
+			"<leader>gbb",
 			"<cmd>Telescope git_bcommits<cr>",
 			{ desc = "search git commits for current buffer" }
 		)
