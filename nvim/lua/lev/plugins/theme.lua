@@ -19,16 +19,29 @@ return {
 	-- 		vim.api.nvim_set_hl(0, "LineNrBelow", { fg = number_color, bold = true })
 	-- 	end,
 	-- },
+	-- {
+	-- 	"eldritch-theme/eldritch.nvim",
+	-- 	lazy = false,
+	-- 	priority = 1000,
+	-- 	config = function()
+	-- 		require("eldritch").setup({
+	-- 			transparent = true,
+	-- 			dim_inactive = false,
+	-- 			styles = {
+	-- 				floats = "transparent",
+	-- 				sidebars = "transparent",
+	-- 			},
+	-- 		})
+	-- 		vim.cmd("colorscheme eldritch")
+	-- 	end,
+	-- },
 	{
-		"eldritch-theme/eldritch.nvim",
-		lazy = false,
-		priority = 1000,
+		"rebelot/kanagawa.nvim",
 		config = function()
-			require("eldritch").setup({
+			require("kanagawa").setup({
 				transparent = true,
-				dim_inactive = false,
 			})
-			vim.cmd("colorscheme eldritch")
+			vim.cmd("colorscheme kanagawa")
 		end,
 	},
 	-- {
