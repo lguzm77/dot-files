@@ -9,7 +9,7 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
 automatically-unhide-macos-hidden-apps = true
 
-accordion-padding = 20
+accordion-padding = 25
 
 [gaps]
 inner.horizontal = 10
@@ -34,10 +34,10 @@ outer.right =      10
 # alt-w = 'close'
 
 # Focus window
-cmd-ctrl-h = 'focus --boundaries-action wrap-around-the-workspace left'
-cmd-ctrl-j = 'focus --boundaries-action wrap-around-the-workspace down'
-cmd-ctrl-k = 'focus --boundaries-action wrap-around-the-workspace up'
-cmd-ctrl-l = 'focus --boundaries-action wrap-around-the-workspace right'
+cmd-h = 'focus --boundaries-action wrap-around-the-workspace left'
+cmd-j = 'focus --boundaries-action wrap-around-the-workspace down'
+cmd-k = 'focus --boundaries-action wrap-around-the-workspace up'
+cmd-l = 'focus --boundaries-action wrap-around-the-workspace right'
 # Focus recently used window
 alt-quote = 'exec-and-forget aerospace focus-back-and-forth || aerospace workspace-back-and-forth'
 
