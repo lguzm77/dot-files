@@ -13,6 +13,7 @@ k9s:
   # Toggles whether k9s should exit when CTRL-C is pressed. When set to true, you will need to exist k9s via the :quit command. Default is false.
   noExitOnCtrlC: false
   ui:  # NOTE! [K9s v0.30.0]
+    skin: skyn  # uses color palette declared in ./skins/skyn.yaml
     # Enable mouse support. Default false
     enableMouse: false
     # Set to true to hide K9s header. Default false
