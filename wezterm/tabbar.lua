@@ -14,9 +14,9 @@ local function segments_for_right_status(window)
 	-- this returns a table of strings
 	return {
 		window:active_workspace(),
+		get_battery_information(),
 		-- Format is based on rust chrono https://docs.rs/chrono/0.4.19/chrono/format/strftime/index.html
 		wezterm.strftime("%a %b %-d %I:%M %p"),
-		get_battery_information(),
 		wezterm.hostname(),
 	}
 end
