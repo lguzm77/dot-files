@@ -10,16 +10,8 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# TODO: move these download statements to setup.sh
-# Download Znap, if it's not there yet.
-[[ -r ~/Repos/znap/znap.zsh ]] ||
-    git clone --depth 1 -- \
-        https://github.com/marlonrichert/zsh-snap.git ~/Repos/znap
-source ~/Repos/znap/znap.zsh  # Start Znap
-
-# Install fast node version manager with zsnap
-[[ -r ~/.fnm/fnm ]] || [[ -r /opt/homebrew/bin/fnm ]] || 
-  curl -fsSL https://fnm.vercel.app/install | zsh -s -- --install-dir "./.fnm" --skip-shell
+source ~/Repos/znap/znap.zsh  # Start Znap, we need to call source here
+source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme # source the theme
 
 # Completions need to be loaded before fzf-tab
 znap eval fnm 'fnm env'
@@ -92,14 +84,12 @@ alias t="touch"
 # shell integrations
 znap eval zoxide "zoxide init zsh"
 znap eval _kubectl 'kubectl completion zsh'
-source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 
 # Use this block to import any additinonal configurations
 # . my-config.zshrc 
 
 # Enable syntax highlighting for man pages with less 
 export MANPAGER="less -R --use-color -Dd+r -Du+b"
-
 
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"

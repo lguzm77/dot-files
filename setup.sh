@@ -20,7 +20,16 @@ brew install --cask wezterm
 
 # Install aerospace, does not appear in leaves.txt
 echo "Installing aerospace"
-brew install --cask nikitabobko/tap/aerospace
+# brew install --cask nikitabobko/tap/aerospace
+
+# install zsnap
+[[ -r ~/Repos/znap/znap.zsh ]] ||
+    git clone --depth 1 -- \
+        https://github.com/marlonrichert/zsh-snap.git ~/Repos/znap
+
+# Install fast node version manager with zsnap
+[[ -r ~/.fnm/fnm ]] || [[ -r /opt/homebrew/bin/fnm ]] || 
+  curl -fsSL https://fnm.vercel.app/install | zsh -s -- --install-dir "./.fnm" --skip-shell
 
 echo "Running stow on cwd\n"
 stow .
