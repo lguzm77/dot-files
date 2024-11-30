@@ -10,6 +10,7 @@ return {
 			local mason = require("mason")
 			local mason_tool_installer = require("mason-tool-installer")
 
+			-- Linters and formatters
 			local javascript_tools = {
 				"prettierd",
 				"eslint_d",
@@ -71,20 +72,18 @@ return {
 
 			local lspconfig = require("lspconfig")
 
-			local javascriptSlashTypescriptTools = {
-				"biome",
+			local lsps = {
+				"yamlls",
+				"biome", -- js toolchain
+				"gopls",
+				"omnisharp",
+				"lua_ls",
 			}
 
 			-- Language servers installed by Mason
 			mason_lspconfig.setup({
 				auto_install = true,
-				ensure_installed = {
-					"yamlls",
-					unpack(javascriptSlashTypescriptTools),
-					"gopls",
-					"omnisharp",
-					"lua_ls",
-				},
+				ensure_installed = lsps,
 			})
 
 			local keymap = vim.keymap
@@ -143,47 +142,29 @@ return {
 				local hl = "DiagnosticSign" .. type
 				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 			end
-			--
-			-- lspconfig.ts_ls.setup({
-			-- 	capabilities = capabilities,
-			-- 	init_options = {
-			-- 		preferences = {
-			-- 			disableSuggestions = true,
-			-- 		},
-			-- 	},
-			-- })
-			lspconfig.biome.setup({
-				capabilities = capabilities,
+
+			mason_lspconfig.setup_handlers({
+				-- default handler for installed servers
+				function(server_name)
+					lspconfig[server_name].setup({
+						capabilities = capabilities,
+					})
+				end,
+				--specific handlers
+				["omnisharp"] = function()
+					local omnisharp_exec_path = vim.fn.stdpath("data") .. "/mason/packages/libexec/OmniSharp.dll"
+					lspconfig.omnisharp.setup({
+						capabilities = capabilities,
+						cmd = { "dotnet", omnisharp_exec_path },
+						settings = {
+							RoslynExtensionsOptions = {
+								EnableAnalyzersSupport = true,
+								AnalyzeOpenDocumentsOnly = true,
+							},
+						},
+					})
+				end,
 			})
-
-			lspconfig.lua_ls.setup({
-				capabilities = capabilities,
-			})
-
-			-- TODO: setup all lsp handlers here
-
-			-- mason_lspconfig.setup_handlers({
-			-- 	-- default handler for installed servers
-			-- 	function(server_name)
-			-- 		lspconfig[server_name].setup({
-			-- 			capabilities = capabilities,
-			-- 		})
-			-- 	end,
-			-- 	--specific handlers
-			-- 	["omnisharp"] = function()
-			-- 		local omnisharp_exec_path = vim.fn.stdpath("data") .. "/mason/packages/libexec/OmniSharp.dll"
-			-- 		lspconfig.omnisharp.setup({
-			-- 			capabilities = capabilities,
-			-- 			cmd = { "dotnet", omnisharp_exec_path },
-			-- 			settings = {
-			-- 				RoslynExtensionsOptions = {
-			-- 					EnableAnalyzersSupport = true,
-			-- 					AnalyzeOpenDocumentsOnly = true,
-			-- 				},
-			-- 			},
-			-- 		})
-			-- 	end,
-			-- })
 		end,
 	},
 }
