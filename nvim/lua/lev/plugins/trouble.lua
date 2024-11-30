@@ -1,10 +1,11 @@
 return {
 	"folke/trouble.nvim",
 	dependencies = { "nvim-tree/nvim-web-devicons" },
+	cmd = "Trouble",
 	config = function()
 		require("trouble").setup({
 			modes = {
-        -- we defined a new mode to use
+				-- we defined a new mode to use
 				preview_float = {
 					mode = "diagnostics",
 					preview = {
@@ -21,7 +22,6 @@ return {
 			},
 		})
 	end,
-	cmd = "Trouble",
 	keys = {
 		{
 			"<leader>xx",
