@@ -12,6 +12,9 @@ else
   echo "homebrew is already installed\n"
 fi 
 
+#[ is an alternative for the test command 
+# [[ is a shell keyword, alternative for test 
+
 echo "Installing homebrew packages\n"
 xargs brew install < "$HOME/dot-files/homebrew/leaves.txt"
 # Install wezterm, does not appear in leaves.txt 
@@ -20,20 +23,10 @@ brew install --cask wezterm
 
 # Install aerospace, does not appear in leaves.txt
 echo "Installing aerospace"
-# brew install --cask nikitabobko/tap/aerospace
-
-# install zsnap
-[[ -r ~/Repos/znap/znap.zsh ]] ||
-    git clone --depth 1 -- \
-        https://github.com/marlonrichert/zsh-snap.git ~/Repos/znap
-
-# Install fast node version manager with zsnap
-[[ -r ~/.fnm/fnm ]] || [[ -r /opt/homebrew/bin/fnm ]] || 
-  curl -fsSL https://fnm.vercel.app/install | zsh -s -- --install-dir "./.fnm" --skip-shell
+brew install --cask nikitabobko/tap/aerospace
 
 echo "Running stow on cwd\n"
 stow .
-
 
 echo "Finished installing tools, setting up home directory folders and tools"
 cd "$HOME"
@@ -79,7 +72,7 @@ fi
 # Usage mmdc -i input.mmd -o output.png -t dark -b transparent
 
 # Create a directory where all your projects will be placed
-if [ ! -d "projects" ]; then
+if [[ ! -d "projects" ]]; then
   mkdir projects
   echo "Created projects directory"
 else

@@ -3,11 +3,18 @@ if [[ "$ZPROF" = true ]]; then
   zmodload zsh/zprof
 fi
 
+# install zsnap
+[[ -r ~/Repos/znap/znap.zsh ]] ||
+    git clone --depth 1 -- \
+        https://github.com/marlonrichert/zsh-snap.git ~/Repos/znap
 source ~/Repos/znap/znap.zsh  # Start Znap, we need to call source here
 
 znap eval starship 'starship init zsh'
 znap prompt # enable fast prompt
 
+# Install fast node version manager with zsnap
+[[ -r ~/.fnm/fnm ]] || [[ -r /opt/homebrew/bin/fnm ]] || 
+  curl -fsSL https://fnm.vercel.app/install | zsh -s -- --install-dir "./.fnm" --skip-shell
 # Completions need to be loaded before fzf-tab
 znap eval fnm 'fnm env'
 znap fpath _fnm 'fnm completions --shell zsh'
