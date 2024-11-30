@@ -2,6 +2,7 @@ return {
 	{
 		"williamboman/mason.nvim",
 		event = "BufReadPre",
+		cmd = "Mason",
 		dependencies = {
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 		},
@@ -71,7 +72,7 @@ return {
 			local lspconfig = require("lspconfig")
 
 			local javascriptSlashTypescriptTools = {
-				"ts_ls",
+				"biome",
 			}
 
 			-- Language servers installed by Mason
@@ -142,14 +143,17 @@ return {
 				local hl = "DiagnosticSign" .. type
 				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 			end
-
-			lspconfig.ts_ls.setup({
+			--
+			-- lspconfig.ts_ls.setup({
+			-- 	capabilities = capabilities,
+			-- 	init_options = {
+			-- 		preferences = {
+			-- 			disableSuggestions = true,
+			-- 		},
+			-- 	},
+			-- })
+			lspconfig.biome.setup({
 				capabilities = capabilities,
-				init_options = {
-					preferences = {
-						disableSuggestions = true,
-					},
-				},
 			})
 
 			lspconfig.lua_ls.setup({
