@@ -5,3 +5,11 @@
 [user]
 	email = lguzmm77@icloud.com
 	name = lguzm77
+[maintenance]
+	repo = /Users/levguzman/Repos/znap
+	repo = /Users/levguzman/Repos/Aloxaf/fzf-tab
+	repo = /Users/levguzman/Repos/marlonrichert/zsh-autocomplete
+	repo = /Users/levguzman/Repos/zdharma-continuum/fast-syntax-highlighting
+	repo = /Users/levguzman/Repos/zsh-users/zsh-autosuggestions
+	repo = /Users/levguzman/Repos/zsh-users/zsh-completions
+	repo = /Users/levguzman/Repos/zsh-users/zsh-syntax-highlighting
