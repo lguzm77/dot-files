@@ -80,7 +80,7 @@ function module.set_up_tabbar()
 
 		local color_scheme = window:effective_config().resolved_palette
 
-		local ARROW_FOREGROUND = { Foreground = { Color = color_scheme.foreground } }
+		local ARROW_FOREGROUND = { Foreground = { Color = color_scheme.background } }
 		local prefix = ""
 
 		if window:leader_is_active() then
