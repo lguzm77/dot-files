@@ -9,6 +9,7 @@ fi
         https://github.com/marlonrichert/zsh-snap.git ~/Repos/znap
 source ~/Repos/znap/znap.zsh  # Start Znap, we need to call source here
 
+export STARSHIP_CONFIG=~/.config/starship/starship.toml
 znap eval starship 'starship init zsh'
 znap prompt # enable fast prompt
 
@@ -92,6 +93,7 @@ znap eval _kubectl 'kubectl completion zsh'
 
 # Enable syntax highlighting for man pages with less 
 export MANPAGER="less -R --use-color -Dd+r -Du+b"
+
 
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
