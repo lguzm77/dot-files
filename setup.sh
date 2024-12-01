@@ -79,5 +79,9 @@ else
   echo "projects directory already exists" 
 fi 
 
+# Create a symlink between ./dot-files/zsh/.zshrc and ~/.zshrc
+echo "creating symlink ./dot-files/zsh/.zshrc and ~/.zshrc"
+ln -s "$HOME"/dot-files/zsh/.zshrc "$HOME"/.zshrc
+
 echo "Finished setup script"
 
