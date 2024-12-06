@@ -40,6 +40,7 @@ return {
 					},
 					{ icon = "🔨", key = "M", desc = "Mason", action = ":Mason" },
 					{ icon = " ", key = "q", desc = "Quit", action = ":qa" },
+					{ key = "O", desc = "List PRs for Current Repo", action = ":Octo pr list" },
 				},
 			},
 			sections = {
