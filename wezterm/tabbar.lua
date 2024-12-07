@@ -2,9 +2,17 @@ local wezterm = require("wezterm")
 local module = {}
 
 local function get_battery_information()
-	local bat = ""
+	local bat = "🔋"
 	for _, b in ipairs(wezterm.battery_info()) do
-		bat = "🔋" .. string.format("%.0f%%", b.state_of_charge * 100)
+		local charge = b.state_of_charge * 100
+
+		if b.state == "Charging" then
+			bat = "⚡"
+		elseif charge < 20 then
+			bat = "🪫"
+		end
+
+		bat = bat .. string.format("%.0f%%", charge)
 	end
 	return bat
 end
@@ -20,8 +28,6 @@ local function segments_for_right_status(window)
 		wezterm.hostname(),
 	}
 end
-
-
 
 function module.set_up_tabbar()
 	wezterm.on("update-status", function(window, _)
@@ -84,7 +90,7 @@ function module.set_up_tabbar()
 		local prefix = ""
 
 		if window:leader_is_active() then
-			prefix = " " .. utf8.char(0x1F5FF) -- moyai 
+			prefix = " " .. utf8.char(0x1F5FF) -- moyai
 			SOLID_LEFT_ARROW = utf8.char(0xe0b2)
 		end
 
@@ -100,6 +106,5 @@ function module.set_up_tabbar()
 		}))
 	end)
 end
-
 
 return module
