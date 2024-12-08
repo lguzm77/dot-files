@@ -23,7 +23,12 @@ brew install --cask wezterm
 
 # Install aerospace, does not appear in leaves.txt
 echo "Installing aerospace"
-brew install --cask nikitabobko/tap/aerospace
+# Continue execution even if command fails
+brew install --cask nikitabobko/tap/aerospace || true
+
+echo "Insalling sketchy bar"
+brew tap FelixKratz/formulae
+brew install sketchybar
 
 echo "Running stow on cwd\n"
 stow .
@@ -82,6 +87,7 @@ fi
 # Create a symlink between ./dot-files/zsh/.zshrc and ~/.zshrc
 echo "creating symlink ./dot-files/zsh/.zshrc and ~/.zshrc"
 ln -s "$HOME"/dot-files/zsh/.zshrc "$HOME"/.zshrc
+
 
 echo "Finished setup script"
 
