@@ -38,9 +38,9 @@ return {
 						action = ":Lazy",
 						enabled = package.loaded.lazy ~= nil,
 					},
-					{ icon = "🔨", key = "M", desc = "Mason", action = ":Mason" },
+					{ icon = "󰣪", key = "M", desc = "Mason", action = ":Mason" },
+					{ icon = " ", key = "O", desc = "List PRs for Current Repo", action = ":Octo pr list" },
 					{ icon = " ", key = "q", desc = "Quit", action = ":qa" },
-					{ key = "O", desc = "List PRs for Current Repo", action = ":Octo pr list" },
 				},
 			},
 			sections = {
