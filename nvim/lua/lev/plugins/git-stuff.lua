@@ -26,6 +26,7 @@ return {
 			end, { nargs = 1 })
 
 			vim.keymap.set({ "n", "v" }, "<leader>op", ":GBrowse<CR>", {})
+			vim.keymap.set("n", "<leader>df", "<cmd>:Gvdiffsplit!<cr>", { desc = "Git conflict resolution" })
 		end,
 	},
 }
