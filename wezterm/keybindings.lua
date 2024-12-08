@@ -96,13 +96,13 @@ function module.set_up_keybindings(config)
 		},
 		-- move between tabs
 		{
-			key = "o",
+			key = "n",
 			mods = "LEADER",
 			action = wezterm.action.ActivateTabRelative(1),
 		},
 		{
 
-			key = "i",
+			key = "p",
 			mods = "LEADER",
 			action = wezterm.action.ActivateTabRelative(-1),
 		},
@@ -117,7 +117,7 @@ function module.set_up_keybindings(config)
 			action = wezterm.action.CloseCurrentTab({ confirm = true }),
 		},
 		{
-			key = "p",
+			key = "s",
 			mods = "LEADER",
 			-- Present in to our project picker
 			action = projects.choose_project(),
