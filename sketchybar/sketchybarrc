@@ -27,17 +27,17 @@ sketchybar --bar position=top height=37 blur_radius=30 color="$BAR_COLOR"
 default=(
   padding_left=5
   padding_right=5
-  icon.font="Hack Nerd Font:Bold:15.0"
-  label.font="Hack Nerd Font:Bold:15.0"
+  icon.font="Hack Nerd Font:Bold:14.0"
+  label.font="Hack Nerd Font:Bold:14.0"
   icon.color=$WHITE
   label.color=$WHITE
   background.color=$ITEM_BG_COLOR
-  background.corner_radius=5
-  background.height=24
-  icon.padding_left=10
-  icon.padding_right=10
+  # background.corner_radius=5
+  background.height=30
+  icon.padding_left=5
+  icon.padding_right=5
   label.padding_left=4
-  label.padding_right=10
+  label.padding_right=5
 )
 sketchybar --default "${default[@]}"
 
