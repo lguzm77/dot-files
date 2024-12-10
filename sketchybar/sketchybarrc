@@ -32,7 +32,7 @@ default=(
   icon.color=$WHITE
   label.color=$WHITE
   background.color=$ITEM_BG_COLOR
-  # background.corner_radius=5
+  background.corner_radius=5
   background.height=30
   icon.padding_left=5
   icon.padding_right=5
@@ -42,10 +42,13 @@ default=(
 sketchybar --default "${default[@]}"
 
 # -- Right Side Items--
-source $ITEMS_DIR/calendar.sh
-source $ITEMS_DIR/volume.sh
-source $ITEMS_DIR/battery.sh
-source $ITEMS_DIR/cpu.sh
+source "$ITEMS_DIR"/calendar.sh
+source "$ITEMS_DIR"/volume.sh
+source "$ITEMS_DIR"/battery.sh
+source "$ITEMS_DIR"/cpu.sh
+
+# -- Left Side Items -- 
+source "$ITEMS_DIR"/aerospace.sh
 
 ##### Force all scripts to run the first time (never do this in a script) #####
 sketchybar --update
