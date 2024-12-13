@@ -1,11 +1,12 @@
 #!/bin/bash
 
-export WHITE=0xff16161d
+export WHITE=0xffceced8
 
 # -- CUSTOM SCHEME --
 export BAR_COLOR=0x400000000
-export ITEM_BG_COLOR=0x400000000
+export ITEM_BG_COLOR=0xff1f1f28
 export ACCENT_COLOR=0xff16161d
+export CURRENT_TAB_COLOR=0xff363646
 
 # -- Gray Scheme --
 # export BAR_COLOR=0xff101314
