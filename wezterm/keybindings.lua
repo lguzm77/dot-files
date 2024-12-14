@@ -117,7 +117,7 @@ function module.set_up_keybindings(config)
 			action = wezterm.action.CloseCurrentTab({ confirm = true }),
 		},
 		{
-			key = "s",
+			key = "l",
 			mods = "LEADER",
 			-- Present in to our project picker
 			action = projects.choose_project(),
