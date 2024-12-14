@@ -7,12 +7,6 @@ return {
 		"nvim-tree/nvim-web-devicons",
 		"folke/todo-comments.nvim",
 		"nvim-telescope/telescope-ui-select.nvim",
-		{
-			"nvim-telescope/telescope-live-grep-args.nvim",
-			-- This will not install any breaking changes.
-			-- For major updates, this must be adjusted manually.
-			version = "^1.0.0",
-		},
 		-- TODO: integrate neoclip
 	},
 	cmd = "Telescope",
@@ -24,7 +18,6 @@ return {
 		local telescope = require("telescope")
 		local actions = require("telescope.actions")
 		local transform_mod = require("telescope.actions.mt").transform_mod
-		local lga_actions = require("telescope-live-grep-args.actions")
 		local trouble = require("trouble")
 
 		-- custom trouble action
@@ -65,16 +58,7 @@ return {
 				["ui-select"] = {
 					require("telescope.themes").get_dropdown({}),
 				},
-				live_grep_args = {
-					auto_quoting = true,
-					-- TODO: rethink mapping here
-					mappings = {
-						i = {
-							["<C-q>"] = lga_actions.quote_prompt(),
-							["<C-w>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
-						},
-					},
-				},
+        fzf = {}
 			},
 			pickers = {
 				find_files = {
@@ -99,8 +83,6 @@ return {
 		telescope.load_extension("ui-select")
 		vim.g.zoxide_use_select = true
 
-		telescope.load_extension("live_grep_args")
-
 		-- Set keymaps. TODO: can you extract this to a separate file?
 		local keymap = vim.keymap
 		local builtin = require("telescope.builtin")
@@ -120,14 +102,14 @@ return {
 		keymap.set("n", "<leader>gc", builtin.git_commits, { desc = "search git commits" })
 		keymap.set(
 			"n",
-			"<leader>gbb",
+			"<leader>gbf",
 			"<cmd>Telescope git_bcommits<cr>",
 			{ desc = "search git commits for current buffer" }
 		)
 		keymap.set(
 			"n",
 			"<leader>fg",
-			"<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",
+      "<cmd>Telescope live_grep<cr>",
 			{ desc = "Live Grep" }
 		)
 	end,
