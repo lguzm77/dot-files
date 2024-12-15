@@ -10,7 +10,7 @@ local live_multigrep = function(opts)
 
 	local finder = finders.new_async_job({
 		command_generator = function(prompt)
-			if not prompt or prompt == "nil" then
+			if not prompt or prompt == "" then
 				return nil
 			end
 
@@ -27,11 +27,10 @@ local live_multigrep = function(opts)
 				table.insert(args, "-g") -- filter files
 				table.insert(args, pieces[2])
 			end
-
-			---@diagnostic disable-next-line
+			---@diagnostic disable-next-line: deprecated
 			return vim.tbl_flatten({
 				args,
-				{ "--color=never", "--no-heading", "--with-filename", "--line_number", "--column", "--smart-case" },
+				{ "--no-heading", "--with-filename", "--line_number", "--column", "--smart-case" },
 			})
 		end,
 		entry_maker = make_entry.gen_from_vimgrep(opts),

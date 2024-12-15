@@ -16,57 +16,8 @@ return {
 	},
 	config = function()
 		local telescope = require("telescope")
-		local actions = require("telescope.actions")
-		local transform_mod = require("telescope.actions.mt").transform_mod
-		local trouble = require("trouble")
 
-		-- custom trouble action
-		local custom_actions = transform_mod({
-			open_trouble_qflist = function(prompt_bufnr)
-				trouble.toggle("quickfix")
-			end,
-		})
-
-		local telescopeConfig = require("telescope.config")
-		-- Clone the default Telescope configuration
-		local vimgrep_arguments = { unpack(telescopeConfig.values.vimgrep_arguments) }
-
-		-- I want to search in hidden/dot files.
-		table.insert(vimgrep_arguments, "--hidden")
-		-- I don't want to search in the `.git` directory.
-		table.insert(vimgrep_arguments, "--glob")
-		table.insert(vimgrep_arguments, "!**/.git/*")
-
-		telescope.setup({
-			defaults = {
-				wrap_results = true,
-				vimgrep_arguments = vimgrep_arguments,
-				path_display = { "truncate" },
-				layout_config = { horizontal = { preview_width = 0.6 } },
-				mappings = {
-					-- insert mode mappings
-					i = {
-						["<C-q>"] = actions.send_selected_to_qflist + custom_actions.open_trouble_qflist,
-						["<C-j>"] = actions.cycle_history_next,
-						["<C-k>"] = actions.cycle_history_prev,
-						["<C-s>"] = actions.cycle_previewers_next,
-						["<C-a>"] = actions.cycle_previewers_prev,
-					},
-				},
-			},
-			extensions = {
-				["ui-select"] = {
-					require("telescope.themes").get_dropdown({}),
-				},
-				fzf = {},
-			},
-			pickers = {
-				find_files = {
-					-- `hidden = true` will still show the inside of `.git/` as it's not `.gitignore`d.
-					find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
-				},
-			},
-		})
+		telescope.setup({})
 
 		-- customize previewer
 		-- TODO: can you make this be dynamic?
@@ -79,11 +30,8 @@ return {
 		})
 
 		telescope.load_extension("fzf")
-		telescope.load_extension("noice")
-		telescope.load_extension("ui-select")
 		vim.g.zoxide_use_select = true
 
-		-- Set keymaps. TODO: can you extract this to a separate file?
 		local keymap = vim.keymap
 		local builtin = require("telescope.builtin")
 
@@ -106,7 +54,12 @@ return {
 			"<cmd>Telescope git_bcommits<cr>",
 			{ desc = "search git commits for current buffer" }
 		)
+		keymap.set("n", "<leader>ep", function()
+			require("telescope.builtin").find_files({
+				cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy"),
+			})
+		end)
 
-		require("lev/modules/multigrep").setup() -- custom grep picker
+		require("lev.plugins.modules.multigrep").setup() -- custom grep picker
 	end,
 }
