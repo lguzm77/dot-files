@@ -60,6 +60,6 @@ return {
 			})
 		end)
 
-		require("plugins.modules.multigrep").setup() -- custom grep picker
+		require("config.telescope.multigrep").setup() -- custom grep picker
 	end,
 }
