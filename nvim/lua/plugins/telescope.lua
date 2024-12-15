@@ -60,6 +60,6 @@ return {
 			})
 		end)
 
-		require("lev.plugins.modules.multigrep").setup() -- custom grep picker
+		require("plugins.modules.multigrep").setup() -- custom grep picker
 	end,
 }
