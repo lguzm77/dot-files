@@ -17,7 +17,6 @@ vim.o.hlsearch = true
 vim.wo.number = true
 vim.o.relativenumber = true
 
-vim.cmd("cd %:p:h") -- set current directory as base
 
 vim.cmd("set wrap")
 
