@@ -58,7 +58,7 @@ return {
 				["ui-select"] = {
 					require("telescope.themes").get_dropdown({}),
 				},
-        fzf = {}
+				fzf = {},
 			},
 			pickers = {
 				find_files = {
@@ -106,11 +106,7 @@ return {
 			"<cmd>Telescope git_bcommits<cr>",
 			{ desc = "search git commits for current buffer" }
 		)
-		keymap.set(
-			"n",
-			"<leader>fg",
-      "<cmd>Telescope live_grep<cr>",
-			{ desc = "Live Grep" }
-		)
+
+		require("lev/modules/multigrep").setup() -- custom grep picker
 	end,
 }
