@@ -1,3 +1,45 @@
+-- some local functions
+local function live_grep_from_project_git_root()
+	local function is_git_repo()
+		vim.fn.system("git rev-parse --is-inside-work-tree")
+
+		return vim.v.shell_error == 0
+	end
+
+	local function get_git_root()
+		local dot_git_path = vim.fn.finddir(".git", ".;")
+		return vim.fn.fnamemodify(dot_git_path, ":h")
+	end
+
+	local opts = {}
+
+	if is_git_repo() then
+		opts = {
+			cwd = get_git_root(),
+		}
+	end
+
+	require("telescope.builtin").live_grep(opts)
+end
+
+local function find_files_from_project_git_root()
+	local function is_git_repo()
+		vim.fn.system("git rev-parse --is-inside-work-tree")
+		return vim.v.shell_error == 0
+	end
+	local function get_git_root()
+		local dot_git_path = vim.fn.finddir(".git", ".;")
+		return vim.fn.fnamemodify(dot_git_path, ":h")
+	end
+	local opts = {}
+	if is_git_repo() then
+		opts = {
+			cwd = get_git_root(),
+		}
+	end
+	require("telescope.builtin").find_files(opts)
+end
+
 return {
 	"nvim-telescope/telescope.nvim",
 	branch = "0.1.x",
@@ -11,13 +53,28 @@ return {
 	},
 	cmd = "Telescope",
 	keys = {
-		{ "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Fuzzy find files in cwd" },
 		{ "<leader>fs", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Find symbols LSP" },
 	},
 	config = function()
 		local telescope = require("telescope")
 
 		telescope.setup({
+			defaults = {
+				vimgrep_arguments = {
+					"rg",
+					"--color=never",
+					"--no-heading",
+					"--with-filename",
+					"--line-number",
+					"--column",
+					"--smart-case",
+					"--trim", -- add this value
+					"--hidden",
+					-- do not search within .git directories
+					"--glob",
+					"!**/.git/*",
+				},
+			},
 			pickers = {
 				find_files = {
 					theme = "ivy",
@@ -43,10 +100,12 @@ return {
 				vim.wo.number = true
 			end,
 		})
+
 		local keymap = vim.keymap
 		local builtin = require("telescope.builtin")
 
 		keymap.set("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Fuzzy find recent files" })
+		keymap.set("n", "<leader>ff", find_files_from_project_git_root, { desc = "Find files from git root" })
 
 		keymap.set("n", "<leader>fw", function()
 			local current_buffer_name = vim.api.nvim_buf_get_name(0)
@@ -70,8 +129,8 @@ return {
 				cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy"),
 			})
 		end)
-		-- keymap.set("n", "<leader>fg", builtin.live_grep)
-
-		require("config.telescope.multigrep").setup() -- custom grep picker
+		keymap.set("n", "<leader>fg", live_grep_from_project_git_root)
+		-- TODO: why doesn't this work?
+		-- require("config.telescope.multigrep").setup() -- custom grep picker
 	end,
 }
