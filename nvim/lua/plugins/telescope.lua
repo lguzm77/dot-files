@@ -1,6 +1,6 @@
 return {
 	"nvim-telescope/telescope.nvim",
-	tag = "0.1.6",
+	branch = "0.1.x",
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
@@ -17,7 +17,22 @@ return {
 	config = function()
 		local telescope = require("telescope")
 
-		telescope.setup({})
+		telescope.setup({
+			pickers = {
+				find_files = {
+					theme = "ivy",
+				},
+				live_grep = {
+					theme = "ivy",
+				},
+			},
+			extensions = {
+				fzf = {},
+			},
+		})
+
+		telescope.load_extension("fzf")
+		vim.g.zoxide_use_select = true
 
 		-- customize previewer
 		-- TODO: can you make this be dynamic?
@@ -28,10 +43,6 @@ return {
 				vim.wo.number = true
 			end,
 		})
-
-		telescope.load_extension("fzf")
-		vim.g.zoxide_use_select = true
-
 		local keymap = vim.keymap
 		local builtin = require("telescope.builtin")
 
@@ -44,7 +55,7 @@ return {
 		end, { desc = "Find word under cursor in current buffer" })
 
 		keymap.set("n", "<leader>fd", builtin.grep_string, { desc = "Find word under cursor in cwd" })
-
+		keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Find help tags" })
 		keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find todos" })
 		keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Find Keymaps" })
 		keymap.set("n", "<leader>gc", builtin.git_commits, { desc = "search git commits" })
@@ -59,6 +70,7 @@ return {
 				cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy"),
 			})
 		end)
+		-- keymap.set("n", "<leader>fg", builtin.live_grep)
 
 		require("config.telescope.multigrep").setup() -- custom grep picker
 	end,
