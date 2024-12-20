@@ -1,7 +1,8 @@
 return {
+	--TODO: integrate blink.cmp
 	{
 		"williamboman/mason.nvim",
-		event = "BufReadPre",
+		event = "VeryLazy",
 		cmd = "Mason",
 		dependencies = {
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
@@ -56,18 +57,40 @@ return {
 		end,
 	},
 	{
+		-- completion
+		"saghen/blink.cmp",
+		dependencies = "rafamadriz/friendly-snippets",
+    event = "VeryLazy",
+
+		version = "v0.*",
+
+		opts = {
+			keymap = { preset = "default" },
+
+			appearance = {
+				use_nvim_cmp_as_default = true,
+				nerd_font_variant = "mono",
+			},
+
+			sources = {
+				default = { "lsp", "path", "snippets", "buffer" },
+			},
+		},
+		opts_extend = { "sources.default" },
+	},
+
+	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
-			"hrsh7th/cmp-nvim-lsp",
+			"sagen/blink.cmp",
 			{ "antosha417/nvim-lsp-file-operations", config = true },
 			{ "folke/neodev.nvim", opts = {} },
 			"williamboman/mason-lspconfig.nvim",
 		},
-		event = "BufReadPre",
+		event = "VeryLazy",
 		config = function()
 			-- TODO: rework lsp configuration
-			local cmp_nvim_lsp = require("cmp_nvim_lsp")
-			local capabilities = cmp_nvim_lsp.default_capabilities()
+			local capabilities = require("blink.cmp").get_lsp_capabilities()
 			local mason_lspconfig = require("mason-lspconfig")
 
 			local lspconfig = require("lspconfig")
