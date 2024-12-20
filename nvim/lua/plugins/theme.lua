@@ -49,29 +49,4 @@ return {
 			vim.cmd("colorscheme kanagawa")
 		end,
 	},
-	{
-		"nvim-lualine/lualine.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons", "AndreM222/copilot-lualine", "folke/noice.nvim" },
-		event = "VeryLazy",
-		config = function()
-			local lualine = require("lualine")
-			lualine.setup({
-				options = {
-					theme = "auto",
-				},
-				sections = {
-					lualine_a = { "mode" },
-					lualine_b = { "branch", "diff", "diagnostics" },
-					lualine_c = { "filename" },
-					lualine_x = {
-						{ "copilot" },
-						{ "filetype" },
-					},
-					lualine_y = { "progress" },
-					lualine_z = { "location" },
-				},
-				extensions = { "fugitive", "quickfix", "fzf", "lazy", "mason", "nvim-dap-ui", "oil", "trouble" },
-			})
-		end,
-	},
 }
