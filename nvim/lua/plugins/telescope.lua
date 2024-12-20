@@ -129,8 +129,6 @@ return {
 				cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy"),
 			})
 		end)
-		keymap.set("n", "<leader>fg", live_grep_from_project_git_root)
-		-- TODO: why doesn't this work?
-		-- require("config.telescope.multigrep").setup() -- custom grep picker
+		require("config.telescope.multigrep").setup() -- custom grep picker
 	end,
 }

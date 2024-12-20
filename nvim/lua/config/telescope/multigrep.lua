@@ -2,6 +2,7 @@ local pickers = require("telescope.pickers")
 local finders = require("telescope.finders")
 local make_entry = require("telescope.make_entry")
 local conf = require("telescope.config").values
+
 local M = {}
 
 local live_multigrep = function(opts)
@@ -14,23 +15,22 @@ local live_multigrep = function(opts)
 				return nil
 			end
 
-			local pieces = vim.split(prompt, "  ") -- two spaces as separator
-			local args = { "rg" } -- using ripgrep, can be substituted
-
-			-- lua does not use zero-indexes
+			local pieces = vim.split(prompt, "  ")
+			local args = { "rg" }
 			if pieces[1] then
-				table.insert(args, "-e") -- search using regex
+				table.insert(args, "-e")
 				table.insert(args, pieces[1])
 			end
 
 			if pieces[2] then
-				table.insert(args, "-g") -- filter files
+				table.insert(args, "-g")
 				table.insert(args, pieces[2])
 			end
+
 			---@diagnostic disable-next-line: deprecated
 			return vim.tbl_flatten({
 				args,
-				{ "--no-heading", "--with-filename", "--line_number", "--column", "--smart-case" },
+				{ "--color=never", "--no-heading", "--with-filename", "--line-number", "--column", "--smart-case" },
 			})
 		end,
 		entry_maker = make_entry.gen_from_vimgrep(opts),
