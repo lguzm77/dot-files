@@ -1,6 +1,6 @@
 return {
 	"AckslD/nvim-neoclip.lua",
-	event = "BufReadPre",
+	event = "VeryLazy",
 	dependencies = {
 		{ "nvim-telescope/telescope.nvim" },
 	},
