@@ -3,9 +3,11 @@ local keymap = vim.keymap
 local non_recursive_option = {
 	noremap = true, -- non-recursive
 }
-
+vim.keymap.set("n", "<space><space>x", "<cmd>source %<CR>")
+vim.keymap.set("n", "<space>x", ":.lua<CR>")
+vim.keymap.set("v", "<space>x", ":lua<CR>")
 -- greatest remap ever, search and replace all occurrences of the current buffer with your register's content
-keymap.set("v","<leader>p", "\"_dP", non_recursive_option)
+keymap.set("v", "<leader>p", '"_dP', non_recursive_option)
 keymap.set("i", "jj", "<ESC>", { desc = "Exit insert mode with jk" })
 
 -- window management
