@@ -58,7 +58,7 @@ return {
 	},
 	{
 		-- completion
-		"saghen/blink.cmp",
+		"Saghen/blink.cmp",
 		dependencies = "rafamadriz/friendly-snippets",
     event = "VeryLazy",
 
@@ -82,7 +82,7 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
-			"sagen/blink.cmp",
+			"Saghen/blink.cmp",
 			{ "antosha417/nvim-lsp-file-operations", config = true },
 			{ "folke/neodev.nvim", opts = {} },
 			"williamboman/mason-lspconfig.nvim",
