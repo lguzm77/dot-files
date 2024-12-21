@@ -3,15 +3,15 @@
 export WHITE=0xffceced8
 
 # -- CUSTOM SCHEME --
-export BAR_COLOR=0x400000000
-export ITEM_BG_COLOR=0xff1f1f28
-export ACCENT_COLOR=0xff16161d
-export CURRENT_TAB_COLOR=0xff363646
+# export BAR_COLOR=0xff16161d
+# export ITEM_BG_COLOR=0xff1f1f28
+# export ACCENT_COLOR=0xff16161d
+# export CURRENT_TAB_COLOR=0xff363646
 
 # -- Gray Scheme --
-# export BAR_COLOR=0xff101314
-# export ITEM_BG_COLOR=0xff353c3f
-# export ACCENT_COLOR=0xffffffff
+export BAR_COLOR=0xff1f1f28
+export ITEM_BG_COLOR=0xff353c3f
+export ACCENT_COLOR=0xffffffff
 
 # -- Purple Scheme --
 # export BAR_COLOR=0xff140c42
