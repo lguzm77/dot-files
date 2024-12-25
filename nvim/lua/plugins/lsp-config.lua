@@ -83,8 +83,6 @@ return {
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			"Saghen/blink.cmp",
-			{ "antosha417/nvim-lsp-file-operations", config = true },
-			{ "folke/neodev.nvim", opts = {} },
 			"williamboman/mason-lspconfig.nvim",
 		},
 		event = "VeryLazy",
