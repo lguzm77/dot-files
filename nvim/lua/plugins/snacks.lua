@@ -11,7 +11,7 @@ return {
 			preset = {
 				keys = {
 					{ icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
-					{ icon = " ", key = "s", desc = "Restore Previous CWD Session", action = ":SessionRestore" },
+					-- { icon = " ", key = "s", desc = "Restore Previous CWD Session", action = ":SessionRestore" },
 					{ icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
 					{
 						icon = " ",
