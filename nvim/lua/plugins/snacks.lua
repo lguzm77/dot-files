@@ -57,9 +57,13 @@ return {
 				},
 			},
 		},
+		terminal = { enabled = true },
 		notifier = {
 			enabled = true,
 			timeout = 3000,
+			top_down = false,
+			margin = { top = 0, right = 1, bottom = 1 },
+			style = "fancy",
 		},
 		lazygit = { enabled = true, dependencies = {
 			"nvim-lua/plenary.nvim",
