@@ -1,20 +1,29 @@
+local pluginsToConfig = {
+	statusline = {
+		config = {
+			use_icons = true,
+		},
+	},
+	pairs = {
+		config = {},
+	},
+	surround = {
+		config = {},
+	},
+	comment = {
+		config = {},
+	},
+}
+
 return {
 	{
 		"echasnovski/mini.nvim",
 		event = "VeryLazy",
 		enabled = true,
 		config = function()
-			local statusline = require("mini.statusline")
-			statusline.setup({ use_icons = true })
-
-			local pairs = require("mini.pairs")
-			pairs.setup()
-
-			local surround = require("mini.surround") -- surround actions
-			surround.setup()
-
-			local comment = require("mini.comment")
-			comment.setup()
+			for name, properties in pairs(pluginsToConfig) do
+				require(string.format("mini.%s", name)).setup(properties.config)
+			end
 		end,
 	},
 }
