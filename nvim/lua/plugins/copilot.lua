@@ -21,7 +21,7 @@ return {
 	{
 		"zbirenbaum/copilot.lua",
 		cmd = "Copilot",
-    enabled = false,
+		enabled = false,
 		event = "InsertEnter",
 		config = function()
 			require("copilot").setup({
@@ -42,12 +42,12 @@ return {
 	{
 		-- config inspired by https://github.com/jellydn/lazy-nvim-ide/blob/main/lua/plugins/extras/copilot-chat-v2.lua
 		"CopilotC-Nvim/CopilotChat.nvim",
-		branch = "canary",
-    enabled = false,
-		event = "BufReadPre",
+		build = "make tiktoken",
+		enabled = false,
+		event = "VeryLazy",
 		dependencies = {
 			{ "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
-			{ "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
+			{ "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log wrapper
 			{ "nvim-telescope/telescope.nvim" }, -- use telescope for actions
 		},
 		opts = {
@@ -80,21 +80,8 @@ return {
 					normal = "<C-y>",
 					insert = "<C-y>",
 				},
-				-- Yank the diff in the response to register
-				yank_diff = {
-					normal = "gmy",
-				},
-				-- Show the diff
-				show_diff = {
-					normal = "gmd",
-				},
-				-- Show the prompt
-				show_system_prompt = {
-					normal = "gmp",
-				},
-				-- Show the user selection
-				show_user_selection = {
-					normal = "gms",
+				show_help = {
+					normal = "g?",
 				},
 			},
 		},
