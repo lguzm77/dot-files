@@ -13,6 +13,12 @@ local pluginsToConfig = {
 	comment = {
 		config = {},
 	},
+	sessions = {
+		config = {},
+	},
+	tabline = {
+		config = {},
+	},
 }
 
 return {
