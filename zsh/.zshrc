@@ -70,7 +70,9 @@ alias f="fzf"
 
 alias air='$(go env GOPATH)/bin/air'
 
-alias gl="lazygit"
+alias lg="lazygit"
+alias ld="lazydocker"
+
 alias gs="git switch"
 alias gu="git undo" # git alias for git reset --soft HEAD^
 alias gp="git pull --rebase"
