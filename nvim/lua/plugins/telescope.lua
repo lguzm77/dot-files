@@ -36,6 +36,9 @@ return {
 
 		telescope.setup({
 			defaults = {
+				layout_config = {
+					preview_width = 0.55,
+				},
 				vimgrep_arguments = {
 					"rg",
 					"--color=never",
@@ -49,14 +52,6 @@ return {
 					-- do not search within .git directories
 					"--glob",
 					"!**/.git/*",
-				},
-			},
-			pickers = {
-				find_files = {
-					theme = "ivy",
-				},
-				live_grep = {
-					theme = "ivy",
 				},
 			},
 			extensions = {
