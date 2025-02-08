@@ -27,8 +27,8 @@ return {
 		event = "VeryLazy",
 		enabled = true,
 		config = function()
-			for name, properties in pairs(pluginsToConfig) do
-				require(string.format("mini.%s", name)).setup(properties.config)
+			for pluginName, config in pairs(pluginsToConfig) do
+				require(string.format("mini.%s", pluginName)).setup(config.config)
 			end
 		end,
 	},
