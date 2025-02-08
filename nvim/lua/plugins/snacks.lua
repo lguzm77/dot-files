@@ -43,19 +43,6 @@ return {
 					{ icon = " ", key = "q", desc = "Quit", action = ":qa" },
 				},
 			},
-			sections = {
-				{
-					section = "terminal",
-					cmd = "chafa ~/dot-files/wall.jpg --format symbols --symbols vhalf --size 60x17 --stretch; sleep .1",
-					height = 17,
-					padding = 1,
-				},
-				{
-					pane = 2,
-					{ section = "keys", gap = 1, padding = 1 },
-					{ section = "startup" },
-				},
-			},
 		},
 		terminal = { enabled = true },
 		notifier = {
