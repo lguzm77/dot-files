@@ -8,7 +8,7 @@ vim.keymap.set("n", "<space>x", ":.lua<CR>")
 vim.keymap.set("v", "<space>x", ":lua<CR>")
 -- greatest remap ever, search and replace all occurrences of the current buffer with your register's content
 keymap.set("v", "<leader>p", '"_dP', non_recursive_option)
-keymap.set("i", "jj", "<ESC>", { desc = "Exit insert mode with jk" })
+keymap.set("i", "jk", "<ESC>", { desc = "Exit insert mode with jk" })
 
 -- window management
 keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" }) -- split window vertically
@@ -45,3 +45,8 @@ vim.api.nvim_set_keymap("n", "{", "{zz", non_recursive_option)
 vim.api.nvim_set_keymap("n", "<C-d>", "<C-d>zz", non_recursive_option) -- zz centers your cursor
 vim.api.nvim_set_keymap("n", "<C-u>", "<C-u>zz", non_recursive_option)
 vim.api.nvim_set_keymap("n", "}", "}zz", non_recursive_option)
+
+-- Goodies from TJ DeVries
+vim.keymap.set("n", "<space><space>x", "<cmd>source %<CR>", { desc = "source current file" })
+vim.keymap.set("n", "<space>x", ":.lua<CR>")
+vim.keymap.set("v", "<space>x", ":lua<CR>")
