@@ -45,12 +45,12 @@ function module.set_up_keybindings(config)
 		-- splitting
 		{
 			mods = "LEADER",
-			key = "-",
+			key = "v",
 			action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
 		},
 		{
 			mods = "LEADER",
-			key = "=",
+			key = "h",
 			action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
 		},
 		{
@@ -96,13 +96,13 @@ function module.set_up_keybindings(config)
 		},
 		-- move between tabs
 		{
-			key = "n",
+			key = "l",
 			mods = "LEADER",
 			action = wezterm.action.ActivateTabRelative(1),
 		},
 		{
 
-			key = "p",
+			key = "h",
 			mods = "LEADER",
 			action = wezterm.action.ActivateTabRelative(-1),
 		},
@@ -117,7 +117,7 @@ function module.set_up_keybindings(config)
 			action = wezterm.action.CloseCurrentTab({ confirm = true }),
 		},
 		{
-			key = "l",
+			key = "p",
 			mods = "LEADER",
 			-- Present in to our project picker
 			action = projects.choose_project(),
