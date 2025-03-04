@@ -45,12 +45,12 @@ function module.set_up_keybindings(config)
 		-- splitting
 		{
 			mods = "LEADER",
-			key = "v",
+			key = "b",
 			action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
 		},
 		{
 			mods = "LEADER",
-			key = "h",
+			key = "v",
 			action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
 		},
 		{
