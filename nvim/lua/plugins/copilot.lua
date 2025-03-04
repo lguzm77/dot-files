@@ -54,6 +54,9 @@ return {
 			debug = false,
 			auto_follow_cursor = false,
 			prompts = prompts,
+			question_header = "## User ",
+			answer_header = "## Copilot ",
+			error_header = "## Error ",
 			mappings = {
 				-- Use tab for completion
 				complete = {
