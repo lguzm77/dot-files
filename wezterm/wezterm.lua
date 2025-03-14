@@ -5,17 +5,17 @@ local keybindings = require("keybindings")
 local appearance = require("appearance")
 local config = wezterm.config_builder()
 
-config.font = wezterm.font("JetBrains Mono")
+config.font = wezterm.font("DankMono Nerd Font")
 config.font_size = 13
 config.line_height = 1.1
-config.default_cursor_style = "BlinkingBar"
+config.default_cursor_style = "BlinkingUnderline"
 config.native_macos_fullscreen_mode = true
 
 config.enable_tab_bar = true
 config.use_fancy_tab_bar = false
 config.tab_and_split_indices_are_zero_based = true
 config.window_frame = {
-	font = wezterm.font({ family = "JetBrains Mono", weight = "Bold" }),
+	font = wezterm.font({ family = "DankMono Nerd Font", style = "Italic" }),
 	font_size = 10,
 }
 
@@ -31,12 +31,12 @@ config.window_padding = {
 }
 
 config.mouse_bindings = {
-  -- Open URLs with CMD+Click
-  {
-    event = { Up = { streak = 1, button = 'Left' } },
-    mods = 'CMD',
-    action = wezterm.action.OpenLinkAtMouseCursor,
-  }
+	-- Open URLs with CMD+Click
+	{
+		event = { Up = { streak = 1, button = "Left" } },
+		mods = "CMD",
+		action = wezterm.action.OpenLinkAtMouseCursor,
+	},
 }
 
 -- Slightly transparent and blurred background
