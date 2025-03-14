@@ -1,7 +1,9 @@
 vim.keymap.set("t", "qq", "<c-\\><c-n>", { desc = "escape terminal mode" })
 
+local current_terminal_id = 1
 local terminal_states = {
 	[1] = { floating = { buf = -1, win = -1 } },
+	[2] = { floating = { buf = -1, win = -1 } },
 }
 
 local function create_floating_window(opts)
@@ -30,6 +32,7 @@ local function create_floating_window(opts)
 		row = row,
 		style = "minimal", -- No borders or extra UI elements
 		border = "rounded",
+		title = string.format("%s/%s", tostring(current_terminal_id), tostring(#terminal_states)),
 	}
 
 	-- Create the floating window
@@ -39,21 +42,55 @@ local function create_floating_window(opts)
 end
 
 local toggle_terminal = function(terminal_id)
-	local current_state = terminal_states[terminal_id]
-	if not vim.api.nvim_win_is_valid(current_state.floating.win) then
-		current_state.floating = create_floating_window({ buf = current_state.floating.buf })
-		if vim.bo[current_state.floating.buf].buftype ~= "terminal" then
+	local state = terminal_states[terminal_id]
+	-- Toggle visibility
+	if vim.api.nvim_win_is_valid(state.floating.win) then
+		vim.api.nvim_win_hide(state.floating.win)
+	else
+		-- Create window
+		state.floating = create_floating_window({ buf = state.floating.buf })
+		if vim.bo[state.floating.buf].buftype ~= "terminal" then
 			vim.cmd.terminal()
 		end
-	else
-		vim.api.nvim_win_hide(current_state.floating.win)
 	end
 end
 
--- Example usage:
+local rotate_terminal = function()
+	if #terminal_states == 0 then
+		return
+	end
+
+	toggle_terminal(current_terminal_id)
+
+	current_terminal_id = (current_terminal_id % #terminal_states) + 1
+
+	toggle_terminal(current_terminal_id)
+end
+
+local rotate_previous_terminal = function()
+	if #terminal_states == 0 then
+		return
+	end
+
+	toggle_terminal(current_terminal_id)
+
+	current_terminal_id = (current_terminal_id - 2 + #terminal_states) % #terminal_states + 1
+
+	toggle_terminal(current_terminal_id)
+end
+
 -- Create a floating window with default dimensions
--- TODO: figure out how to pass the terminal id for the terminal to toggle
+
 vim.api.nvim_create_user_command("Floaterminal", toggle_terminal, { desc = "toggle floating terminal" })
+
 vim.keymap.set({ "n", "t" }, "<leader>tt", function()
-	toggle_terminal(1)
+	toggle_terminal(current_terminal_id)
 end, { desc = "toggle floating terminal" })
+
+vim.keymap.set("t", "<leader>tn", function()
+	rotate_terminal()
+end, { desc = "next terminal" })
+
+vim.keymap.set("t", "<leader>tp", function()
+	rotate_previous_terminal()
+end, { desc = "previous terminal" })
