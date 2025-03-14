@@ -19,6 +19,9 @@ local pluginsToConfig = {
 	tabline = {
 		config = {},
 	},
+	ai = {
+		config = {},
+	},
 }
 
 return {
