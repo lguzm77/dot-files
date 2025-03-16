@@ -1,5 +1,4 @@
 return {
-	--TODO: integrate blink.cmp
 	{
 		"williamboman/mason.nvim",
 		event = "VeryLazy",
@@ -60,7 +59,7 @@ return {
 		-- completion
 		"Saghen/blink.cmp",
 		dependencies = "rafamadriz/friendly-snippets",
-    event = "VeryLazy",
+		event = "VeryLazy",
 
 		version = "v0.*",
 

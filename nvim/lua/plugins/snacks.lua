@@ -9,6 +9,16 @@ return {
 		dashboard = {
 			enabled = true,
 			preset = {
+				header = 
+        [[　　　 　　/＾>》, -―‐‐＜＾}
+				　　　 　./:::/,≠´::::::ヽ.
+				　　　　/::::〃::::／}::丿ハ
+				　　　./:::::i{l|／　ﾉ／ }::}
+				　　 /:::::::瓜イ＞　´＜ ,:ﾉ
+				　 ./::::::|ﾉﾍ.{､　(_ﾌ_ノﾉイ＿
+				　 |:::::::|／}｀ｽ /          /
+				.　|::::::|(_:::つ/ ThinkPad /　neovim!
+				.￣￣￣￣￣￣￣＼/＿＿＿＿＿/￣￣￣￣￣]],
 				keys = {
 					{ icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
 					-- { icon = " ", key = "s", desc = "Restore Previous CWD Session", action = ":SessionRestore" },
