@@ -170,6 +170,23 @@ return {
 						capabilities = capabilities,
 					})
 				end,
+				["yamlls"] = function()
+					lspconfig.yamlls.setup({
+						settings = {
+							yaml = {
+								schemas = {
+									["https://json.schemastore.org/github-workflow"] = ".github/workflows/*",
+									["https://json.schemastore.org/kubernetes"] = "manifests/*.k8s.yaml",
+								},
+								validate = true, -- Enable schema validation
+								format = {
+									enable = true, -- Enable auto-formatting
+								},
+								keyOrdering = false, -- Disable reordering of keys during formatting
+							},
+						},
+					})
+				end,
 				--specific handlers
 				["omnisharp"] = function()
 					local omnisharp_exec_path = vim.fn.stdpath("data") .. "/mason/packages/libexec/OmniSharp.dll"
