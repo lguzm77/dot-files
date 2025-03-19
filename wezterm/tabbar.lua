@@ -1,11 +1,29 @@
 local wezterm = require("wezterm")
 local module = {}
 
+local function get_battery_information()
+	local bat = "🔋"
+	for _, b in ipairs(wezterm.battery_info()) do
+		local charge = b.state_of_charge * 100
+
+		if b.state == "Charging" then
+			bat = "⚡"
+		elseif charge < 20 then
+			bat = "🪫"
+		end
+
+		bat = bat .. string.format("%.0f%%", charge)
+	end
+	return bat
+end
+
 -- configure tab line
 local function segments_for_right_status(window)
 	-- this returns a table of strings
 	return {
 		window:active_workspace(),
+		get_battery_information(),
+		wezterm.strftime("%a %b %-d %I:%M %p"),
 		wezterm.hostname(),
 	}
 end
