@@ -15,7 +15,7 @@ config.enable_tab_bar = true
 config.use_fancy_tab_bar = false
 config.tab_and_split_indices_are_zero_based = true
 config.window_frame = {
-	font = wezterm.font({ family = "Victor Mono", style = "Italic" }),
+	font = wezterm.font({ family = "VictorMono Nerd Font", style = "Italic" }),
 	font_size = 11,
 }
 
