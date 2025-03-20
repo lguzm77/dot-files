@@ -26,17 +26,12 @@ echo "Installing aerospace"
 # Continue execution even if command fails
 brew install --cask nikitabobko/tap/aerospace || true
 
-echo "Insalling sketchy bar"
-brew tap FelixKratz/formulae
-brew install sketchybar
-
 echo "Running stow on cwd\n"
 stow .
 
 echo "Finished installing tools, setting up home directory folders and tools"
 cd "$HOME"
 
-# TODO: can you add colors to the echo lines?
 echo "Setting up Python environment for diagrams\n"
 
 function installDiagrams(){
