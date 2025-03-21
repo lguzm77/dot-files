@@ -2,19 +2,26 @@ local wezterm = require("wezterm")
 local module = {}
 
 local function get_battery_information()
-	local bat = "🔋"
-	for _, b in ipairs(wezterm.battery_info()) do
-		local charge = b.state_of_charge * 100
+	local battery_status = ""
+	for _, battery in ipairs(wezterm.battery_info()) do
+		local charge = battery.state_of_charge * 100
+		local emoji = "🔋"
+		local state = battery.state
 
-		if b.state == "Charging" then
-			bat = "⚡"
-		elseif charge < 20 then
-			bat = "🪫"
+		if state == "Charging" then
+			emoji = "⚡"
+		elseif charge <= 25 then
+			emoji = "🪫"
+		elseif charge <= 10 then
+			emoji = "🪫⚠️"
+		else
+			-- Unknown state
+			emoji = "🔋❓"
 		end
 
-		bat = bat .. string.format("%.0f%%", charge)
+		battery_status = emoji .. string.format("%.0f%%", charge)
 	end
-	return bat
+	return battery_status
 end
 
 -- configure tab line
