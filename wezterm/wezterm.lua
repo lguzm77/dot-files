@@ -5,8 +5,8 @@ local keybindings = require("keybindings")
 local appearance = require("appearance")
 local config = wezterm.config_builder()
 
-config.font = wezterm.font({ family = "VictorMono Nerd Font", weight = "Medium" })
-config.font_size = 12.5
+config.font = wezterm.font({ family = "MonaspiceRn Nerd Font", weight = "Medium" })
+config.font_size = 12
 config.line_height = 1
 config.default_cursor_style = "BlinkingUnderline"
 config.native_macos_fullscreen_mode = true
