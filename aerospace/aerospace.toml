@@ -32,8 +32,11 @@ run = 'move-node-to-workspace T'
 
 [[on-window-detected]]
 if.app-id = 'com.tinyspeck.slackmacgap'
-run = 'move-node-to-workspace C'
+run = 'move-node-to-workspace 2'
 
+[[on-window-detected]]
+if.app-id= 'com.1password.1password'
+run 'move-node-to-workspace 2'
 
 [[on-window-detected]]
 check-further-callbacks = true
@@ -43,6 +46,4 @@ run = 'layout floating'
 [mode.main.binding]
 alt-1 = 'workspace 1'
 alt-2 = 'workspace 2'
-alt-3 = 'workspace 3'
 alt-t = 'workspace T'
-alt-c = 'workspace C' # stands for chats 
