@@ -9,20 +9,9 @@ return {
 		dashboard = {
 			enabled = true,
 			preset = {
-				header = 
-        [[　　　 　　/＾>》, -―‐‐＜＾}
-				　　　 　./:::/,≠´::::::ヽ.
-				　　　　/::::〃::::／}::丿ハ
-				　　　./:::::i{l|／　ﾉ／ }::}
-				　　 /:::::::瓜イ＞　´＜ ,:ﾉ
-				　 ./::::::|ﾉﾍ.{､　(_ﾌ_ノﾉイ＿
-				　 |:::::::|／}｀ｽ /          /
-				.　|::::::|(_:::つ/ ThinkPad /　neovim!
-				.￣￣￣￣￣￣￣＼/＿＿＿＿＿/￣￣￣￣￣]],
 				keys = {
 					{ icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
 					-- { icon = " ", key = "s", desc = "Restore Previous CWD Session", action = ":SessionRestore" },
-					{ icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
 					{
 						icon = " ",
 						key = "g",
@@ -52,6 +41,13 @@ return {
 					{ icon = " ", key = "O", desc = "List PRs for Current Repo", action = ":Octo pr list" },
 					{ icon = " ", key = "q", desc = "Quit", action = ":qa" },
 				},
+			},
+			sections = {
+				{ section = "header" },
+				{ icon = " ", title = "Keymaps", section = "keys", indent = 2, padding = 1 },
+				{ icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
+				{ icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
+				{ section = "startup" },
 			},
 		},
 		notifier = {
