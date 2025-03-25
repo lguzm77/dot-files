@@ -2,9 +2,9 @@
   undo = reset --soft HEAD^
 [rerere]
   enabled = true
-[user]
-	email = lguzmm77@icloud.com
-	name = lguzm77
+; [user]
+; 	email = ****
+; 	name = *****
 [maintenance]
 	repo = /Users/levguzman/Repos/znap
 	repo = /Users/levguzman/Repos/Aloxaf/fzf-tab
