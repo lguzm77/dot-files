@@ -1,5 +1,6 @@
 aliases:
   dp: deployments
+  hpa: autoscaling/v2
   sec: v1/secrets
   jo: jobs
   cr: clusterroles
