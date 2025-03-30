@@ -9,6 +9,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 vim.api.nvim_create_autocmd("BufReadPost", {
 	desc = "Only attach lsp client to open buffers",
+	group = vim.api.nvim_create_augroup("lsp-buffer-management", { clear = true }),
 	callback = function()
 		local bufnr = vim.api.nvim_get_current_buf()
 		local clients = vim.lsp.get_active_clients()
@@ -18,10 +19,21 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 	end,
 })
 
+local function is_oil_buffer(bufnr)
+	local filetype = vim.api.nvim_buf_get_option(bufnr or 0, "filetype")
+	return filetype == "oil"
+end
+
 vim.api.nvim_create_autocmd("BufDelete", {
 	desc = "Detach lsp client when a buffer is closed",
+	group = vim.api.nvim_create_augroup("lsp-buffer-management", { clear = true }),
 	callback = function()
 		local bufnr = vim.api.nvim_get_current_buf()
+
+		if is_oil_buffer(bufnr) then
+			return
+		end
+
 		local clients = vim.lsp.get_active_clients()
 		for _, client in ipairs(clients) do
 			vim.lsp.buf_detach_client(bufnr, client.id)
@@ -33,7 +45,7 @@ local keymap = vim.keymap
 
 -- keymaps
 vim.api.nvim_create_autocmd("LspAttach", {
-  desc = "LSP keymaps",
+	desc = "LSP keymaps",
 	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 	callback = function(ev)
 		-- Buffer local mappings.
