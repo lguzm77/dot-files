@@ -11,7 +11,7 @@ return {
 					lua = { "stylua" },
 					javascript = { "prettierd" },
 					typescript = { "prettierd" },
-					yaml = { "yamlfix" },
+					yaml = { "prettierd" },
 					json = { "prettierd" },
 					csharp = { "csharpier" },
 					["*"] = { "codespell" },
