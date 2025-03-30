@@ -172,11 +172,12 @@ return {
 				end,
 				["yamlls"] = function()
 					lspconfig.yamlls.setup({
+						capabilities = capabilities,
 						settings = {
 							yaml = {
 								schemas = {
 									["https://json.schemastore.org/github-workflow"] = ".github/workflows/*",
-									["https://json.schemastore.org/kubernetes"] = "manifests/*.k8s.yaml",
+									["https://json.schemastore.org/kubernetes"] = "manifests/*.yaml",
 								},
 								validate = true, -- Enable schema validation
 								format = {
