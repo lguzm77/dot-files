@@ -1,39 +1,14 @@
 local wezterm = require("wezterm")
+local tabbar_elements = require("tabbar_elements.battery")
 local module = {}
 
-local function get_battery_information()
-	local battery_status = ""
-	for _, battery in ipairs(wezterm.battery_info()) do
-		local charge = battery.state_of_charge * 100
-		local emoji = nil
-		local state = battery.state
-
-		if state == "Charging" then
-			emoji = "⚡"
-		elseif state == "Discharging" then
-			emoji = "🔋"
-		else
-			-- Unknown state
-			emoji = "🔋❓"
-		end
-
-		if charge <= 25 then
-			emoji = "🪫"
-		elseif charge <= 10 then
-			emoji = "🪫⚠️"
-		end
-
-		battery_status = emoji .. string.format("%.0f%%", charge)
-	end
-	return battery_status
-end
 
 -- configure tab line
 local function segments_for_right_status(window)
 	-- this returns a table of strings
 	return {
 		window:active_workspace(),
-		get_battery_information(),
+		tabbar_elements.get_battery_information(),
 		wezterm.strftime("%a %b %-d %I:%M %p"),
 		wezterm.hostname(),
 	}
