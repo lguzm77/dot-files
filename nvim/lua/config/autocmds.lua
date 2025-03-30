@@ -92,3 +92,19 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
 	end,
 })
+
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+  pattern = { "oil://*" },
+  callback = function()
+    vim.keymap.set("n", "h", "<Cmd>lua require('oil').open()<CR>", { buffer = 0 })
+    vim.keymap.set("n", "l", "<Cmd>lua require('oil').select()<CR>", { buffer = 0 })
+  end,
+})
+
+vim.api.nvim_create_autocmd("BufLeave", {
+  pattern = { "oil://*" },
+  callback = function()
+    vim.keymap.del("n", "h", { buffer = 0 }) -- Remove custom keymap on exit
+    vim.keymap.del("n", "l", { buffer = 0 }) -- Remove custom keymap on exit
+  end,
+})
