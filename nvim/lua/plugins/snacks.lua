@@ -6,6 +6,7 @@ return {
 	opts = {
 		bigfile = { enabled = true },
 		toggle = { enabled = true },
+		input = { enabled = true },
 		dashboard = {
 			enabled = true,
 			preset = {
@@ -72,6 +73,9 @@ return {
 		statuscolumn = { enabled = true },
 		words = { enabled = true },
 		styles = {
+			input = {
+				relative = "cursor",
+			},
 			notification = {
 				wo = { wrap = true }, -- Wrap notifications
 			},
