@@ -48,6 +48,14 @@ run = 'layout floating'
 
 
 [mode.main.binding]
-alt-1 = 'workspace 1'
-alt-2 = 'workspace 2'
-alt-t = 'workspace T'
+ctrl-1 = 'workspace 1'
+ctrl-2 = 'workspace 2'
+ctrl-t = 'workspace T'
+
+ctrl-slash = 'layout tiles horizontal vertical'
+ctrl-comma = 'layout accordion horizontal vertical'
+
+alt-h = 'focus left'
+alt-j = 'focus down'
+alt-k = 'focus up'
+alt-l = 'focus right'
