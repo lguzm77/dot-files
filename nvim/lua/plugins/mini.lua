@@ -9,6 +9,8 @@ local plugins = {
 	tabline = {},
 	ai = {}, --text objects
   operators = {},
+  bracketed = {},
+  files = {},
 }
 
 
