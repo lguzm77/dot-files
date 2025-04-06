@@ -1,27 +1,13 @@
 local pluginsToConfig = {
 	statusline = {
-		config = {
-			use_icons = true,
-		},
+		use_icons = true,
 	},
-	pairs = {
-		config = {},
-	},
-	surround = {
-		config = {},
-	},
-	comment = {
-		config = {},
-	},
-	sessions = {
-		config = {},
-	},
-	tabline = {
-		config = {},
-	},
-	ai = {
-		config = {},
-	},
+	pairs = {},
+	surround = {},
+	comment = {},
+	sessions = {},
+	tabline = {},
+	ai = {},
 }
 
 return {
@@ -31,7 +17,7 @@ return {
 		enabled = true,
 		config = function()
 			for pluginName, config in pairs(pluginsToConfig) do
-				require(string.format("mini.%s", pluginName)).setup(config.config)
+				require(string.format("mini.%s", pluginName)).setup(config)
 			end
 		end,
 	},
