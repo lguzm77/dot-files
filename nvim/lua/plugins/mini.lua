@@ -1,14 +1,16 @@
-local pluginsToConfig = {
+local plugins = {
 	statusline = {
 		use_icons = true,
 	},
 	pairs = {},
-	surround = {},
+	surround = {}, -- wrap around words 
 	comment = {},
 	sessions = {},
 	tabline = {},
-	ai = {},
+	ai = {}, --text objects
+  operators = {},
 }
+
 
 return {
 	{
@@ -16,8 +18,8 @@ return {
 		event = "VeryLazy",
 		enabled = true,
 		config = function()
-			for pluginName, config in pairs(pluginsToConfig) do
-				require(string.format("mini.%s", pluginName)).setup(config)
+			for name, config in pairs(plugins) do
+				require(string.format("mini.%s", name)).setup(config)
 			end
 		end,
 	},
