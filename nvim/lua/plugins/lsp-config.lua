@@ -121,7 +121,7 @@ return {
 				end,
 				["yamlls"] = function()
 					lspconfig.yamlls.setup({
-						filetypes = { "yaml", "yaml.docker-compose", "yaml.gitlab" },
+						filetypes = { "yml", "yaml", "yaml.docker-compose", "yaml.gitlab" },
 						capabilities = capabilities,
 						settings = {
 							yaml = {

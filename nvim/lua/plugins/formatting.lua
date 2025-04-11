@@ -12,6 +12,7 @@ return {
 					javascript = { "prettierd" },
 					typescript = { "prettierd" },
 					yaml = { "prettierd" },
+					yml = { "prettierd" },
 					json = { "prettierd" },
 					csharp = { "csharpier" },
 					["*"] = { "codespell" },
