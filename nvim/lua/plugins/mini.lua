@@ -10,7 +10,12 @@ local plugins = {
 	ai = {}, --text objects
 	operators = {},
 	bracketed = {},
-	files = {}, -- filesystem
+	files = {
+		windows = {
+			width_preview = math.floor(0.3 * vim.o.columns),
+			preview = true,
+		},
+	}, -- filesystem
 }
 
 return {
