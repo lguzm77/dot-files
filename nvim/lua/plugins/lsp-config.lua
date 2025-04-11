@@ -13,7 +13,7 @@ return {
 			-- Linters and formatters
 			local javascript_tools = {
 				"prettierd",
-				"eslint_d",
+				"eslint",
 				"js-debug-adapter",
 			}
 
@@ -95,6 +95,7 @@ return {
 			local lsps = {
 				"yamlls",
 				"biome", -- js toolchain
+				"eslint",
 				"gopls",
 				"omnisharp",
 				"lua_ls",
@@ -117,6 +118,17 @@ return {
 				function(server_name)
 					lspconfig[server_name].setup({
 						capabilities = capabilities,
+					})
+				end,
+				["eslint"] = function()
+					lspconfig.eslint.setup({
+						packageManager = "npm",
+						on_attach = function(client, bufnr)
+							vim.api.nvim_create_autocmd("BufWritePre", {
+								buffer = bufnr,
+								command = "EslintFixAll",
+							})
+						end,
 					})
 				end,
 				["yamlls"] = function()
