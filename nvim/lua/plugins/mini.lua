@@ -28,7 +28,7 @@ return {
 				require(string.format("mini.%s", name)).setup(config)
 			end
 
-			vim.keymap.set("n", "-", ":lua MiniFiles.open()<cr>", { desc = "Open filesystem" })
+			vim.keymap.set("n", "<leader>e", ":lua MiniFiles.open()<cr>", { desc = "Open filesystem" })
 		end,
 	},
 }

@@ -7,6 +7,7 @@ return {
 		bigfile = { enabled = true },
 		toggle = { enabled = true },
 		input = { enabled = true },
+		picker = { enabled = true },
 		dashboard = {
 			enabled = true,
 			preset = {
@@ -82,33 +83,93 @@ return {
 		},
 	},
 	keys = {
+		-- Top Pickers & Explorer
 		{
-			"<leader>un",
+			"<leader><space>",
 			function()
-				Snacks.notifier.hide()
+				Snacks.picker.smart()
 			end,
-			desc = "Dismiss All Notifications",
+			desc = "Smart Find Files",
 		},
 		{
-			"<leader>bd",
+			"<leader>/",
 			function()
-				Snacks.bufdelete()
+				Snacks.picker.grep()
 			end,
-			desc = "Delete Buffer",
+			desc = "Grep",
 		},
 		{
-			"<leader>gg",
+			"<leader>:",
 			function()
-				Snacks.lazygit()
+				Snacks.picker.command_history()
 			end,
-			desc = "Lazygit",
+			desc = "Command History",
 		},
 		{
-			"<leader>gb",
+			"<leader>n",
 			function()
-				Snacks.git.blame_line()
+				Snacks.picker.notifications()
 			end,
-			desc = "Git Blame Line",
+			desc = "Notification History",
+		},
+		-- {
+		-- 	"<leader>e",
+		-- 	function()
+		-- 		Snacks.explorer()
+		-- 	end,
+		-- 	desc = "File Explorer",
+		-- },
+		--
+		-- find
+		{
+			"<leader>fb",
+			function()
+				Snacks.picker.buffers()
+			end,
+			desc = "Buffers",
+		},
+		{
+			"<leader>fc",
+			function()
+				Snacks.picker.files({ cwd = vim.fn.stdpath("config") })
+			end,
+			desc = "Find Config File",
+		},
+		{
+			"<leader>ff",
+			function()
+				Snacks.picker.files()
+			end,
+			desc = "Find Files",
+		},
+		{
+			"<leader>fg",
+			function()
+				Snacks.picker.git_files()
+			end,
+			desc = "Find Git Files",
+		},
+		{
+			"<leader>fp",
+			function()
+				Snacks.picker.projects()
+			end,
+			desc = "Projects",
+		},
+		{
+			"<leader>fr",
+			function()
+				Snacks.picker.recent()
+			end,
+			desc = "Recent",
+		},
+		--others
+		{
+			"<leader>z",
+			function()
+				Snacks.zen()
+			end,
+			desc = "Toggle Zen Mode",
 		},
 		{
 			"<leader>gB",
@@ -116,68 +177,14 @@ return {
 				Snacks.gitbrowse()
 			end,
 			desc = "Git Browse",
+			mode = { "n", "v" },
 		},
 		{
-			"<leader>gf",
+			"<leader>gg",
 			function()
-				Snacks.lazygit.log_file()
+				Snacks.lazygit()
 			end,
-			desc = "Lazygit Current File History",
-		},
-		{
-			"<leader>gl",
-			function()
-				Snacks.lazygit.log()
-			end,
-			desc = "Lazygit Log (cwd)",
-		},
-		{
-			"<leader>cR",
-			function()
-				Snacks.rename.rename_file()
-			end,
-			desc = "Rename File",
-		},
-		{
-			"<c-_>",
-			function()
-				Snacks.terminal()
-			end,
-			desc = "which_key_ignore",
-		},
-		{
-			"]]",
-			function()
-				Snacks.words.jump(vim.v.count1)
-			end,
-			desc = "Next Reference",
-			mode = { "n", "t" },
-		},
-		{
-			"[[",
-			function()
-				Snacks.words.jump(-vim.v.count1)
-			end,
-			desc = "Prev Reference",
-			mode = { "n", "t" },
-		},
-		{
-			"<leader>N",
-			desc = "Neovim News",
-			function()
-				Snacks.win({
-					file = vim.api.nvim_get_runtime_file("doc/news.txt", false)[1],
-					width = 0.5,
-					height = 0.5,
-					wo = {
-						spell = false,
-						wrap = true,
-						signcolumn = "yes",
-						statuscolumn = " ",
-						conceallevel = 3,
-					},
-				})
-			end,
+			desc = "Lazygit",
 		},
 	},
 	init = function()
