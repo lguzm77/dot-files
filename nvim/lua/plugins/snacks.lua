@@ -139,13 +139,6 @@ return {
 			desc = "Rename File",
 		},
 		{
-			"<c-/>",
-			function()
-				Snacks.terminal()
-			end,
-			desc = "Toggle Terminal",
-		},
-		{
 			"<c-_>",
 			function()
 				Snacks.terminal()
@@ -214,6 +207,14 @@ return {
 					.option("background", { off = "light", on = "dark", name = "Dark Background" })
 					:map("<leader>ub")
 				Snacks.toggle.inlay_hints():map("<leader>uh")
+			end,
+		})
+
+		-- Mini.files autocmd
+		vim.api.nvim_create_autocmd("User", {
+			pattern = "MiniFilesActionRename",
+			callback = function(event)
+				Snacks.rename.on_rename_file(event.data.from, event.data.to)
 			end,
 		})
 	end,
