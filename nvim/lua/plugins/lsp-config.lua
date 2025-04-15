@@ -123,11 +123,21 @@ return {
         end,
         ["eslint"] = function()
           lspconfig.eslint.setup({
-            packageManager = "npm",
+            root_dir = require("lspconfig.util").root_pattern(
+              ".eslintrc",
+              ".eslintrc.js",
+              ".eslintrc.cjs",
+              ".eslintrc.yaml",
+              ".eslintrc.yml",
+              ".eslintrc.json",
+              "eslint.config.mjs"
+            ),
             settings = {
-              validate = "on",
-              workingDirectories = { mode = "auto" },
-              format = true,
+              packageManager = "npm", -- or "yarn"/"pnpm" depending on your project[9]
+              validate = "on", -- Enable linting
+              workingDirectories = {
+                mode = "auto",
+              },
             },
             on_attach = function(client, bufnr)
               vim.api.nvim_create_autocmd("BufWritePre", {
@@ -156,7 +166,6 @@ return {
             },
           })
         end,
-        --specific handlers
         ["omnisharp"] = function()
           local omnisharp_exec_path = vim.fn.stdpath "data"
             .. "/mason/packages/libexec/OmniSharp.dll"
