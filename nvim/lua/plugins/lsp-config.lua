@@ -56,29 +56,6 @@ return {
     end,
   },
   {
-    -- completion
-    "Saghen/blink.cmp",
-    dependencies = "rafamadriz/friendly-snippets",
-    event = "VeryLazy",
-
-    version = "v0.*",
-
-    opts = {
-      keymap = { preset = "default" },
-
-      appearance = {
-        use_nvim_cmp_as_default = true,
-        nerd_font_variant = "mono",
-      },
-
-      sources = {
-        default = { "lsp", "path", "snippets", "buffer" },
-      },
-    },
-    opts_extend = { "sources.default" },
-  },
-
-  {
     "neovim/nvim-lspconfig",
     dependencies = {
       "Saghen/blink.cmp",
@@ -108,7 +85,7 @@ return {
       })
 
       local signs =
-        { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
+      { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
       for type, icon in pairs(signs) do
         local hl = "DiagnosticSign" .. type
         vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
@@ -189,8 +166,8 @@ return {
               "eslint.config.mjs"
             ),
             settings = {
-              packageManager = "npm", -- or "yarn"/"pnpm" depending on your project[9]
-              validate = "on", -- Enable linting
+              packageManager = "npm",
+              validate = "on",
               workingDirectories = {
                 mode = "auto",
               },
@@ -213,9 +190,9 @@ return {
                   ["https://json.schemastore.org/github-workflow"] = ".github/workflows/*",
                   ["https://json.schemastore.org/kubernetes"] = "manifests/*.yaml",
                 },
-                validate = true, -- Enable schema validation
+                validate = true,     -- Enable schema validation
                 format = {
-                  enable = true, -- Enable auto-formatting
+                  enable = true,     -- Enable auto-formatting
                 },
                 keyOrdering = false, -- Disable reordering of keys during formatting
               },
@@ -224,7 +201,7 @@ return {
         end,
         ["omnisharp"] = function()
           local omnisharp_exec_path = vim.fn.stdpath "data"
-            .. "/mason/packages/libexec/OmniSharp.dll"
+              .. "/mason/packages/libexec/OmniSharp.dll"
           lspconfig.omnisharp.setup({
             capabilities = capabilities,
             cmd = { "dotnet", omnisharp_exec_path },
