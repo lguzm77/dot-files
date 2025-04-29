@@ -13,8 +13,8 @@ return {
       -- Linters and formatters
       local javascript_tools = {
         "prettierd",
-        "eslint",
         "js-debug-adapter",
+        "eslint_d",
       }
 
       local go_tools = {
@@ -42,6 +42,7 @@ return {
           unpack(shell_tools),
           "tflint",
         },
+        run_on_start = true,
       })
 
       mason.setup({
@@ -63,7 +64,6 @@ return {
     },
     event = "VeryLazy",
     config = function()
-      -- TODO: rework lsp configuration
       local capabilities = require("blink.cmp").get_lsp_capabilities()
       local mason_lspconfig = require "mason-lspconfig"
 
@@ -71,11 +71,13 @@ return {
 
       local lsps = {
         "yamlls",
-        "biome", -- js toolchain
+        "ts_ls",
         "eslint",
         "gopls",
         "omnisharp",
         "lua_ls",
+        "dockerls",
+        "bashls",
       }
 
       -- Language servers installed by Mason
@@ -85,7 +87,7 @@ return {
       })
 
       local signs =
-      { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
+        { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
       for type, icon in pairs(signs) do
         local hl = "DiagnosticSign" .. type
         vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
@@ -154,17 +156,28 @@ return {
             capabilities = capabilities,
           })
         end,
+        ["ts_ls"] = function()
+          lspconfig.ts_ls.setup({
+            capabilities = capabilities,
+            filetypes = {
+              "javascript",
+              "javascriptreact",
+              "typescript",
+              "typescriptreact",
+              "typescript.tsx",
+            },
+            root_dir = function()
+              return vim.fs.dirname(
+                vim.fs.find("tsconfig.json", { upward = true })[1]
+                  or vim.fs.find("package.json", { upward = true })[1]
+              )
+            end,
+          })
+        end,
         ["eslint"] = function()
           lspconfig.eslint.setup({
-            root_dir = require("lspconfig.util").root_pattern(
-              ".eslintrc",
-              ".eslintrc.js",
-              ".eslintrc.cjs",
-              ".eslintrc.yaml",
-              ".eslintrc.yml",
-              ".eslintrc.json",
-              "eslint.config.mjs"
-            ),
+            capabilities = capabilities,
+            bin = "eslint_d", -- faster execution
             settings = {
               packageManager = "npm",
               validate = "on",
@@ -190,9 +203,9 @@ return {
                   ["https://json.schemastore.org/github-workflow"] = ".github/workflows/*",
                   ["https://json.schemastore.org/kubernetes"] = "manifests/*.yaml",
                 },
-                validate = true,     -- Enable schema validation
+                validate = true, -- Enable schema validation
                 format = {
-                  enable = true,     -- Enable auto-formatting
+                  enable = true, -- Enable auto-formatting
                 },
                 keyOrdering = false, -- Disable reordering of keys during formatting
               },
@@ -201,7 +214,7 @@ return {
         end,
         ["omnisharp"] = function()
           local omnisharp_exec_path = vim.fn.stdpath "data"
-              .. "/mason/packages/libexec/OmniSharp.dll"
+            .. "/mason/packages/libexec/OmniSharp.dll"
           lspconfig.omnisharp.setup({
             capabilities = capabilities,
             cmd = { "dotnet", omnisharp_exec_path },
