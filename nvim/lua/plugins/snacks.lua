@@ -262,6 +262,21 @@ return {
       end,
       desc = "Git Log File",
     },
+    -- LSP
+    {
+      "<leader>ss",
+      function()
+        Snacks.picker.lsp_symbols()
+      end,
+      desc = "LSP Symbols",
+    },
+    {
+      "<leader>sS",
+      function()
+        Snacks.picker.lsp_workspace_symbols()
+      end,
+      desc = "LSP Workspace Symbols",
+    },
   },
   init = function()
     vim.api.nvim_create_autocmd("User", {
