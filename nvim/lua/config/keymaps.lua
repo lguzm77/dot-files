@@ -41,9 +41,13 @@ keymap.set("v", ">", ">gv", non_recursive_option)
 -- Navigation and centering is handled by cinnamon.lua
 keymap.set("n", "n", "nzzzv", non_recursive_option)
 keymap.set("n", "N", "Nzzzv", non_recursive_option)
+
 vim.api.nvim_set_keymap("n", "{", "{zz", non_recursive_option)
 vim.api.nvim_set_keymap("n", "<C-d>", "<C-d>zz", non_recursive_option) -- zz centers your cursor
 vim.api.nvim_set_keymap("n", "<C-u>", "<C-u>zz", non_recursive_option)
+vim.api.nvim_set_keymap("n", "<C-f>", "<C-f>zz", non_recursive_option)
+vim.api.nvim_set_keymap("n", "<C-b>", "<C-b>zz", non_recursive_option)
+
 vim.api.nvim_set_keymap("n", "}", "}zz", non_recursive_option)
 
 -- Goodies from TJ DeVries
