@@ -4,7 +4,7 @@ return {
     event = "VeryLazy",
     version = "v2.3",
     config = function()
-      local ls = require("luasnip")
+      local ls = require "luasnip"
       local s = ls.snippet
       local t = ls.text_node
       local i = ls.insert_node
@@ -18,7 +18,7 @@ return {
           t({ "const app = express();", "\t" }),
 
           t({ "app.use(bodyParser.json());", "\t" }),
-          t("app.listen(3000, async () => console.log(`listening on port 3000`));"),
+          t "app.listen(3000, async () => console.log(`listening on port 3000`));",
         }),
       })
       -- TODO: add snippets for get and post paths
@@ -34,28 +34,29 @@ return {
         }),
       })
     end,
-  }, {
-  -- completion
-  "Saghen/blink.cmp",
-  dependencies = "rafamadriz/friendly-snippets",
-  event = "VeryLazy",
-
-  version = "v0.*",
-
-  opts = {
-    keymap = { preset = "default" },
-
-    appearance = {
-      use_nvim_cmp_as_default = true,
-      nerd_font_variant = "mono",
-    },
-
-    sources = {
-      default = { "lsp", "path", "snippets", "buffer" },
-    },
   },
-  opts_extend = { "sources.default" },
-},
+  {
+    -- completion
+    "Saghen/blink.cmp",
+    dependencies = "rafamadriz/friendly-snippets",
+    event = "VeryLazy",
 
+    version = "v0.*",
 
+    opts = {
+      keymap = { preset = "default" },
+
+      appearance = {
+        use_nvim_cmp_as_default = true,
+        nerd_font_variant = "mono",
+      },
+
+      signature = { enabled = true },
+
+      sources = {
+        default = { "lsp", "path", "snippets", "buffer" },
+      },
+    },
+    opts_extend = { "sources.default" },
+  },
 }
