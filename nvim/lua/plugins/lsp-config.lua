@@ -205,7 +205,7 @@ return {
                 },
                 validate = true, -- Enable schema validation
                 format = {
-                  enable = true, -- Enable auto-formatting
+                  enable = false, -- Enable auto-formatting
                 },
                 keyOrdering = false, -- Disable reordering of keys during formatting
               },
