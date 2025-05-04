@@ -8,7 +8,6 @@ return {
     toggle = { enabled = true },
     input = { enabled = true },
     picker = { enabled = true },
-    explorer = { enabled = true },
     dashboard = {
       enabled = true,
       preset = {
@@ -137,13 +136,6 @@ return {
         Snacks.picker.command_history()
       end,
       desc = "Command History",
-    },
-    {
-      "<leader>e",
-      function()
-        Snacks.explorer()
-      end,
-      desc = "File Explorer",
     },
     -- find
     {
