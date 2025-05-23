@@ -12,6 +12,13 @@ else
   echo "homebrew is already installed\n"
 fi 
 
+echo "Installing Nix package manager\n"
+if ! command -v nix >&2; then 
+  curl -L https://nixos.org/nix/install | sh || true 
+else
+  echo "Nix is already installed \n"
+fi 
+
 #[ is an alternative for the test command 
 # [[ is a shell keyword, alternative for test 
 
