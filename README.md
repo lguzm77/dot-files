@@ -1,17 +1,20 @@
 # Lev's Personal Dotfiles
 
-Personal dotfiles, managed by GNU Stow.
+Personal dotfiles, symlinks managed by GNU Stow.
 
-# Usage
+# Bootstrapping
 
-Before running `setup,sh` install all the dependencies using homebrew (for now hehehe):
+If installing in a fresh environment
 
-```bash
+- Run `sh setup.sh` to configure environment variables, text editor, shell, dependencies and symlinks
+
+That's it, you now have an environment ready for development.
+
 # Leaving a machine
-brew leaves > leaves.txt
 
-#Fresh installation
-xargs brew install < leaves.txt
+When leaving a machine you can persist any new dependencies in `/homebrew/leaves.txt` 
+
+```zsh
+brew leaves > ./homebrew/leaves.txt
 ```
 
-Then execute `sh setup.sh`
