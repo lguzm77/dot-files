@@ -28,7 +28,7 @@ export FZF_CTRL_R_OPTS="--style minimal --color 16 --info inline --no-sort --no-
 export MANPAGER="less -R --use-color -Dd+r -Du+b" # colored man pages
 
 # colored less + termcap vars
-export LESS="R --use-color -Dd+r -Du+b"
+# export LESS="R --use-color -Dd+r -Du+b"
 export LESS_TERMCAP_mb="$(printf '%b' '[1;31m')"
 export LESS_TERMCAP_md="$(printf '%b' '[1;36m')"
 export LESS_TERMCAP_me="$(printf '%b' '[0m')"
