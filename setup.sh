@@ -19,7 +19,9 @@ dependencies(){
 shell() {
   echo "Setting relevant environment variables"
 
-  source "$PWD/zsh/.zprofile"
+  # Create a symlink between $PWD/.zprofile and $HOME/.zprofile
+  ln -s "$PWD/.zprofile" "$HOME/.zprofile"
+  source "$PWD/.zprofile"
 
 }
 
