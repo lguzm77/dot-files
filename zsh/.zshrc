@@ -94,10 +94,6 @@ znap eval _kubectl 'kubectl completion zsh'
 # Use this block to import any additinonal configurations
 # . my-config.zshrc 
 
-# Enable syntax highlighting for man pages with less 
-export MANPAGER="less -R --use-color -Dd+r -Du+b"
-
-
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 
