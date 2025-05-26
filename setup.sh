@@ -1,88 +1,63 @@
 #! /usr/bin/env bash
-set -o errexit # stop script if error is raised.
-set -o nounset # raise an error if a variable is unset.
 
-echo "Starting setup script\n"
+dependencies(){
+  echo "Installing dependencies"
 
-echo "Installing the homebrew package manager\n"
-# check if homebrew is installed
-if ! command -v brew >&2; then
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-else 
-  echo "homebrew is already installed\n"
-fi 
+  if ! command -v brew > /dev/null ; then 
+    echo "Homebrew not found, installing"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" # install Homebrew
+  fi 
 
-#[ is an alternative for the test command 
-# [[ is a shell keyword, alternative for test 
+  # Install all packages 
+  xargs brew install < "$PWD/homebrew/leaves.txt"
 
-echo "Installing homebrew packages\n"
-xargs brew install < "$HOME/dot-files/homebrew/leaves.txt"
-# Install wezterm, does not appear in leaves.txt 
-echo "Installing wezterm"
-brew install --cask wezterm
-
-# Install aerospace, does not appear in leaves.txt
-echo "Installing aerospace"
-# Continue execution even if command fails
-brew install --cask nikitabobko/tap/aerospace || true
-
-echo "Running stow on cwd\n"
-stow .
-
-echo "Finished installing tools, setting up home directory folders and tools"
-cd "$HOME"
-
-echo "Setting up Python environment for diagrams\n"
-
-function installDiagrams(){
-mkdir architecture-diagrams
-
-
-# Setup a new python3 virtual environment
-cd ./architecture-diagrams && python3 -m venv diagrams-pyenv
-
-# Install all necessary tooling
-source diagrams-pyenv/bin/activate
-pip3 install diagrams
-
-#return to the root directory
-cd ..
+  # Casks have a slightly different syntax
+  brew install --cask wezterm 
+  # Install window manager
+  brew install --cask nikitabobko/tap/aerospace
 }
 
-# CHeck if the directory exists
-if [ ! -d "architecture-diagrams" ]; then
-  installDiagrams
-  echo "architecture-diagrams directory created and diagram tooling installed"
-else
-  # if the directory exists, we can assume that the necessary tooling is already installed. 
-  # This script is meant to run in a new computer
-  echo "Directory architecture-diagrams already exists"
-fi
+shell() {
+  echo "Setting up shell environment"
+
+  echo "Setting relevant environment variables"
+  # Create a symlink between $PWD/.zprofile and $HOME/.zprofile
+  ln -s "$PWD/.zprofile" "$HOME/.zprofile"
+  source "$PWD/.zprofile"
+  stow zsh
+
+}
 
 
-echo "Setting up Mermaid diagrams local environment"
+symlinks () {
+  echo "Setting up symlinks using stow"
+  stow .
+}
 
-if ! command -v mmdc >&2; then
-  npm install -g @mermaid-js/mermaid-cli
-  mkdir mermaid-diagrams
-  echp "Mermaid tooling installed and mermaid-diagrams directory created"
-else
-  echo "Mermaid is already installed"
-fi
-# Usage mmdc -i input.mmd -o output.png -t dark -b transparent
-
-# Create a directory where all your projects will be placed
-if [[ ! -d "projects" ]]; then
-  mkdir projects
-  echo "Created projects directory"
-else
-  echo "projects directory already exists" 
-fi 
-
-# Create a symlink between ./dot-files/zsh/.zshrc and ~/.zshrc
-echo "creating symlink ./dot-files/zsh/.zshrc and ~/.zshrc"
-ln -s "$HOME"/dot-files/zsh/.zshrc "$HOME"/.zshrc
+all() {
+  shell
+  dependencies
+  editor
+  symlinks
+}
 
 
-echo "Finished setup script"
+case "$1" in
+  dependencies) 
+    dependencies
+    ;;
+  shell)
+    shell
+    ;;
+  editor) 
+    editor
+    ;;
+  symlinks)
+    symlinks
+    ;;
+  *) 
+    all
+    ;;
+esac 
+
 
