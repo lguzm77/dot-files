@@ -14,23 +14,23 @@ dependencies(){
   # Casks have a slightly different syntax
   brew install --cask wezterm 
   # Install window manager
+  brew install --cask nikitabobko/tap/aerospace
 }
 
 shell() {
-  echo "Setting relevant environment variables"
+  echo "Setting up shell environment"
 
+  echo "Setting relevant environment variables"
   # Create a symlink between $PWD/.zprofile and $HOME/.zprofile
   ln -s "$PWD/.zprofile" "$HOME/.zprofile"
   source "$PWD/.zprofile"
+  stow zsh
 
 }
 
-editor () {
-  echo "Editor not implemented"
-}
 
 symlinks () {
-  echo "Setting up symlinks"
+  echo "Setting up symlinks using stow"
   stow .
 }
 
@@ -51,6 +51,9 @@ case "$1" in
     ;;
   editor) 
     editor
+    ;;
+  symlinks)
+    symlinks
     ;;
   *) 
     all
