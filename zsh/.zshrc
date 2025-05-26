@@ -38,8 +38,9 @@ bindkey '^p' history-beginning-search-backward
 bindkey '^n' history-beginning-search-forward
 
 # history 
-HISTSIZE=5000
-HISTFILE=~/.zsh_history
+HISTSIZE=1000000
+SAVEHIST=1000000
+HISTFILE="$XDG_CACHE_HOME/zsh_history" # move histfile to cache
 SAVEHIST=$HISTSIZE
 HISTDUP=erase
 setopt appendhistory
