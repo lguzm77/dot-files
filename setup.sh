@@ -17,7 +17,9 @@ dependencies(){
 }
 
 shell() {
-  echo "Not implemented"
+  echo "Setting relevant environment variables"
+
+  source "$PWD/zsh/.zprofile"
 
 }
 
@@ -25,10 +27,16 @@ editor () {
   echo "Editor not implemented"
 }
 
+symlinks () {
+  echo "Setting up symlinks"
+  stow .
+}
+
 all() {
   shell
   dependencies
   editor
+  symlinks
 }
 
 
