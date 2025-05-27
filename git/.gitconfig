@@ -2,9 +2,11 @@
   undo = reset --soft HEAD^
 [rerere]
   enabled = true
-[user]
-	email = lguzmm77@icloud.com
-	name = lguzm77
+
+# This section will be populated by the setup script
+#[user]
+#	email = email  
+#	name = username
 [maintenance]
 	repo = /Users/levguzman/Repos/znap
 	repo = /Users/levguzman/Repos/Aloxaf/fzf-tab
