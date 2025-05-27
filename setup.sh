@@ -37,7 +37,6 @@ symlinks () {
 all() {
   shell
   dependencies
-  editor
   symlinks
 }
 
@@ -48,9 +47,6 @@ case "$1" in
     ;;
   shell)
     shell
-    ;;
-  editor) 
-    editor
     ;;
   symlinks)
     symlinks
