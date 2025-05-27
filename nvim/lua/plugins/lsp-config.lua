@@ -4,6 +4,7 @@ return {
     event = "VeryLazy",
     cmd = "Mason",
     dependencies = {
+      "WhoIsSethDaniel/mason-tool-installer.nvim",
       "williamboman/mason-lspconfig",
       "neovim/nvim-lspconfig",
     },
@@ -25,6 +26,7 @@ return {
     config = function(_, opts)
       local mason = require "mason"
       local mason_lspconfig = require "mason-lspconfig"
+      local mason_tool_installer = require "mason-tool-installer"
 
       mason.setup({
         ui = {
@@ -36,7 +38,21 @@ return {
         },
       })
 
-      -- New stuff
+      mason_tool_installer.setup({
+
+        ensure_installed = {
+          "stylua",
+          "prettierd",
+          "prettier",
+          "csharpier",
+          "codespell",
+          "gofumpt",
+          "beautysh",
+          "shellcheck",
+          "buf",
+        },
+      })
+
       local lsps = {
         "yamlls",
         "ts_ls",
