@@ -1,12 +1,12 @@
 local opt = vim.opt
 
-opt.clipboard:append("unnamedplus") -- use system clipboard as default register
+opt.clipboard:append "unnamedplus" -- use system clipboard as default register
 opt.termguicolors = true
 
-vim.cmd("set expandtab")
-vim.cmd("set tabstop=2")
-vim.cmd("set softtabstop=2")
-vim.cmd("set shiftwidth=2")
+vim.cmd "set expandtab"
+vim.cmd "set tabstop=2"
+vim.cmd "set softtabstop=2"
+vim.cmd "set shiftwidth=2"
 
 vim.g.mapleader = " "
 
@@ -17,16 +17,15 @@ vim.o.hlsearch = true
 vim.wo.number = true
 vim.o.relativenumber = true
 
-
-vim.cmd("set wrap")
+vim.cmd "set wrap"
 
 -- Enable break indent
 vim.o.breakindent = true
 
-vim.cmd("set linebreak")
-vim.cmd("set foldlevel=20") -- how deep do we want our folds to go
-vim.cmd("set foldmethod=expr")
-vim.cmd("set foldexpr=nvim_treesitter#foldexpr()") -- treesitter dependency
+vim.cmd "set linebreak"
+vim.cmd "set foldlevel=20" -- how deep do we want our folds to go
+vim.cmd "set foldmethod=expr"
+vim.cmd "set foldexpr=nvim_treesitter#foldexpr()" -- treesitter dependency
 --vim.opt.nofoldenable = true
 vim.opt.foldlevelstart = 99
 
@@ -45,5 +44,10 @@ vim.o.undofile = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
- -- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
+-- Set completeopt to have a better completion experience
+vim.o.completeopt = "menuone,noselect"
+
+vim.diagnostic.config({
+  underline = true,
+  virtual_text = true,
+})
