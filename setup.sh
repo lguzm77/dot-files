@@ -34,6 +34,20 @@ symlinks () {
   stow .
 }
 
+git () {
+  echo "Setting up .gitconfig file"
+  
+  # Ask for an email
+  local github_email
+  local github_username
+  read -p "Enter your github email account" github_email
+  read -p "Enter your github username" github_username
+
+  # Populate .gitconfig file
+
+
+}
+
 all() {
   shell
   dependencies
@@ -54,6 +68,9 @@ case "$1" in
     ;;
   symlinks)
     symlinks
+    ;;
+  git)
+    git
     ;;
   *) 
     all
