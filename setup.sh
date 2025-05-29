@@ -15,6 +15,9 @@ dependencies(){
   brew install --cask wezterm 
   # Install window manager
   brew install --cask nikitabobko/tap/aerospace
+
+  #pywal16
+  pipx install pywal16
 }
 
 shell() {
