@@ -36,6 +36,7 @@ autoload -U compinit && compinit
 bindkey jj vi-cmd-mode
 bindkey '^p' history-beginning-search-backward
 bindkey '^n' history-beginning-search-forward
+bindkey '^f' autosuggest-accept
 
 # history 
 HISTSIZE=1000000
