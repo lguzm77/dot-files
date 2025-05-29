@@ -6,12 +6,15 @@ docker
 elixir
 exercism
 eza
+fd
+fluxcd/tap/flux
 fnm
 fzf
 gawk
 gh
 gnu-sed
 graphviz
+imagemagick
 k9s
 lazydocker
 lazygit
@@ -20,6 +23,7 @@ mkcert
 neovim
 nmap
 node
+pipx
 powerlevel10k
 pure
 ripgrep
