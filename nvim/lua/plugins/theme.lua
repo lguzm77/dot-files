@@ -7,7 +7,9 @@ return {
     opts = {},
     config = function()
       local neopywal = require "neopywal"
-      neopywal.setup()
+      neopywal.setup({
+        transparent_background = true
+      })
       vim.cmd.colorscheme "neopywal"
     end,
   },
