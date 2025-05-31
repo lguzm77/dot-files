@@ -1,5 +1,4 @@
 [colors]
-# TODO: finish modifying all variables
 ansi = [
   "{color0}", 
   "{color1}", 
@@ -9,6 +8,9 @@ ansi = [
   "{color5}", 
   "{color6}", 
   "{color7}", 
+]
+
+brights = [
   "{color8}", 
   "{color9}", 
   "{color10}", 
@@ -17,17 +19,6 @@ ansi = [
   "{color13}", 
   "{color14}", 
   "{color15}", 
-]
-
-brights = [
-  "#44475a", # bright black
-  "#ff6e6e", # bright red
-  "#69ff94", # bright green
-  "#ffffa5", # bright yellow
-  "#d6acff", # bright blue
-  "#ff92df", # bright magenta
-  "#a4ffff", # bright cyan
-  "#ffffff"  # bright white
 ]
 
 background = "{background}"
