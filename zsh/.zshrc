@@ -65,6 +65,9 @@ alias http="xh" # route http calls to xh
 alias l="eza -l --icons --git -a"
 alias lt="eza --tree --level=2 --long --icons --git"
 alias ltree="eza --tree --level=2  --icons --git"
+alias ls="ls --color"
+
+alias cd="z"
 
 alias brewupgrade="brew update && brew upgrade"
 alias cat="bat"
