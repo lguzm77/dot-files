@@ -1,5 +1,5 @@
 {
-  description = "Example nix-darwin system flake";
+  description = "Personal Darwin system flake";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -20,6 +20,7 @@
       nix.settings.experimental-features = "nix-command flakes";
 
       # Enable alternative shell support in nix-darwin.
+      programs.zsh.enable = true; # defult shell
       # programs.fish.enable = true;
 
       # Set Git commit hash for darwin-version.
@@ -36,7 +37,7 @@
   {
     # Build darwin flake using:
     # $ darwin-rebuild build --flake .#simple
-    darwinConfigurations."simple" = nix-darwin.lib.darwinSystem {
+    darwinConfigurations."personal" = nix-darwin.lib.darwinSystem {
       modules = [ configuration ];
     };
   };
