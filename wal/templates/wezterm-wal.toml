@@ -23,8 +23,3 @@ brights = [
 
 background = "{background}"
 foreground = "{foreground}"
-cursor_bg = "{cursor}"
-cursor_fg = "{cursor}"
-cursor_border = "{cursor}"
-selection_bg = "{background}"
-selection_fg = "{foreground}"
