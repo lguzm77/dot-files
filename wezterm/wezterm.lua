@@ -40,8 +40,8 @@ config.mouse_bindings = {
 }
 
 -- Slightly transparent and blurred background
-config.window_background_opacity = 0.87
-config.macos_window_background_blur = 20
+config.window_background_opacity = 0.80
+config.macos_window_background_blur = 30
 
 appearance.set_up_appearance(config)
 
