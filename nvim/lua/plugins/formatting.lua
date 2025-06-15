@@ -21,6 +21,7 @@ return {
           bash = { "beautysh" },
           sh = { "shellcheck" },
           proto = { "buf" },
+          python = { "autoflake" },
         },
       })
 
@@ -45,6 +46,7 @@ return {
         yaml = { "yamllint" },
         protobuf = { "buf" },
         terraform = { "tflint" },
+        python = {"flake8"},
         ["*"] = { "codespell" },
       }
 

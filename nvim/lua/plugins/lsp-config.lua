@@ -10,8 +10,9 @@ return {
     },
     opts = {
       servers = {
+        nil_ls = {}, -- nix 
         pylsp = {},
-        ts_ls = {},
+        ts_ls = {}, -- typescript/javascript
         eslint = {},
         lua_ls = {
           settings = {
@@ -45,10 +46,12 @@ return {
           "stylua",
           "prettierd",
           "prettier",
-        "csharpier",
+          "csharpier",
           "codespell",
           "gofumpt",
           "beautysh",
+          "flake8",
+          "autoflake",
           "shellcheck",
           "buf",
         },
@@ -64,7 +67,7 @@ return {
         "dockerls",
         "bashls",
         "pylsp",
-        
+        "nil_ls",
       }
 
       -- Language servers installed by Mason
