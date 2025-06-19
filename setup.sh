@@ -31,6 +31,18 @@ shell() {
 
 }
 
+render () {
+  echo "Rendering template files"
+  local github_username
+  local github_name
+
+  read -r -p "Enter your github account email: " github_username
+  read -r -p "Enter your github account name: " github_name
+
+  sed "s/{ { GITHUB_EMAIL } }/$github_username/g" ./git/.gitconfig.template |
+    sed "s/{ { GITHUB_NAME } }/$github_name/g" > ./git/.gitconfig
+  
+}
 
 symlinks () {
   echo "Setting up symlinks using stow"
@@ -40,6 +52,7 @@ symlinks () {
 all() {
   shell
   dependencies
+  render
   symlinks
 }
 
@@ -54,6 +67,7 @@ case "$1" in
   symlinks)
     symlinks
     ;;
+  render) render;;
   *) 
     all
     ;;

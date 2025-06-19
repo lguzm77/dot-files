@@ -1,0 +1,19 @@
+[alias]
+  undo = reset --soft HEAD^
+[rerere]
+  enabled = true
+[user]
+	email = { { GITHUB_EMAIL } }
+	name = { { GITHUB_NAME } }
+[maintenance]
+	repo = /Users/levguzman/Repos/znap
+	repo = /Users/levguzman/Repos/Aloxaf/fzf-tab
+	repo = /Users/levguzman/Repos/marlonrichert/zsh-autocomplete
+	repo = /Users/levguzman/Repos/zdharma-continuum/fast-syntax-highlighting
+	repo = /Users/levguzman/Repos/zsh-users/zsh-autosuggestions
+	repo = /Users/levguzman/Repos/zsh-users/zsh-completions
+	repo = /Users/levguzman/Repos/zsh-users/zsh-syntax-highlighting
+[core]
+  compression = 9
+  whitespace = error
+
