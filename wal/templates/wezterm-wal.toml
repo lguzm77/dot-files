@@ -23,3 +23,5 @@ brights = [
 
 background = "{background}"
 foreground = "{foreground}"
+cursor_bg  = "{foreground}"
+
