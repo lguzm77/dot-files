@@ -1,0 +1,25 @@
+shell-integration = zsh
+font-family = JetBrains Mono
+theme = /Users/levguzman/.cache/wal/ghostty.conf
+mouse-hide-while-typing = true
+scrollback-limit = 1000000
+
+keybind = ctrl+n=new_window
+
+keybind = ctrl+h=goto_split:left
+keybind = ctrl+j=goto_split:bottom
+keybind = ctrl+k=goto_split:top
+keybind = ctrl+l=goto_split:right
+
+keybind = ctrl+s>h=new_split:left
+keybind = ctrl+s>j=new_split:down
+keybind = ctrl+s>k=new_split:up
+keybind = ctrl+s>l=new_split:right
+keybind = ctrl+s>f=toggle_split_zoom
+
+keybind = ctrl+s>n=next_tab
+keybind = ctrl+s>p=previous_tab
+
+keybind = super+r=reload_config
+
+window-save-state = always
