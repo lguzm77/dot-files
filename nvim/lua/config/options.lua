@@ -48,6 +48,6 @@ vim.o.smartcase = true
 vim.o.completeopt = "menuone,noselect"
 
 vim.diagnostic.config({
-  underline = true,
-  virtual_text = true,
+  underline = false,
+  virtual_text = false,
 })
