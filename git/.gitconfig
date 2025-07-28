@@ -13,3 +13,6 @@
 	repo = /Users/levguzman/Repos/zsh-users/zsh-autosuggestions
 	repo = /Users/levguzman/Repos/zsh-users/zsh-completions
 	repo = /Users/levguzman/Repos/zsh-users/zsh-syntax-highlighting
+[core]
+  compression = 9
+  whitespace = error
