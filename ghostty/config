@@ -1,6 +1,5 @@
 shell-integration = zsh
 font-family = JetBrains Mono
-theme = /Users/levguzman/.cache/wal/ghostty.conf
 mouse-hide-while-typing = true
 scrollback-limit = 1000000
 cursor-style=block
