@@ -1,9 +1,15 @@
-shell-integration = zsh
 font-family = JetBrains Mono
+font-size = 12
+shell-integration = zsh
+
+adjust-cell-height = 35%
+cursor-style=block
+
 mouse-hide-while-typing = true
 scrollback-limit = 1000000
-cursor-style=block
 macos-titlebar-style = transparent
+
+window-padding-balance = true 
 
 keybind = ctrl+s>n=new_window
 window-save-state = always
