@@ -97,6 +97,10 @@ znap eval _kubectl 'kubectl completion zsh'
 
 # Use this block to import any additinonal configurations
 # . my-config.zshrc 
+#
+
+# Latex path 
+PATH=~/bin:$PATH
 
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
