@@ -8,10 +8,19 @@ return {
     toggle = { enabled = true },
     input = { enabled = true },
     picker = { enabled = true },
-    indent = {enabled = true},
+    indent = { enabled = true },
     dashboard = {
       enabled = true,
       preset = {
+        header = [[　　　 　　/＾>》, -―‐‐＜＾}
+  				　　　 　./:::/,≠´::::::ヽ.
+	  			　　　　/::::〃::::／}::丿ハ
+		  		　　　./:::::i{l|／　ﾉ／ }::}
+			  	　　 /:::::::瓜イ＞　´＜ ,:ﾉ
+			  	　 ./::::::|ﾉﾍ.{､　(_ﾌ_ノﾉイ＿
+			  	　 |:::::::|／}｀ｽ /          /
+			  	.　|::::::|(_:::つ/ ThinkPad /　neovim!
+			  	.￣￣￣￣￣￣￣＼/＿＿＿＿＿/￣￣￣￣￣]],
         keys = {
           {
             icon = " ",
