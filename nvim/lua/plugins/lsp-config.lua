@@ -11,6 +11,7 @@ return {
     opts = {
       servers = {
         nil_ls = {}, -- nix 
+        yamlls = {},
         pylsp = {},
         ts_ls = {}, -- typescript/javascript
         eslint = {},
