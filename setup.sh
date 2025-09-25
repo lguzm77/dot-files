@@ -12,8 +12,7 @@ dependencies(){
   xargs brew install < "$PWD/homebrew/leaves.txt"
 
   # Casks have a slightly different syntax
-  brew install --cask wezterm 
-  # Install window manager
+  brew install --cask ghostty
   brew install --cask nikitabobko/tap/aerospace
 
 }
@@ -22,7 +21,7 @@ shell() {
   echo "Setting up shell environment"
 
   echo "Setting relevant environment variables"
-  # Create a symlink between $PWD/.zprofile and $HOME/.zprofile
+
   ln -s "$PWD/.zprofile" "$HOME/.zprofile"
   source "$PWD/.zprofile"
   stow zsh
