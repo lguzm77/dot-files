@@ -1,4 +1,6 @@
-font-family = JetBrains Mono
+font-family = Fira Code Nerd Font  
+theme=/Users/levguzman/.cache/wal/ghostty.conf
+background-opacity=0.9
 font-size = 12
 shell-integration = zsh
 
