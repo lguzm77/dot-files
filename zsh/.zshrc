@@ -90,6 +90,7 @@ alias m="mmdc"
 alias p="python3"
 alias e="exit"
 alias t="touch"
+alias s="kitten ssh"
 
 # shell integrations
 znap eval zoxide "zoxide init zsh"
@@ -109,4 +110,11 @@ if [[ "$ZPROF" = true ]]; then
   zprof
 fi
 
+# Load pyenv automatically by appending
+# the following to 
+# your shell's login startup file (for login shells)
+# and your shell's interactive startup file (for interactive shells) :
 
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - 3.9)"
