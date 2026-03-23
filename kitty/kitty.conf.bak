@@ -1,45 +1,143 @@
 
-font_family      Dank Mono
-
-font_size 13.5
-
+# general config
 enable_audio_bell no
+font_size 12
+scrollback_lines 10000
 
+editor nvim
+
+# Window layout
+remember_window_size  yes
+initial_window_width  1024
+initial_window_height 400
 enabled_layouts Tall, *
+window_resize_step_cells 1
+window_resize_step_lines 1
+window_border_width 1
+draw_minimal_borders yes
+window_margin_width 5
+single_window_margin_width -1
+single_window_padding_width -1
+placement_strategy center
+hide_window_decorations titlebar-only
+resize_debounce_time 0.05 0.05
+confirm_os_window_close 0
+active_border_color     #89b4fa
+inactive_border_color   #45475a
+draw_minimal_borders    no
+window_padding_width    4
 
-window_border_width 1pt
+# cursor config 
+cursor_trail 200
+cursor_trail_decay 0.01 0.5
+cursor_trail_start_threshold 0
+cursor_shape beam
+cursor_beam_thickness 1.5
 
-window_margin_width 10
+# Performance
+repaint_delay 6
+input_delay 1
+sync_to_monitor no
 
-tab_bar_edge top
+# Mouse
+copy_on_select yes 
+default_pointer_shape beam
+pointer_shape_when_dragging beam
+mouse_map middle release ungrabbed paste_from_selection
 
-tab_bar_style fade
+kitty_mod cmd+option
 
-tab_title_max_length 15
+# ══════════════════════════════════════════════════════════════
+# TABS
+# ══════════════════════════════════════════════════════════════
 
-tab_title_template "{fmt.fg.red}{bell_symbol}{activity_symbol}{fmt.fg.tab}{title}:{tab.active_wd.split('/')[-1]}" 
+# New / close tab
+map cmd+shift+t        new_tab_with_cwd
+map cmd+shift+w        close_tab
 
-background_image_layout cscaled
+# Navigate tabs
+map cmd+shift+right    next_tab
+map cmd+shift+left     previous_tab
+map cmd+shift+]        next_tab
+map cmd+shift+[        previous_tab
 
+# Jump to tab by number
+map cmd+shift+1        goto_tab 1
+map cmd+shift+2        goto_tab 2
+map cmd+shift+3        goto_tab 3
+map cmd+shift+4        goto_tab 4
+map cmd+shift+5        goto_tab 5
+map cmd+shift+6        goto_tab 6
+map cmd+shift+7        goto_tab 7
+map cmd+shift+8        goto_tab 8
+map cmd+shift+9        goto_tab 9
 
-background_tint 0.97 
+tab_bar_edge bottom
+tab_bar_margin_width 0.0
+tab_bar_margin_height 0.0 0.0
+tab_bar_style powerline
+tab_bar_align left
+tab_bar_min_tabs 2
+tab_switch_strategy previous
+tab_fade 0.25 0.5 0.75 1
+tab_title_template      "{index}: {title}"
+tab_powerline_style     slanted
+active_tab_font_style   bold
 
-background_tint_gaps -10.0
+# ══════════════════════════════════════════════════════════════
+# WINDOWS (splits)
+# ══════════════════════════════════════════════════════════════
+ # New splits
+map cmd+shift+enter    new_window_with_cwd
+map cmd+shift+minus    launch --location=hsplit --cwd=current
+map cmd+shift+\        launch --location=vsplit --cwd=current
+map cmd+shift+d        launch --location=split  --cwd=current
 
+# Close window (panel)
+map cmd+shift+k        close_window
 
-kitty_mod ctrl+shift
+# ══════════════════════════════════════════════════════════════
+# LAYOUTS
+# ══════════════════════════════════════════════════════════════
+map cmd+shift+opt+t    next_layout
+map cmd+shift+opt+s    goto_layout splits
+map cmd+shift+opt+v    goto_layout vertical
+map cmd+shift+opt+h    goto_layout horizontal
+map cmd+shift+opt+f    goto_layout fat
+map cmd+shift+opt+g    goto_layout grid
+map cmd+shift+opt+z    goto_layout stack
 
-map kitty_mod+n new_window_with_cwd
+# ══════════════════════════════════════════════════════════════
+# OS WINDOWS
+# ══════════════════════════════════════════════════════════════
+
+map cmd+shift+n        new_os_window_with_cwd
+map cmd+shift+opt+q    close_os_window
 
 map ctrl+j kitten pass_keys.py neighboring_window bottom ctrl+j
 map ctrl+k kitten pass_keys.py neighboring_window top    ctrl+k
 map ctrl+h kitten pass_keys.py neighboring_window left   ctrl+h
 map ctrl+l kitten pass_keys.py neighboring_window right  ctrl+l
 
+# Allow the os to talk to my terminal
 allow_remote_control yes 
 listen_on unix:/tmp/mykitty
 
+# Hints: open URL / copy path
+map cmd+shift+e        open_url_with_hints
+map cmd+shift+p>f      kitten hints --type path --program -
+map cmd+shift+p>l      kitten hints --type line --program -
+map cmd+shift+p>w      kitten hints --type word --program -
+
 # BEGIN_KITTY_THEME
-# Rosé Pine
+# Kanagawa
 include current-theme.conf
 # END_KITTY_THEME
+
+
+# BEGIN_KITTY_FONTS
+font_family      family="MonaspiceAr Nerd Font Mono"
+bold_font        auto
+italic_font      auto
+bold_italic_font auto
+# END_KITTY_FONTS

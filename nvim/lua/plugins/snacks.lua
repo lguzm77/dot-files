@@ -12,7 +12,8 @@ return {
     dashboard = {
       enabled = true,
       preset = {
-        header = [[　　　 　　/＾>》, -―‐‐＜＾}
+        header = [[　　　 　　
+                    /＾>》, -―‐‐＜＾}
   				　　　 　./:::/,≠´::::::ヽ.
 	  			　　　　/::::〃::::／}::丿ハ
 		  		　　　./:::::i{l|／　ﾉ／ }::}
