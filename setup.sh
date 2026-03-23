@@ -1,18 +1,18 @@
 #! /usr/bin/env bash
 
-dependencies(){
+dependencies() {
   echo "Installing dependencies"
 
-  if ! command -v brew > /dev/null ; then 
+  if ! command -v brew >/dev/null; then
     echo "Homebrew not found, installing"
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" # install Homebrew
-  fi 
+  fi
 
-  # Install all packages 
-  xargs brew install < "$PWD/homebrew/leaves.txt"
+  # Install all packages
+  xargs brew install <"$PWD/homebrew/leaves.txt"
 
   # Casks have a slightly different syntax
-  brew install --cask ghostty
+  curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
   brew install --cask nikitabobko/tap/aerospace
 
 }
@@ -28,7 +28,7 @@ shell() {
 
 }
 
-render () {
+render() {
   echo "Rendering template files"
   local github_username
   local github_name
@@ -37,11 +37,11 @@ render () {
   read -r -p "Enter your github account name: " github_name
 
   sed "s/{ { GITHUB_EMAIL } }/$github_username/g" ./git/.gitconfig.template |
-    sed "s/{ { GITHUB_NAME } }/$github_name/g" > ./git/.gitconfig
-  
+    sed "s/{ { GITHUB_NAME } }/$github_name/g" >./git/.gitconfig
+
 }
 
-symlinks () {
+symlinks() {
   echo "Setting up symlinks using stow"
   stow .
 }
@@ -53,21 +53,18 @@ all() {
   symlinks
 }
 
-
 case "$1" in
-  dependencies) 
-    dependencies
-    ;;
-  shell)
-    shell
-    ;;
-  symlinks)
-    symlinks
-    ;;
-  render) render;;
-  *) 
-    all
-    ;;
-esac 
-
-
+dependencies)
+  dependencies
+  ;;
+shell)
+  shell
+  ;;
+symlinks)
+  symlinks
+  ;;
+render) render ;;
+*)
+  all
+  ;;
+esac
