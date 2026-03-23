@@ -38,6 +38,11 @@ bindkey '^p' history-beginning-search-backward
 bindkey '^n' history-beginning-search-forward
 bindkey '^f' autosuggest-accept
 
+# Edit command buffer
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^x^e' edit-command-line
+
 # history 
 HISTSIZE=1000000
 SAVEHIST=1000000
