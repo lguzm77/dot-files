@@ -49,6 +49,7 @@ return {
       defaults = {
         prompt_prefix = " ",
         selection_caret = " ",
+        truncate = true,
         preview = {
           wrap = true, -- wrap preview window text
         },
@@ -98,6 +99,7 @@ return {
       },
       pickers = {
         find_files = {
+          path_display = { "shorten" },
           -- Use ripgrep if available, fall back to fd, then find
           find_command = (function()
             if vim.fn.executable("rg") == 1 then
@@ -112,7 +114,11 @@ return {
           layout_config = { width = 0.6, height = 0.5 },
           mappings = { i = { ["<C-d>"] = actions.delete_buffer } },
         },
+        git_files = {
+          path_display = { "shorten" },
+        },
         live_grep = {
+          path_display = { "shorten" },
           additional_args = { "--hidden", "--glob=!.git/" },
         },
         lsp_references = { show_line = false },
