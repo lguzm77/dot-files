@@ -11,3 +11,16 @@ vim.opt.wrap = true
 vim.o.clipboard = "unnamedplus"
 
 vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
+
+-- clipboard integration over ssh
+vim.g.clipboard = {
+  name = "OSC 52",
+  copy = {
+    ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+    ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+  },
+  paste = {
+    ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+    ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+  },
+}
