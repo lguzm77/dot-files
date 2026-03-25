@@ -90,7 +90,7 @@ alias gr="git restore"
 alias gst="git status"
 
 # Load worktree module
-source "$PWD/zsh/modules/worktree.zsh"
+source "$XDG_CONFIG_HOME/zsh/modules/worktree.zsh"
 
 alias v="nvim"
 alias c="clear"
