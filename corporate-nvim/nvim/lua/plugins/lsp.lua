@@ -1,7 +1,4 @@
 return {
-  -- Make sure to import the python extra first
-  { import = "lazyvim.plugins.extras.lang.python" },
-
   -- Configure lspconfig to set up ty
   {
     "neovim/nvim-lspconfig",
