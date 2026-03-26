@@ -24,3 +24,8 @@ vim.g.clipboard = {
     ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
   },
 }
+
+-- LSP Extras
+vim.g.lazyvim_python_lsp = "ty"
+vim.g.lazyvim_python_ruff = "ruff"
+vim.g.lazygit_config = true
