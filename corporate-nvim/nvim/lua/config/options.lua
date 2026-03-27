@@ -29,3 +29,6 @@ vim.g.clipboard = {
 vim.g.lazyvim_python_lsp = "ty"
 vim.g.lazyvim_python_ruff = "ruff"
 vim.g.lazygit_config = true
+
+-- Personal integration
+vim.g.should_enable_opencode = false
