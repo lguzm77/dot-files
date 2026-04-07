@@ -32,16 +32,16 @@ check_deps() {
     err "Missing dependencies: ${missing[*]}"
     err "Install them with your package manager:"
     case "$(uname)" in
-      Darwin) echo "  brew install ${missing[*]}" ;;
-      Linux)
-        if command -v apt >/dev/null 2>&1; then
-          echo "  sudo apt install ${missing[*]}"
-        elif command -v dnf >/dev/null 2>&1; then
-          echo "  sudo dnf install ${missing[*]}"
-        elif command -v pacman >/dev/null 2>&1; then
-          echo "  sudo pacman -S ${missing[*]}"
-        fi
-        ;;
+    Darwin) echo "  brew install ${missing[*]}" ;;
+    Linux)
+      if command -v apt >/dev/null 2>&1; then
+        echo "  sudo apt install ${missing[*]}"
+      elif command -v dnf >/dev/null 2>&1; then
+        echo "  sudo dnf install ${missing[*]}"
+      elif command -v pacman >/dev/null 2>&1; then
+        echo "  sudo pacman -S ${missing[*]}"
+      fi
+      ;;
     esac
     exit 1
   fi
@@ -84,7 +84,6 @@ symlink() {
     run mkdir -p "$dst_dir"
   fi
 
-
   run ln -s "$src" "$dst"
   log "Linked: $dst -> $src"
 }
@@ -121,7 +120,7 @@ brew_packages() {
 
   if [[ -f "$DOTFILES_DIR/homebrew/leaves.txt" ]]; then
     local pkgs
-    pkgs=$(tr '\n' ' ' < "$DOTFILES_DIR/homebrew/leaves.txt")
+    pkgs=$(tr '\n' ' ' <"$DOTFILES_DIR/homebrew/leaves.txt")
 
     run brew install $pkgs
   fi
@@ -131,25 +130,25 @@ brew_packages() {
 
 linux_packages() {
   case "$(uname)" in
-    Linux)
-      if command -v apt >/dev/null; then
-        local pkgs=(
-          zsh git stow curl wget fzf bat exa zoxide
-          python3 python3-pip python3-venv
-          man-db man-pages
-        )
+  Linux)
+    if command -v apt >/dev/null; then
+      local pkgs=(
+        zsh git stow curl wget fzf bat exa zoxide
+        python3 python3-pip python3-venv
+        man-db man-pages
+      )
 
-        run sudo apt install -y "${pkgs[@]}"
-      elif command -v dnf >/dev/null; then
-        local pkgs=(zsh git stow curl wget fzf bat python3)
+      run sudo apt install -y "${pkgs[@]}"
+    elif command -v dnf >/dev/null; then
+      local pkgs=(zsh git stow curl wget fzf bat python3)
 
-        run sudo dnf install -y "${pkgs[@]}"
-      elif command -v pacman >/dev/null; then
-        local pkgs=(zsh git stow fzf bat python expac)
+      run sudo dnf install -y "${pkgs[@]}"
+    elif command -v pacman >/dev/null; then
+      local pkgs=(zsh git stow fzf bat python expac)
 
-        run sudo pacman -S --noconfirm "${pkgs[@]}"
-      fi
-      ;;
+      run sudo pacman -S --noconfirm "${pkgs[@]}"
+    fi
+    ;;
   esac
 }
 
@@ -157,11 +156,11 @@ packages() {
   log "Installing system packages..."
 
   case "$(uname)" in
-    Darwin) brew_packages ;;
-    Linux) linux_packages ;;
-    *)
-      warn "Unknown platform: $(uname)"
-      ;;
+  Darwin) brew_packages ;;
+  Linux) linux_packages ;;
+  *)
+    warn "Unknown platform: $(uname)"
+    ;;
   esac
 
   log "Package installation complete"
@@ -198,8 +197,10 @@ render_gitconfig() {
     email="${GIT_EMAIL:-}"
     name="${GIT_NAME:-}"
   else
-    echo -n "Git email: "; read -r email
-    echo -n "Git name: "; read -r name
+    echo -n "Git email: "
+    read -r email
+    echo -n "Git name: "
+    read -r name
   fi
 
   if [[ -z "$email" ]] || [[ -z "$name" ]]; then
@@ -208,7 +209,7 @@ render_gitconfig() {
   fi
 
   sed "s/{{ GITHUB_EMAIL }}/$email/g" "$DOTFILES_DIR/git/.gitconfig.template" |
-    sed "s/{{ GITHUB_NAME }}/$name/g" > "$DOTFILES_DIR/git/.gitconfig"
+    sed "s/{{ GITHUB_NAME }}/$name/g" >"$DOTFILES_DIR/git/.gitconfig"
 
   log "Rendered git config"
 }
@@ -251,54 +252,54 @@ main() {
 
   while (($# > 0)); do
     case "$1" in
-      --dry-run|-n)
-        DRY_RUN=1
-        shift
-        ;;
-      --skip-prompt|-y)
-        SKIP_PROMPT=true
-        shift
-        ;;
-      --help|-h)
-        help
-        exit 0
-        ;;
-      all|zsh|packages|stow|gitconfig)
-        cmd="$1"
-        shift
-        ;;
-      *)
-        err "Unknown argument: $1"
-        help
-        exit 1
-        ;;
+    --dry-run | -n)
+      DRY_RUN=1
+      shift
+      ;;
+    --skip-prompt | -y)
+      SKIP_PROMPT=true
+      shift
+      ;;
+    --help | -h)
+      help
+      exit 0
+      ;;
+    all | zsh | packages | stow | gitconfig)
+      cmd="$1"
+      shift
+      ;;
+    *)
+      err "Unknown argument: $1"
+      help
+      exit 1
+      ;;
     esac
   done
 
   cd "$DOTFILES_DIR"
 
   case "$cmd" in
-    all)
-      check_deps
-      zsh_setup
-      packages
-      stow_all
-      render_gitconfig
-      ;;
-    zsh)
-      zsh_setup
-      ;;
-    packages)
-      check_deps
-      packages
-      ;;
-    stow)
-      check_deps
-      stow_all
-      ;;
-    gitconfig)
-      render_gitconfig
-      ;;
+  all)
+    check_deps
+    zsh_setup
+    packages
+    stow_all
+    render_gitconfig
+    ;;
+  zsh)
+    zsh_setup
+    ;;
+  packages)
+    check_deps
+    packages
+    ;;
+  stow)
+    check_deps
+    stow_all
+    ;;
+  gitconfig)
+    render_gitconfig
+    ;;
   esac
 }
 
