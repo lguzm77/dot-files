@@ -5,10 +5,9 @@ DOTFILES_DIR="${DOTFILES_DIR:-$PWD}"
 SKIP_PROMPT="${SKIP_PROMPT:-false}"
 DRY_RUN="${DRY_RUN:-0}"
 
-dry() { [[ "$DRY_RUN" == "1" ]] && echo -e "${YELLOW}[DRY]${NC} $*"; }
 run() {
   if [[ "$DRY_RUN" == "1" ]]; then
-    dry "$*"
+    echo -e "${YELLOW}[DRY]${NC} $*"
     return 0
   fi
   "$@"
@@ -22,7 +21,6 @@ NC='\033[0m'
 log() { echo -e "${GREEN}[INFO]${NC} $*"; }
 warn() { echo -e "${YELLOW}[WARN]${NC} $*"; }
 err() { echo -e "${RED}[ERROR]${NC} $*" >&2; }
-dry() { [[ "$DRY_RUN" == "1" ]] && echo -e "${YELLOW}[DRY]${NC} $*" || true; }
 
 check_deps() {
   local missing=()
@@ -59,7 +57,7 @@ backup_file() {
   local file="$1"
   if [[ -e "$file" ]] || [[ -L "$file" ]]; then
     local backup="${file}.backup-$(date +%Y%m%d-%H%M%S)"
-    dry "mv $file -> $backup"
+
     run mv "$file" "$backup"
     warn "Backed up existing $file -> $backup"
   fi
@@ -82,11 +80,11 @@ symlink() {
   fi
 
   if [[ ! -d "$dst_dir" ]]; then
-    dry "mkdir -p $dst_dir"
+
     run mkdir -p "$dst_dir"
   fi
 
-  dry "ln -s $src $dst"
+
   run ln -s "$src" "$dst"
   log "Linked: $dst -> $src"
 }
@@ -124,7 +122,7 @@ brew_packages() {
   if [[ -f "$DOTFILES_DIR/homebrew/leaves.txt" ]]; then
     local pkgs
     pkgs=$(tr '\n' ' ' < "$DOTFILES_DIR/homebrew/leaves.txt")
-    dry "brew install $pkgs"
+
     run brew install $pkgs
   fi
 
@@ -140,15 +138,15 @@ linux_packages() {
           python3 python3-pip python3-venv
           man-db man-pages
         )
-        dry "sudo apt install ${pkgs[*]}"
+
         run sudo apt install -y "${pkgs[@]}"
       elif command -v dnf >/dev/null; then
         local pkgs=(zsh git stow curl wget fzf bat python3)
-        dry "sudo dnf install ${pkgs[*]}"
+
         run sudo dnf install -y "${pkgs[@]}"
       elif command -v pacman >/dev/null; then
         local pkgs=(zsh git stow fzf bat python expac)
-        dry "sudo pacman -S ${pkgs[*]}"
+
         run sudo pacman -S --noconfirm "${pkgs[@]}"
       fi
       ;;
@@ -177,7 +175,7 @@ stow_all() {
   for pkg in */; do
     pkg="${pkg%/}"
     [[ -f "$pkg/.stow-local-ignore" ]] && continue
-    dry "stow -v -R -t \"$HOME\" $pkg"
+
     run stow -v -R -t "$HOME" "$pkg" 2>/dev/null || true
   done
 
