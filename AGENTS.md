@@ -6,7 +6,6 @@ This is a **dotfiles repository** managed by GNU Stow. It contains configuration
 
 ```
 dot-files/
-├── .zprofile              # Zsh environment variables (sourced first)
 ├── setup.sh               # Bootstrap script for new machines
 ├── .stowrc                # Stow configuration
 ├── aerospace/             # Tiling window manager config
@@ -21,7 +20,7 @@ dot-files/
 ├── starship/              # Starship prompt config
 ├── wal/                   # pywal color schemes
 ├── wezterm/               # Wezterm terminal config
-└── zsh/                   # Zsh configuration & plugins
+└── zsh/                   # Zsh config (.zshrc, .zprofile, modules)
 ```
 
 ---
@@ -179,7 +178,7 @@ fi
 path=$(pwd)
 
 # Always quote variables containing paths
-ln -s "$PWD/.zprofile" "$HOME/.zprofile"
+ln -s "$PWD/zsh/.zprofile" "$HOME/.zprofile"
 
 # Use set -e to exit on error
 set -e
@@ -305,6 +304,6 @@ brew leaves > ./homebrew/leaves.txt
 
 ### Editor Setup
 
-- **EDITOR**: Set to `nvim` in `.zprofile`
+- **EDITOR**: Set to `nvim` in `zsh/.zprofile`
 - **XDG Compliance**: All configs go to `$XDG_CONFIG_HOME`
 - **Plugins**: Use LazyVim/LazyNvim plugin manager for Neovim

@@ -22,8 +22,8 @@ shell() {
 
   echo "Setting relevant environment variables"
 
-  ln -s "$PWD/.zprofile" "$HOME/.zprofile"
-  source "$PWD/.zprofile"
+  ln -s "$PWD/zsh/.zprofile" "$HOME/.zprofile"
+  source "$PWD/zsh/.zprofile"
   stow zsh
 
 }
