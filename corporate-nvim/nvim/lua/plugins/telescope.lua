@@ -99,7 +99,7 @@ return {
       },
       pickers = {
         find_files = {
-          path_display = { "shorten" },
+          path_display = { "truncate" },
           -- Use ripgrep if available, fall back to fd, then find
           find_command = (function()
             if vim.fn.executable("rg") == 1 then
@@ -110,7 +110,7 @@ return {
           end)(),
         },
         buffers = {
-          previewer = false,
+          previewer = true,
           layout_config = { width = 0.6, height = 0.5 },
           mappings = { i = { ["<C-d>"] = actions.delete_buffer } },
         },
@@ -118,7 +118,7 @@ return {
           path_display = { "shorten" },
         },
         live_grep = {
-          path_display = { "shorten" },
+          path_display = { "truncate" },
           additional_args = { "--hidden", "--glob=!.git/" },
         },
         lsp_references = { show_line = false },
