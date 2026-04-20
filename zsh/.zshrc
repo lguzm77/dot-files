@@ -91,6 +91,7 @@ fi
 
 # diff kitten
 alias gdiff="git difftool --no-symlinks --dir-diff"
+alias e="exit"
 
 # Shell integrations
 if (( ${+commands[zoxide]} )); then
