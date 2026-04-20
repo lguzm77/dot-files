@@ -89,6 +89,9 @@ fi
 (( ${+commands[kitty]} )) && alias s="kitten ssh"
 (( ${+commands[brew]} )) && alias brewupgrade="brew update && brew upgrade"
 
+# diff kitten
+alias gdiff="git difftool --no-symlinks --dir-diff"
+
 # Shell integrations
 if (( ${+commands[zoxide]} )); then
   znap eval zoxide "zoxide init zsh"
