@@ -93,20 +93,9 @@ fi
 if (( ${+commands[zoxide]} )); then
   znap eval zoxide "zoxide init zsh"
 fi
-if (( ${+commands[kubectl]} )); then
-  znap eval _kubectl 'kubectl completion zsh'
-fi
 
 # Local bin
 PATH="$HOME/bin:$PATH"
-
-# Optional tools
-[[ -s "$HOME/.config/envman/load.sh" ]] && source "$HOME/.config/envman/load.sh"
-if (( ${+commands[pyenv]} )); then
-  export PYENV_ROOT="$HOME/.pyenv"
-  [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-  eval "$(pyenv init -)"
-fi
 
 if [[ "$ZPROF" = true ]]; then
   zprof
