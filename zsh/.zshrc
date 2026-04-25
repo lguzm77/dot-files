@@ -18,13 +18,6 @@ _znap_dir="${XDG_DATA_HOME:-$HOME/.local/share}/znap"
   git clone --depth 1 https://github.com/marlonrichert/zsh-snap.git $_znap_dir
 source $_znap_dir/znap.zsh
 
-# Starship prompt
-if (( ${+commands[starship]} )); then
-  export STARSHIP_CONFIG="${XDG_CONFIG_HOME}/starship/starship.toml"
-  znap eval starship 'starship init zsh'
-  znap prompt
-fi
-
 # Node version manager
 if (( ${+commands[fnm]} )); then
   znap eval fnm 'fnm env'
