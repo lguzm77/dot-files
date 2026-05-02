@@ -58,9 +58,6 @@ else
 fi
 # Aliases (conditional on command existence)
 (( ${+commands[xh]} )) && alias http="xh"
-(( ${+commands[eza]} )) && alias l="eza -l --icons --git -a"
-(( ${+commands[eza]} )) && alias lt="eza --tree --level=2 --long --icons --git"
-(( ${+commands[eza]} )) && alias ltree="eza --tree --level=2 --icons --git"
 (( ${+commands[bat]} )) && alias cat="bat"
 (( ${+commands[fzf]} )) && alias f="fzf"
 (( ${+commands[nvim]} )) && alias v="nvim"

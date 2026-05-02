@@ -2,8 +2,8 @@
 set -euo pipefail
 
 DOTFILES_DIR="${DOTFILES_DIR:-$PWD}"
-SKIP_PROMPT="${SKIP_PROMPT:-false}"
 DRY_RUN="${DRY_RUN:-0}"
+NVIM_CONFIG="${NVIM_CONFIG:-}"
 
 run() {
   if [[ "$DRY_RUN" == "1" ]]; then
@@ -116,6 +116,13 @@ brew_packages() {
     return
   fi
 
+  echo -n "Do you want to install/upgrade Homebrew packages? (y/n): "
+  read -r answer
+  if [[ "$answer" != "y" && "$answer" != "Y" ]]; then
+    log "Skipping Homebrew package installation"
+    return
+  fi
+
   log "Installing Homebrew packages..."
 
   if [[ -f "$DOTFILES_DIR/homebrew/leaves.txt" ]]; then
@@ -174,11 +181,61 @@ stow_all() {
   for pkg in */; do
     pkg="${pkg%/}"
     [[ -f "$pkg/.stow-local-ignore" ]] && continue
+    # Skip Neovim configs (handled separately by nvim_setup)
+    [[ "$pkg" == "nvim" || "$pkg" == "corporate-nvim" ]] && continue
 
     run stow -v -R -t "$HOME" "$pkg" 2>/dev/null || true
   done
 
   log "Stow complete"
+}
+
+nvim_setup() {
+  log "Setting up Neovim configuration..."
+  local available=()
+  [[ -d "$DOTFILES_DIR/nvim" ]] && available+=("nvim")
+  [[ -d "$DOTFILES_DIR/corporate-nvim" ]] && available+=("corporate-nvim")
+
+  if ((${#available[@]} == 0)); then
+    warn "No Neovim configs found (nvim/, corporate-nvim/)"
+    return
+  fi
+
+  local selected=""
+  if [[ -n "$NVIM_CONFIG" ]]; then
+    local valid=0
+    for cfg in "${available[@]}"; do
+      [[ "$cfg" == "$NVIM_CONFIG" ]] && valid=1 && break
+    done
+    if ((valid == 0)); then
+      err "Invalid NVIM_CONFIG: $NVIM_CONFIG. Available: ${available[*]}"
+      exit 1
+    fi
+    selected="$NVIM_CONFIG"
+  else
+    echo "Available Neovim configs:"
+    for i in "${!available[@]}"; do
+      echo "  $((i + 1)) ${available[$i]}"
+    done
+    echo -n "Select (1-${#available[@]}, default: 1 for nvim): "
+    read -r choice
+    [[ -z "$choice" ]] && choice=1
+    if [[ ! "$choice" =~ ^[0-9]+$ ]] || ((choice < 1 || choice > ${#available[@]})); then
+      err "Invalid selection: $choice"
+      exit 1
+    fi
+    selected="${available[$((choice - 1))]}"
+  fi
+
+  log "Selected Neovim config: $selected"
+
+  # Special case for corporate-nvim
+  if [ "$selected" = "corporate-nvim" ]; then
+    selected="$selected/nvim"
+  fi
+
+  symlink "$DOTFILES_DIR/$selected" "$XDG_CONFIG_HOME/nvim"
+  log "Neovim setup complete"
 }
 
 render_gitconfig() {
@@ -188,20 +245,15 @@ render_gitconfig() {
   fi
 
   local email name
-  if [[ -f "$HOME/.gitconfig" ]] && ! $SKIP_PROMPT; then
-    warn ".gitconfig exists, skipping (use SKIP_PROMPT=1 to auto-skip)"
+  if [[ -f "$HOME/.gitconfig" ]]; then
+    warn ".gitconfig exists, skipping"
     return
   fi
 
-  if $SKIP_PROMPT; then
-    email="${GIT_EMAIL:-}"
-    name="${GIT_NAME:-}"
-  else
-    echo -n "Git email: "
-    read -r email
-    echo -n "Git name: "
-    read -r name
-  fi
+  echo -n "Git email: "
+  read -r email
+  echo -n "Git name: "
+  read -r name
 
   if [[ -z "$email" ]] || [[ -z "$name" ]]; then
     warn "Email or name empty, skipping gitconfig render"
@@ -221,21 +273,22 @@ Dotfiles Setup Script
 Usage: ./setup.sh [command] [options]
 
 Commands:
-  all         Run full setup (zsh, packages, stow)
+  all         Run full setup (zsh, packages, stow, nvim)
   zsh         Setup zsh configuration only
   packages    Install system packages
   stow        Stow all dotfile packages
+  nvim        Setup Neovim configuration
   gitconfig   Render git config template
 
 Options:
   --dry-run       Show what would be done without making changes
-  --skip-prompt   Skip interactive prompts (for automation)
+  --nvim-config   Select Neovim config (nvim/corporate-nvim)
   -h, --help      Show this help
 
 Environment Variables:
   DOTFILES_DIR    Override dotfiles directory (default: \$PWD)
   DRY_RUN         Set to 1 for dry-run mode
-  SKIP_PROMPT     Set to 1 to skip prompts
+  NVIM_CONFIG     Neovim config to use (nvim/corporate-nvim, default: nvim)
   GIT_EMAIL       Git email for gitconfig render
   GIT_NAME        Git name for gitconfig render
 
@@ -243,7 +296,7 @@ Examples:
   ./setup.sh all
   DRY_RUN=1 ./setup.sh all
   ./setup.sh zsh --dry-run
-  SKIP_PROMPT=1 ./setup.sh gitconfig
+  ./setup.sh --nvim-config corporate-nvim all
 EOF
 }
 
@@ -256,15 +309,16 @@ main() {
       DRY_RUN=1
       shift
       ;;
-    --skip-prompt | -y)
-      SKIP_PROMPT=true
-      shift
-      ;;
     --help | -h)
       help
       exit 0
       ;;
-    all | zsh | packages | stow | gitconfig)
+    --nvim-config)
+      [[ $# -lt 2 ]] && err "--nvim-config requires an argument (nvim/corporate-nvim)" && exit 1
+      NVIM_CONFIG="$2"
+      shift 2
+      ;;
+    all | zsh | packages | stow | nvim | gitconfig)
       cmd="$1"
       shift
       ;;
@@ -284,6 +338,7 @@ main() {
     zsh_setup
     packages
     stow_all
+    nvim_setup
     render_gitconfig
     ;;
   zsh)
@@ -296,6 +351,10 @@ main() {
   stow)
     check_deps
     stow_all
+    ;;
+  nvim)
+    check_deps
+    nvim_setup
     ;;
   gitconfig)
     render_gitconfig

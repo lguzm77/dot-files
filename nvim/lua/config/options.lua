@@ -1,7 +1,7 @@
 local opt = vim.opt
 
 opt.clipboard:append "unnamedplus" -- use system clipboard as default register
-opt.termguicolors = true
+opt.termguicolors = false
 
 vim.cmd "set expandtab"
 vim.cmd "set tabstop=2"
