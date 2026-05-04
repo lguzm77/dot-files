@@ -66,6 +66,7 @@ fi
 # diff kitten
 alias gdiff="git difftool --no-symlinks --dir-diff"
 alias e="exit"
+alias l="ls --color"
 # Shell integrations
 if (( ${+commands[zoxide]} )); then
   znap eval zoxide "zoxide init zsh"
