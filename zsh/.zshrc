@@ -77,7 +77,3 @@ if [[ "$ZPROF" = true ]]; then
   zprof
 fi
 
-# Added by LM Studio CLI (lms)
-export PATH="$PATH:/Users/levguzman/.lmstudio/bin"
-# End of LM Studio CLI section
-
