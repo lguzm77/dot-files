@@ -17,7 +17,6 @@ export PATH="$XDG_CONFIG_HOME/scripts:$HOME/bin:$PATH"
 # FZF defaults
 export FZF_DEFAULT_OPTS="--style minimal --color 16 --layout=reverse --height 30% --preview='bat -p --color=always {}'"
 export FZF_CTRL_R_OPTS="--style minimal --color 16 --info inline --no-sort --no-preview"
-export MANPAGER="less -R --use-color -Dd+r -Du+b"
 
 # ---------- Pager ----------
 if command -v bat >/dev/null 2>&1; then
