@@ -1,7 +1,9 @@
 #!/bin/sh
 
 export EDITOR="${EDITOR:-nvim}"
+export VISUAL="${VISUAL:-nvim}"
 
+# XDG variables 
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
 export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
@@ -16,6 +18,19 @@ export PATH="$XDG_CONFIG_HOME/scripts:$HOME/bin:$PATH"
 export FZF_DEFAULT_OPTS="--style minimal --color 16 --layout=reverse --height 30% --preview='bat -p --color=always {}'"
 export FZF_CTRL_R_OPTS="--style minimal --color 16 --info inline --no-sort --no-preview"
 export MANPAGER="less -R --use-color -Dd+r -Du+b"
+
+# ---------- Pager ----------
+if command -v bat >/dev/null 2>&1; then
+  export MANPAGER="bat -l man -p"
+elif command -v batcat >/dev/null 2>&1; then
+  export MANPAGER="batcat -l man -p"
+fi
+
+# ---------- GPG ----------
+export GPG_TTY=$(tty)
+
+# ---------- Starship ----------
+export STARSHIP_CONFIG="$ZDOTDIR/starship.toml"
 
 # colored less + termcap
 export LESS_TERMCAP_mb="$(printf '%b' '[^[1;31m')"
