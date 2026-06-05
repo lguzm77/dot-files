@@ -130,7 +130,7 @@ map cmd+shift+p>l      kitten hints --type line --program -
 map cmd+shift+p>w      kitten hints --type word --program -
 
 # BEGIN_KITTY_THEME
-# Gruvbox Material Dark Hard
+# 1984 Orwellian
 include current-theme.conf
 # END_KITTY_THEME
 
