@@ -91,7 +91,6 @@ symlink() {
 zsh_setup() {
   log "Setting up zsh configuration..."
 
-  symlink "$DOTFILES_DIR/zsh/.zprofile" "$HOME/.zprofile"
   symlink "$DOTFILES_DIR/zsh/.zshrc" "$HOME/.config/zsh/.zshrc"
 
   if [[ -f "$DOTFILES_DIR/zsh/.p10k.zsh" ]]; then

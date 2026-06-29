@@ -20,7 +20,7 @@ dot-files/
 ├── starship/              # Starship prompt config
 ├── wal/                   # pywal color schemes
 ├── wezterm/               # Wezterm terminal config
-└── zsh/                   # Zsh config (.zshrc, .zprofile, modules)
+└── zsh/                   # Zsh config (.zshrc, modules)
 ```
 
 ---
@@ -178,7 +178,7 @@ fi
 path=$(pwd)
 
 # Always quote variables containing paths
-ln -s "$PWD/zsh/.zprofile" "$HOME/.zprofile"
+ln -s "$PWD/zsh/.zshrc" "$HOME/.config/zsh/.zshrc"
 
 # Use set -e to exit on error
 set -e
@@ -304,6 +304,6 @@ brew leaves > ./homebrew/leaves.txt
 
 ### Editor Setup
 
-- **EDITOR**: Set to `nvim` in `zsh/.zprofile`
+- **EDITOR**: Set to `nvim` in `zsh/.zshrc`
 - **XDG Compliance**: All configs go to `$XDG_CONFIG_HOME`
 - **Plugins**: Use LazyVim/LazyNvim plugin manager for Neovim
