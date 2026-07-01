@@ -1,53 +1,128 @@
 local opt = vim.opt
 
-opt.clipboard:append "unnamedplus" -- use system clipboard as default register
-opt.termguicolors = false
-
-vim.cmd "set expandtab"
-vim.cmd "set tabstop=2"
-vim.cmd "set softtabstop=2"
-vim.cmd "set shiftwidth=2"
-
 vim.g.mapleader = " "
 
--- Set highlight on search
-vim.o.hlsearch = true
+opt.number = true -- Line numbers
+opt.relativenumber = true -- Relative line numbers
+opt.cursorline = true -- Highlight current line
+opt.wrap = false -- Don't wrap lines
+opt.scrolloff = 10 -- Keep 10 lines above/below cursor
+opt.sidescrolloff = 8 -- Keep 8 columns left/right of cursor
 
--- Make line numbers default
-vim.wo.number = true
-vim.o.relativenumber = true
+-- Indentation
+opt.tabstop = 2 -- Tab width
+opt.shiftwidth = 2 -- Indent width
+opt.softtabstop = 2 -- Soft tab stop
+opt.expandtab = true -- Use spaces instead of tabs
+opt.smartindent = true -- Smart auto-indenting
+opt.autoindent = true -- Copy indent from current line
 
-vim.cmd "set wrap"
+-- Search settings
+opt.ignorecase = true -- Case insensitive search
+opt.smartcase = true -- Case sensitive if uppercase in search
+opt.hlsearch = false -- Don't highlight search results
+opt.incsearch = true -- Show matches as you type
 
--- Enable break indent
-vim.o.breakindent = true
+-- Visual settings
+opt.termguicolors = true -- Enable 24-bit colors
+opt.signcolumn = "yes" -- Always show sign column
+opt.showmatch = true -- Highlight matching brackets
+opt.matchtime = 2 -- How long to show matching bracket
+opt.cmdheight = 1 -- Command line height
+opt.showmode = true -- Whether to show mode in command line
+opt.pumheight = 10 -- Popup menu height
+opt.pumblend = 10 -- Popup menu transparency
+opt.winblend = 0 -- Floating window transparency
+opt.completeopt = "menu,menuone,noselect"
+opt.conceallevel = 2 -- Hide * markup for bold and italic, but not markers with substitutions
+opt.confirm = true -- Confirm to save changes before exiting modified buffer
+opt.concealcursor = "" -- Don't hide cursor line markup
+opt.synmaxcol = 300 -- Syntax highlighting limit
+opt.ruler = false -- Disable the default ruler
+opt.virtualedit = "block" -- Allow cursor to move where there is no text in visual block mode
+opt.winminwidth = 5 -- Minimum window width
 
-vim.cmd "set linebreak"
-vim.cmd "set foldlevel=20" -- how deep do we want our folds to go
-vim.cmd "set foldmethod=expr"
-vim.cmd "set foldexpr=nvim_treesitter#foldexpr()" -- treesitter dependency
---vim.opt.nofoldenable = true
-vim.opt.foldlevelstart = 99
+-- File handling
+opt.backup = false -- Don't create backup files
+opt.writebackup = false -- Don't create backup before writing
+opt.swapfile = false -- Don't create swap files
+opt.undofile = true -- Persistent undo
+opt.undolevels = 10000
+opt.undodir = vim.fn.expand("~/.vim/undodir") -- Undo directory
+opt.updatetime = 300 -- Faster completion
+opt.timeoutlen = vim.g.vscode and 1000 or 300 -- Lower than default (1000) to quickly trigger which-key
+opt.ttimeoutlen = 0 -- Key code timeout
+opt.autoread = true -- Auto reload files changed outside vim
+opt.autowrite = true -- Auto save
 
-opt.laststatus = 3 -- lock vim status bar to the bottom
+-- Behavior settings
+opt.hidden = true -- Allow hidden buffers
+opt.errorbells = false -- No error bells
+opt.backspace = "indent,eol,start" -- Better backspace behavior
+opt.autochdir = false -- Don't auto change directory
+opt.iskeyword:append("-") -- Treat dash as part of word
+opt.path:append("**") -- include subdirectories in search
+opt.selection = "exclusive" -- Selection behavior
+opt.mouse = "a" -- Enable mouse support
+opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
+opt.modifiable = true -- Allow buffer modifications
+opt.encoding = "UTF-8" -- Set encoding
 
-opt.swapfile = false
-opt.backup = false
-opt.signcolumn = "yes"
-opt.scrolloff = 20 -- how many lines to show above and below cursor
-opt.conceallevel = 2
+-- Folding settings
+opt.smoothscroll = true
+vim.wo.foldmethod = "expr"
+opt.foldlevel = 99 -- Start with all folds open
+opt.formatoptions = "jcroqlnt" -- tcqj
+opt.grepformat = "%f:%l:%c:%m"
+opt.grepprg = "rg --vimgrep"
 
--- Save undo history
-vim.o.undofile = true
+-- Split behavior
+opt.splitbelow = true -- Horizontal splits go below
+opt.splitright = true -- Vertical splits go right
+opt.splitkeep = "screen"
 
--- Case insensitive searching UNLESS /C or capital in search
-vim.o.ignorecase = true
-vim.o.smartcase = true
+-- Command-line completion
+opt.wildmenu = true
+opt.wildmode = "longest:full,full"
+opt.wildignore:append({ "*.o", "*.obj", "*.pyc", "*.class", "*.jar" })
 
--- Set completeopt to have a better completion experience
-vim.o.completeopt = "menuone,noselect"
+-- Better diff options
+opt.diffopt:append("linematch:60")
 
-vim.diagnostic.config({
-  underline = true,
-  virtual_text = false,
+-- Performance improvements
+opt.redrawtime = 10000
+opt.maxmempattern = 20000
+
+-- Create undo directory if it doesn't exist
+local undodir = vim.fn.expand("~/.vim/undodir")
+if vim.fn.isdirectory(undodir) == 0 then
+  vim.fn.mkdir(undodir, "p")
+end
+
+vim.g.autoformat = true
+vim.g.trouble_lualine = true
+
+opt.jumpoptions = "view"
+opt.laststatus = 3 -- global statusline
+opt.list = false
+opt.linebreak = true -- Wrap lines at convenient points
+opt.list = true -- Show some invisible characters (tabs...
+opt.shiftround = true -- Round indent
+opt.shiftwidth = 2 -- Size of an indent
+opt.shortmess:append({ W = true, I = true, c = true, C = true })
+
+vim.g.markdown_recommended_style = 0
+
+vim.filetype.add({
+  extension = {
+    env = "dotenv",
+  },
+  filename = {
+    [".env"] = "dotenv",
+    ["env"] = "dotenv",
+  },
+  pattern = {
+    ["[jt]sconfig.*.json"] = "jsonc",
+    ["%.env%.[%w_.-]+"] = "dotenv",
+  },
 })

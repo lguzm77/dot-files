@@ -1,61 +1,289 @@
--- For custom callbacks
-vim.api.nvim_create_autocmd("TextYankPost", {
-  desc = "Highlight when yanking (copying) text",
-  group = vim.api.nvim_create_augroup(
-    "kickstart-highlight-yank",
-    { clear = true }
-  ),
+local function augroup(name)
+
+  return vim.api.nvim_create_augroup("user_" .. name, { clear = true })
+
+end
+
+
+
+-- Check if we need to reload the file when it changed
+
+vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
+
+  group = augroup("checktime"),
+
   callback = function()
-    vim.highlight.on_yank()
+
+    if vim.o.buftype ~= "nofile" then
+
+      vim.cmd("checktime")
+
+    end
+
   end,
+
 })
 
-local keymap = vim.keymap
-vim.api.nvim_create_autocmd("LspAttach", {
-  desc = "LSP keymaps",
-  group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-  callback = function(ev)
-    -- Buffer local mappings.
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
-    local options = { buffer = ev.buf, silent = true }
 
-    options.desc = "Show LSP references"
-    keymap.set("n", "gR", vim.lsp.buf.references, options) -- show definition, references
 
-    options.desc = "Go to declaration"
-    keymap.set("n", "gD", vim.lsp.buf.declaration, options) -- go to declaration
+-- Highlight on yank
 
-    options.desc = "Show LSP definitions"
-    keymap.set("n", "gd", vim.lsp.buf.definition, options) -- show lsp definitions
+vim.api.nvim_create_autocmd("TextYankPost", {
 
-    options.desc = "Show LSP implementations"
-    keymap.set("n", "gi", vim.lsp.buf.implementation, options) -- show lsp implementations
+  group = augroup("highlight_yank"),
 
-    options.desc = "Show LSP type definitions"
-    keymap.set("n", "gt", vim.lsp.buf.type_definition, options) -- show lsp type definitions
+  callback = function()
 
-    options.desc = "See available code actions"
-    keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, options) -- see available code actions, in visual mode will apply to selection
+    (vim.hl or vim.highlight).on_yank()
 
-    options.desc = "Smart rename"
-    keymap.set("n", "<leader>rn", vim.lsp.buf.rename, options) -- smart rename
-
-    options.desc = "Show buffer diagnostics"
-    keymap.set("n", "<leader>D", vim.diagnostic.get, options) -- show  diagnostics for file
-
-    options.desc = "Show line diagnostics"
-    keymap.set("n", "<leader>dg", vim.diagnostic.open_float, options) -- show diagnostics for line
-
-    options.desc = "Go to previous diagnostic"
-    keymap.set("n", "[d", vim.diagnostic.goto_prev, options) -- jump to previous diagnostic in buffer
-
-    options.desc = "Go to next diagnostic"
-    keymap.set("n", "]d", vim.diagnostic.goto_next, options) -- jump to next diagnostic in buffer
-
-    options.desc = "Show documentation for what is under cursor"
-    keymap.set("n", "K", vim.lsp.buf.hover, options) -- show documentation for what is under cursor
-
-    options.desc = "Restart LSP"
-    keymap.set("n", "<leader>rs", ":LspRestart<CR>", options) -- mapping to restart lsp if necessary
   end,
+
 })
+
+
+
+-- resize splits if window got resized
+
+vim.api.nvim_create_autocmd({ "VimResized" }, {
+
+  group = augroup("resize_splits"),
+
+  callback = function()
+
+    local current_tab = vim.fn.tabpagenr()
+
+    vim.cmd("tabdo wincmd =")
+
+    vim.cmd("tabnext " .. current_tab)
+
+  end,
+
+})
+
+
+
+
+
+-- make it easier to close man-files when opened inline
+
+vim.api.nvim_create_autocmd("FileType", {
+
+  group = augroup("man_unlisted"),
+
+  pattern = { "man" },
+
+  callback = function(event)
+
+    vim.bo[event.buf].buflisted = false
+
+  end,
+
+})
+
+
+
+-- close some filetypes with <q>
+
+vim.api.nvim_create_autocmd("FileType", {
+
+  group = augroup("close_with_q"),
+
+  pattern = {
+
+    "PlenaryTestPopup",
+
+    "checkhealth",
+
+    "dbout",
+
+    "gitsigns-blame",
+
+    "grug-far",
+
+    "help",
+
+    "lspinfo",
+
+    "neotest-output",
+
+    "neotest-output-panel",
+
+    "neotest-summary",
+
+    "notify",
+
+    "qf",
+
+    "spectre_panel",
+
+    "startuptime",
+
+    "tsplayground",
+
+  },
+
+  callback = function(event)
+
+    vim.bo[event.buf].buflisted = false
+
+    vim.schedule(function()
+
+      vim.keymap.set("n", "q", function()
+
+        vim.cmd("close")
+
+        pcall(vim.api.nvim_buf_delete, event.buf, { force = true })
+
+      end, {
+
+        buffer = event.buf,
+
+        silent = true,
+
+        desc = "Quit buffer",
+
+      })
+
+    end)
+
+  end,
+
+})
+
+
+
+-- wrap and check for spell in text filetypes
+
+vim.api.nvim_create_autocmd("FileType", {
+
+  group = augroup("wrap_spell"),
+
+  pattern = { "text", "plaintex", "typst", "gitcommit", "markdown" },
+
+  callback = function()
+
+    vim.opt_local.wrap = true
+
+    vim.opt_local.spell = true
+
+  end,
+
+})
+
+
+
+-- Fix conceallevel for json files
+
+vim.api.nvim_create_autocmd({ "FileType" }, {
+
+  group = augroup("json_conceal"),
+
+  pattern = { "json", "jsonc", "json5" },
+
+  callback = function()
+
+    vim.opt_local.conceallevel = 0
+
+  end,
+
+})
+
+
+
+-- Auto create dir when saving a file, in case some intermediate directory does not exist
+
+-- vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+--
+--   group = augroup("auto_create_dir"),
+--
+--   callback = function(event)
+--
+-- TODO: there's an invalid character near the regex, fix this
+--     if event.match:match("^%w%w+:[\/][\/]") then
+--
+--       return
+--
+--     end
+--
+--     local file = vim.uv.fs_realpath(event.match) or event.match
+--
+--     vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
+--
+--   end,
+--
+-- })
+
+
+
+-- Set filetype for .env and .env.* files
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+
+  group = augroup("env_filetype"),
+
+  pattern = { "*.env", ".env.*" },
+
+  callback = function()
+
+    vim.opt_local.filetype = "sh"
+
+  end,
+
+})
+
+
+
+-- Set filetype for .toml files
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+
+  group = augroup("toml_filetype"),
+
+  pattern = { "*.tomg-config*" },
+
+  callback = function()
+
+    vim.opt_local.filetype = "toml"
+
+  end,
+
+})
+
+
+
+-- Set filetype for .ejs files
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+
+  group = augroup("ejs_filetype"),
+
+  pattern = { "*.ejs", "*.ejs.t" },
+
+  callback = function()
+
+    vim.opt_local.filetype = "embedded_template"
+
+  end,
+
+})
+
+
+
+-- Set filetype for .code-snippets files
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+
+  group = augroup("code_snippets_filetype"),
+
+  pattern = { "*.code-snippets" },
+
+  callback = function()
+
+    vim.opt_local.filetype = "json"
+
+  end,
+
+})
+
+
+
