@@ -237,33 +237,6 @@ nvim_setup() {
   log "Neovim setup complete"
 }
 
-render_gitconfig() {
-  if [[ ! -f "$DOTFILES_DIR/git/.gitconfig.template" ]]; then
-    warn "No git template found, skipping"
-    return
-  fi
-
-  local email name
-  if [[ -f "$HOME/.gitconfig" ]]; then
-    warn ".gitconfig exists, skipping"
-    return
-  fi
-
-  echo -n "Git email: "
-  read -r email
-  echo -n "Git name: "
-  read -r name
-
-  if [[ -z "$email" ]] || [[ -z "$name" ]]; then
-    warn "Email or name empty, skipping gitconfig render"
-    return
-  fi
-
-  sed "s/{{ GITHUB_EMAIL }}/$email/g" "$DOTFILES_DIR/git/.gitconfig.template" |
-    sed "s/{{ GITHUB_NAME }}/$name/g" >"$DOTFILES_DIR/git/.gitconfig"
-
-  log "Rendered git config"
-}
 
 help() {
   cat <<EOF
@@ -277,7 +250,7 @@ Commands:
   packages    Install system packages
   stow        Stow all dotfile packages
   nvim        Setup Neovim configuration
-  gitconfig   Render git config template
+
 
 Options:
   --dry-run       Show what would be done without making changes
@@ -288,8 +261,7 @@ Environment Variables:
   DOTFILES_DIR    Override dotfiles directory (default: \$PWD)
   DRY_RUN         Set to 1 for dry-run mode
   NVIM_CONFIG     Neovim config to use (nvim/corporate-nvim, default: nvim)
-  GIT_EMAIL       Git email for gitconfig render
-  GIT_NAME        Git name for gitconfig render
+
 
 Examples:
   ./setup.sh all
@@ -317,7 +289,7 @@ main() {
       NVIM_CONFIG="$2"
       shift 2
       ;;
-    all | zsh | packages | stow | nvim | gitconfig)
+    all | zsh | packages | stow | nvim)
       cmd="$1"
       shift
       ;;
@@ -338,7 +310,6 @@ main() {
     packages
     stow_all
     nvim_setup
-    render_gitconfig
     ;;
   zsh)
     zsh_setup
@@ -355,9 +326,7 @@ main() {
     check_deps
     nvim_setup
     ;;
-  gitconfig)
-    render_gitconfig
-    ;;
+
   esac
 }
 

@@ -7,16 +7,68 @@
 
   # CLI tools (replaces brew install)
   environment.systemPackages = with pkgs; [
-    #TODO: migrate all non-cask packages listed in /homebrew/leaves/txt here
-    bat fzf delta gh lazygit lsd ripgrep tree
+    bash
+    bat
+    bc
+    coreutils
+    delta
+    docker
+    elixir
+    exercism
+    fd
+    fnm
+    fzf
+    gawk
+    gh
+    gnused
+    k9s
+    lazygit
+    lsd
+    neovim
+    nmap
+    pipx
+    ripgrep
+    stow
+    tealdeer
+    tree
+    xh
+    zoxide
+    zplug
   ];
 
   # GUI apps (declarative Homebrew)
-  # TODO: migrate all cask packages listed in /homebrew/leaves/txt here
   homebrew = {
     enable = true;
     onActivation.cleanup = "zap"; # This will remove all packages that are not listed here
-    casks = [ "raycast" "slack" "linear-linear" "ghostty" ];
+    casks = [
+      "1password"
+      "aerospace"
+      "brave-browser"
+      "discord"
+      "dotnet-sdk"
+      "emacs-app"
+      "font-monaspace-nerd-font"
+      "font-monaspice-nerd-font"
+      "font-noto-sans"
+      "font-sf-mono"
+      "font-sf-pro"
+      "font-symbols-only-nerd-font"
+      "ghostty"
+      "kitty"
+      "linear-linear"
+      "notion"
+      "raycast"
+      "readdle-spark"
+      "sf-symbols"
+      "slack"
+      "spotify"
+      "steam"
+      "visual-studio-code"
+      "warp"
+      "wezterm"
+      "whatsapp"
+      "zoom"
+    ];
   };
 
   # macOS preferences
