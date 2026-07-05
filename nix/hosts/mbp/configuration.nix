@@ -41,33 +41,11 @@
     enable = true;
     onActivation.cleanup = "zap"; # This will remove all packages that are not listed here
     casks = [
-      "1password"
       "aerospace"
       "brave-browser"
-      "discord"
-      "dotnet-sdk"
-      "emacs-app"
-      "font-monaspace-nerd-font"
-      "font-monaspice-nerd-font"
-      "font-noto-sans"
-      "font-sf-mono"
-      "font-sf-pro"
       "font-symbols-only-nerd-font"
-      "ghostty"
       "kitty"
-      "linear-linear"
-      "notion"
       "raycast"
-      "readdle-spark"
-      "sf-symbols"
-      "slack"
-      "spotify"
-      "steam"
-      "visual-studio-code"
-      "warp"
-      "wezterm"
-      "whatsapp"
-      "zoom"
     ];
   };
 

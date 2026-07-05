@@ -9,6 +9,7 @@
       cat = "bat --style=header,grid";
       ls  = "lsd";
       lg  = "lazygit";
+      v   = "nvim";
     };
 
     setOptions = [
@@ -22,10 +23,7 @@
       "interactive_comments"
     ];
 
-    unsetOptions = [ "prompt_sp" ];
-
     history = {
-      enable = true;
       size   = 1000000;
       save   = 1000000;
       path   = "$XDG_CACHE_HOME/zsh_history";
@@ -40,7 +38,6 @@
       zmodload zsh/complist
       zstyle ':completion:*' menu select
       zstyle ':completion:*' special-dirs true
-      zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} ma=0\;33
       zstyle ':completion:*' squeeze-slashes false
     '';
 
