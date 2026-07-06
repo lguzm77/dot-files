@@ -1,22 +1,17 @@
 # Lev's Personal Dotfiles
 
-Personal dotfiles, symlinks managed by GNU Stow.
+Personal dotfiles, managed via Nix and GNU Stow.
 
 # Bootstrapping
 
-If installing in a fresh environment
-
-- Run `sh setup.sh` to configure environment variables, text editor, shell, dependencies and symlinks
-
-That's it, you now have an environment ready for development.
-
-# Leaving a machine
-
-When leaving a machine you can persist any new dependencies in `/homebrew/leaves.txt` 
+If installing in a fresh environment:
 
 ```zsh
-brew leaves > ./homebrew/leaves.txt
+nix build ".#darwinConfigurations.mbp.system"
+sudo ./result/sw/bin/darwin-rebuild switch --flake .#mbp
 ```
+
+That's it, you now have an environment ready for development.
 
 ## Nix Configuration
 
@@ -41,14 +36,7 @@ The `./nix/` directory contains a Nix flake-based system configuration for macOS
 
 ### Relationship to Stow
 
-This Nix config runs alongside the Stow-managed configs in the rest of the repo. Nix handles CLI packages and macOS system settings, while Stow manages complex editor/terminal configs (Neovim, Wezterm, Ghostty, etc.).
-
-### Build & Activate
-
-```zsh
-nix build ".#darwinConfigurations.mbp.system"
-sudo ./result/sw/bin/darwin-rebuild switch --flake .#mbp
-```
+This Nix config runs alongside the remaining Stow-managed configs (Neovim, terminal emulators, etc.). The old `setup.sh` bootstrap script has been removed — Nix now handles everything it used to (zsh config, XDG compliance, packages). The Stow packages are still activated via `stow .` for anything not yet migrated.
 
 ### Todos
 
