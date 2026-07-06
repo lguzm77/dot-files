@@ -10,6 +10,7 @@
       ls  = "lsd";
       lg  = "lazygit";
       v   = "nvim";
+      e   = "exit";
     };
 
     setOptions = [
@@ -41,8 +42,11 @@
       zstyle ':completion:*' squeeze-slashes false
     '';
 
+    dotDir = "${config.home.homeDirectory}/.config/zsh";
+
     sessionVariables = {
       EDITOR            = "nvim";
+      # TODO: migrate all XDG variable to use home-dir's xdg module
       XDG_CONFIG_HOME   = "$HOME/.config";
       XDG_DATA_HOME     = "$HOME/.local/share";
       XDG_CACHE_HOME    = "$HOME/.cache";

@@ -9,7 +9,6 @@
   environment.systemPackages = with pkgs; [
     bash
     bat
-    bc
     coreutils
     delta
     docker
@@ -26,6 +25,7 @@
     tree
     xh
     zoxide
+    opencode
   ];
 
   # GUI apps (declarative Homebrew)
@@ -33,9 +33,7 @@
     enable = true;
     onActivation.cleanup = "zap"; # This will remove all packages that are not listed here
     casks = [
-      "aerospace"
       "brave-browser"
-      "kitty"
       "raycast"
     ];
   };
