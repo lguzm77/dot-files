@@ -8,11 +8,13 @@
   # CLI tools (replaces brew install)
   environment.systemPackages = with pkgs; [
     bash
+    kitty
     bat
     coreutils
     delta
     docker
     fd
+    fnm
     fzf
     gh
     k9s
