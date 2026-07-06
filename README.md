@@ -4,6 +4,12 @@ Personal dotfiles, managed via Nix and GNU Stow.
 
 # Bootstrapping
 
+Make sure you have nix installed
+
+```
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+```
+
 If installing in a fresh environment:
 
 ```zsh
