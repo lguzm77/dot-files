@@ -3,7 +3,7 @@
 # This file handles system-level tools - packages, homebrew casks and macOs preferences
 
 {
-  system.primaryUser = "yourname";
+  system.primaryUser = "levguzman";
 
   # CLI tools (replaces brew install)
   environment.systemPackages = with pkgs; [
@@ -13,27 +13,19 @@
     coreutils
     delta
     docker
-    elixir
-    exercism
     fd
-    fnm
     fzf
-    gawk
     gh
-    gnused
     k9s
     lazygit
     lsd
     neovim
-    nmap
-    pipx
     ripgrep
     stow
     tealdeer
     tree
     xh
     zoxide
-    zplug
   ];
 
   # GUI apps (declarative Homebrew)
@@ -43,7 +35,6 @@
     casks = [
       "aerospace"
       "brave-browser"
-      "font-symbols-only-nerd-font"
       "kitty"
       "raycast"
     ];
