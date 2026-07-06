@@ -2,6 +2,8 @@
 
 # handles user-level config—your shell, git, and dotfiles:
 {
+  xdg.enable = true;
+
   programs.zsh = {
     enable = true;
 
@@ -27,7 +29,7 @@
     history = {
       size   = 1000000;
       save   = 1000000;
-      path   = "$XDG_CACHE_HOME/zsh_history";
+      path   = "${config.xdg.cacheHome}/zsh_history";
       share  = true;
       append = true;
       ignoreDups  = true;
@@ -46,21 +48,17 @@
 
     sessionVariables = {
       EDITOR            = "nvim";
-      # TODO: migrate all XDG variable to use home-dir's xdg module
-      XDG_CONFIG_HOME   = "$HOME/.config";
-      XDG_DATA_HOME     = "$HOME/.local/share";
-      XDG_CACHE_HOME    = "$HOME/.cache";
-      ZDOTDIR           = "$XDG_CONFIG_HOME/zsh";
-      LESSHISTFILE      = "$XDG_CACHE_HOME/less_history";
-      PYTHON_HISTORY    = "$XDG_DATA_HOME/python/history";
-      CARGO_HOME        = "$XDG_DATA_HOME/cargo";
-      GOPATH            = "$XDG_DATA_HOME/go";
+      ZDOTDIR           = "${config.xdg.configHome}/zsh";
+      LESSHISTFILE      = "${config.xdg.cacheHome}/less_history";
+      PYTHON_HISTORY    = "${config.xdg.dataHome}/python/history";
+      CARGO_HOME        = "${config.xdg.dataHome}/cargo";
+      GOPATH            = "${config.xdg.dataHome}/go";
       GOBIN             = "$GOPATH/bin";
-      GOMODCACHE        = "$XDG_CACHE_HOME/go/mod";
-      NPM_CONFIG_USERCONFIG = "$XDG_CONFIG_HOME/npm/npmrc";
-      GNUPGHOME         = "$XDG_DATA_HOME/gnupg";
-      WGETRC            = "$XDG_CONFIG_HOME/wget/wgetrc";
-      PYTHONSTARTUP     = "$XDG_CONFIG_HOME/python/pythonrc";
+      GOMODCACHE        = "${config.xdg.cacheHome}/go/mod";
+      NPM_CONFIG_USERCONFIG = "${config.xdg.configHome}/npm/npmrc";
+      GNUPGHOME         = "${config.xdg.dataHome}/gnupg";
+      WGETRC            = "${config.xdg.configHome}/wget/wgetrc";
+      PYTHONSTARTUP     = "${config.xdg.configHome}/python/pythonrc";
       FZF_DEFAULT_OPTS  = "--style minimal --color 16 --layout=reverse --height 30% --preview='bat -p --color=always {}'";
       FZF_CTRL_R_OPTS   = "--style minimal --color 16 --info inline --no-sort --no-preview";
       MANPAGER          = "less -R --use-color -Dd+r -Du+b";
@@ -68,7 +66,7 @@
     };
 
     initExtraFirst = ''
-      export PATH="$XDG_CONFIG_HOME/scripts:$PATH"
+      export PATH="${config.xdg.configHome}/scripts:$PATH"
     '';
 
     initExtra = ''
