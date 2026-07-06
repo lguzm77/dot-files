@@ -52,6 +52,5 @@ sudo ./result/sw/bin/darwin-rebuild switch --flake .#mbp
 
 ### Todos
 
-- `home/home.nix:49` — Migrate hand-coded XDG environment variables (`XDG_CONFIG_HOME`, `XDG_DATA_HOME`, `XDG_CACHE_HOME`, etc.) to home-manager's built-in `xdg` module.
 - Migrate all Stow-managed configs (Neovim, terminal emulators, etc.) into Nix to eliminate the dual-management approach.
 
