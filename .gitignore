@@ -2,3 +2,4 @@
 *.json
 **/lazy-lock.json
 **/.gitconfig
+**/result
