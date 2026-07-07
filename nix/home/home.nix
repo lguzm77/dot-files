@@ -2,11 +2,21 @@
 
 # handles user-level config—your shell, git, and dotfiles:
 {
-  xdg.enable = true;
+  xdg = {
+   enable = true;
+   configFile = {
+   "nvim"  = {
+   	source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dot-files/nvim";
+   };
+    "kitty" = {
+   	source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dot-files/kitty";
+      };
+   };
+  };
 
   programs.zsh = {
     enable = true;
-
+ 
     shellAliases = {
       cat = "bat --style=header,grid";
       ls  = "lsd";
