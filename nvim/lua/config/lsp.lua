@@ -103,6 +103,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 vim.lsp.enable({
   -- TODO: add support for python, golang and terraform
 	"lua_ls",
+  "terraformls"
 })
 
 

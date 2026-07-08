@@ -28,6 +28,8 @@
     xh
     zoxide
     opencode
+    terraform-ls
+    lua-language-server
   ];
 
   # GUI apps (declarative Homebrew)
