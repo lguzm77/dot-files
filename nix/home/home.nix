@@ -6,7 +6,7 @@
    enable = true;
    configFile = {
    "nvim"  = {
-   	source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dot-files/nvim";
+   	source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dot-files/corporate-nvim/nvim";
    };
     "kitty" = {
    	source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dot-files/kitty";
@@ -104,6 +104,8 @@
       export LESS_TERMCAP_ue=$(printf '%b' '\033[0m')
 
       stty stop undef
+
+      eval "$(${pkgs.worktrunk}/bin/wt config shell init zsh)"
     '';
   };
 
@@ -139,5 +141,7 @@
   programs.starship.enable = true;
   programs.zoxide.enable = true;
 
-  home.stateVersion = "24.11";
+  home.packages = with pkgs; [ worktrunk ];
+
+  home.stateVersion = "26.05";
 }

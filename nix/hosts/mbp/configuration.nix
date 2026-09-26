@@ -30,6 +30,8 @@
     opencode
     terraform-ls
     lua-language-server
+    ffmpeg
+    yazi
   ];
 
   # GUI apps (declarative Homebrew)
@@ -39,6 +41,7 @@
     casks = [
       "brave-browser"
       "raycast"
+      "1password"
     ];
   };
 
