@@ -32,6 +32,7 @@
     lua-language-server
     ffmpeg
     yazi
+    pi-coding-agent
   ];
 
   # GUI apps (declarative Homebrew)
