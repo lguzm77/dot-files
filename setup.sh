@@ -159,8 +159,24 @@ stow_pkg() {
 # ---------------------------------------------------------------------------
 # Steps
 # ---------------------------------------------------------------------------
+# setup.sh often runs from a non-login shell where /opt/homebrew/bin is not on
+# PATH yet, even though Homebrew is installed.
+ensure_brew_path() {
+  local prefix
+  command -v brew >/dev/null 2>&1 && return 0
+  for prefix in /opt/homebrew /usr/local; do
+    if [[ -x "$prefix/bin/brew" ]]; then
+      eval "$("$prefix/bin/brew" shellenv)"
+      return 0
+    fi
+  done
+  return 1
+}
+
 install_deps() {
   step "Homebrew packages"
+
+  ensure_brew_path
 
   if ! command -v brew >/dev/null 2>&1; then
     err "Homebrew is not installed."
@@ -287,6 +303,8 @@ apply_macos_defaults() {
 
 check() {
   step "Environment check"
+
+  ensure_brew_path
 
   local missing="" cmd
   for cmd in git stow brew; do
