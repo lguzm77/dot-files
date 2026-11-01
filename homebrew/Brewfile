@@ -1,0 +1,45 @@
+# Homebrew bundle -- the single source of truth for installed packages.
+#
+#   brew bundle --file homebrew/Brewfile            # install
+#   brew bundle dump --force --file homebrew/Brewfile  # re-snapshot after adding things
+#
+# Every entry below was verified against formulae.brew.sh. Generated for
+# Apple Silicon; on Intel, prefix paths are /usr/local instead of /opt/homebrew.
+
+# --- CLI tools -------------------------------------------------------------
+brew "bash"                # newer than macOS's 3.2
+brew "bat"
+brew "coreutils"           # GNU ls/coreutils on PATH via gnubin
+brew "fd"
+brew "ffmpeg"
+brew "fnm"                 # node version manager
+brew "fzf"
+brew "gawk"
+brew "gh"
+brew "git-delta"           # provides `delta`
+brew "gnu-sed"
+brew "k9s"
+brew "lazygit"
+brew "lsd"
+brew "lua-language-server"
+brew "neovim"
+brew "opencode"
+brew "pi-coding-agent"
+brew "pipx"
+brew "ripgrep"
+brew "starship"
+brew "stow"
+brew "tealdeer"            # provides `tldr`
+brew "terraform-ls"
+brew "tree"
+brew "worktrunk"           # provides `wt`
+brew "xh"
+brew "yazi"
+brew "zoxide"
+
+# --- GUI apps --------------------------------------------------------------
+cask "1password"
+cask "brave-browser"
+cask "docker-desktop"      # also provides the docker CLI
+cask "kitty"
+cask "raycast"
