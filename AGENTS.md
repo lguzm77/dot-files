@@ -23,6 +23,11 @@ dot-files/
 ├── kitty/.config/kitty/
 ├── k9s/.config/k9s/
 ├── fonts/Library/Fonts/         # -> ~/Library/Fonts/
+├── agents/                      # portable agent skills and guidelines
+│   ├── .agents/                 # -> ~/.agents (AGENTS.md, skills/)
+│   ├── .claude/                 # -> ~/.claude/CLAUDE.md, ~/.claude/skills
+│   ├── .codex/AGENTS.md         # -> ~/.codex/AGENTS.md
+│   └── .config/opencode/        # -> ~/.config/opencode (AGENTS.md, agents/)
 └── nix/                         # LEGACY, no longer used
 ```
 
@@ -32,7 +37,7 @@ dot-files/
 ./setup.sh              # deps -> render -> stow -> nvim -> fonts
 ./setup.sh deps         # brew bundle --file homebrew/Brewfile
 ./setup.sh render       # render gitconfig template
-./setup.sh stow         # stow kitty, k9s, starship, zsh, git
+./setup.sh stow         # stow kitty, k9s, starship, zsh, git, agents
 ./setup.sh nvim         # stow only the Neovim config
 ./setup.sh fonts        # stow fonts into ~/Library/Fonts
 ./setup.sh macos        # apply macOS defaults
@@ -73,6 +78,35 @@ Rules:
 - Never commit rendered output. `git/.gitconfig` is generated and gitignored.
 - `.stowrc` holds ignores only. Do not add a global `--target`: packages under
   different roots (fonts, zsh) would silently land in the wrong place.
+
+## Agent Config
+
+`agents/` is one stow package holding portable agent configuration. The rule is
+canonical content once, provider paths as links:
+
+```
+agents/.agents/AGENTS.md                  canonical guidelines
+agents/.agents/skills/<id>/SKILL.md       portable skills (Agent Skills spec)
+agents/.claude/CLAUDE.md     -> ../.agents/AGENTS.md
+agents/.claude/skills        -> ../.agents/skills
+agents/.codex/AGENTS.md      -> ../.agents/AGENTS.md
+agents/.config/opencode/AGENTS.md -> ../../.agents/AGENTS.md
+agents/.config/opencode/agents/reviewer.md   OpenCode-only subagent
+```
+
+- `~/.agents/skills` is read natively by OpenCode and Codex; Claude Code only
+  reads `~/.claude/skills`, which is why a link exists.
+- Stow this package with `--no-folding`: `~/.codex`, `~/.agents/skills`, and
+  `~/.config/opencode` collect their own state (auth, installed skills,
+  `cli.json`), and folding them would put that state in the repo.
+- Edit the canonical file, never the symlink target at a provider path.
+- Adding a skill: `mkdir -p agents/.agents/skills/<id>`, write `SKILL.md` with
+  `name` equal to the directory and a specific `description`, re-run
+  `./setup.sh stow`.
+- Keep provider-specific frontmatter out of the top level; nest it under
+  `metadata`.
+- Subagent definitions are not portable. Keep the procedure in a skill and make
+  the provider agent file a thin wrapper that loads that skill by ID.
 
 ## Neovim Configs
 

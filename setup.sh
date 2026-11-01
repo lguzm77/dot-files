@@ -274,6 +274,11 @@ stow_all() {
   # zsh gets file-level links because zsh writes .zcompdump into ~/.config/zsh.
   stow_pkg zsh "$DOTFILES" nofold || warn "zsh package not stowed"
 
+  # agents gets file-level links too: ~/.codex, ~/.agents and ~/.config/opencode
+  # accumulate their own state (auth, cli.json, installed skills), so folding
+  # them would write that state into the repo.
+  stow_pkg agents "$DOTFILES" nofold || warn "agents package not stowed"
+
   stow_git
 }
 
