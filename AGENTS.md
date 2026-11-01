@@ -1,309 +1,150 @@
 # AGENTS.md - Dotfiles Development Guide
 
-This is a **dotfiles repository** managed by GNU Stow. It contains configuration files for shell, Neovim, terminal emulators, git, and other development tools.
+Personal dotfiles managed with **GNU Stow** (symlinks) and **Homebrew** (packages).
+There is no Nix dependency: `nix/` is legacy and pending deletion.
 
 ## Repository Structure
 
+The repo mirrors `$HOME`, so a file's path in the repo is its path on disk.
+
 ```
 dot-files/
-├── setup.sh               # Bootstrap script for new machines
-├── .stowrc                # Stow configuration
-├── aerospace/             # Tiling window manager config
-├── corporate-nvim/        # Work-specific Neovim config
-├── ghostty/               # Ghostty terminal config
-├── git/                   # Git configuration & .gitconfig
-├── homebrew/              # Homebrew dependencies list
-├── k9s/                   # Kubernetes terminal UI config
-├── kitty/                 # Kitty terminal config
-├── nvim/                  # Neovim configuration (main)
-├── shell/                 # Additional shell scripts
-├── starship/              # Starship prompt config
-├── wal/                   # pywal color schemes
-├── wezterm/               # Wezterm terminal config
-└── zsh/                   # Zsh config (.zshrc, modules)
+├── setup.sh                     # bootstrap: deps, render, stow, fonts
+├── .stowrc                      # stow ignores (no --target; see below)
+├── homebrew/Brewfile            # every brew formula and cask
+├── macos/defaults.sh            # macOS defaults, idempotent
+├── zsh/
+│   ├── .zshenv                  # XDG vars + ZDOTDIR  -> ~/.zshenv
+│   └── .config/zsh/             # .zprofile, .zshrc   -> ~/.config/zsh/
+├── git/.gitconfig.template      # rendered to git/.gitconfig -> ~/.gitconfig
+├── starship/.config/starship.toml
+├── nvim/.config/nvim/           # canonical Neovim config
+├── corporate-nvim/nvim/.config/nvim/  # alternate config (NVIM_CONFIG=corporate-nvim)
+├── kitty/.config/kitty/
+├── k9s/.config/k9s/
+├── fonts/Library/Fonts/         # -> ~/Library/Fonts/
+└── nix/                         # LEGACY, no longer used
 ```
 
----
-
-## Build/Lint/Test Commands
-
-### Symlink Management (Stow)
+## Commands
 
 ```bash
-# Preview what stow will do without making changes
-stow --dry-run .
-
-# Apply all stow packages (creates symlinks in ~/.config)
-stow .
-
-# Stow specific package
-stow nvim
-stow zsh
-
-# Restow (recreate symlinks) after config changes
-stow -R nvim
-
-# Unstow (remove symlinks)
-stow -D nvim
+./setup.sh              # deps -> render -> stow -> nvim -> fonts
+./setup.sh deps         # brew bundle --file homebrew/Brewfile
+./setup.sh render       # render gitconfig template
+./setup.sh stow         # stow kitty, k9s, starship, zsh, git
+./setup.sh nvim         # stow only the Neovim config
+./setup.sh fonts        # stow fonts into ~/Library/Fonts
+./setup.sh macos        # apply macOS defaults
+./setup.sh check        # report missing tools and dangling links
+./setup.sh --dry-run all
 ```
 
-### Bootstrap New Machine
+Environment overrides:
 
 ```bash
-# Full setup (dependencies, shell, render templates, symlinks)
-./setup.sh
-
-# Run individual steps
-./setup.sh dependencies
-./setup.sh shell
-./setup.sh render
-./setup.sh symlinks
+NVIM_CONFIG=corporate-nvim ./setup.sh nvim
+GITHUB_NAME=lev GITHUB_EMAIL=lev@example.com ./setup.sh render
+DOTFILES_DIR=/path/to/repo ./setup.sh stow
 ```
 
-### Code Formatting
+Raw stow still works, because the repo mirrors `$HOME` and the default target
+is the repo's parent:
 
 ```bash
-# Format all Lua files (Neovim configs)
-stylua nvim/**/*.lua
-stylua wezterm/**/*.lua
-
-# Format specific file
-stylua nvim/init.lua
+stow --dir=. --target="$HOME" --restow kitty
+stow -D --target="$HOME" kitty      # unstow
+stow -n -v --target="$HOME" kitty   # dry run
 ```
 
-### Linting
+`stow` maps a package's **contents** into the target. `nvim/` therefore contains
+`.config/nvim/`, not the config files directly.
+
+## Adding a New Config
+
+1. Create the package directory mirroring its real location, e.g.
+   `mkdir -p foo/.config/foo` and add the file there.
+2. Add `foo` to the package list in `stow_all()` in `setup.sh`.
+3. Run `./setup.sh --dry-run stow`, then `./setup.sh stow`.
+
+Rules:
+
+- Prefer `~/.config/...` (XDG) over dotfiles in `$HOME`.
+- Never commit rendered output. `git/.gitconfig` is generated and gitignored.
+- `.stowrc` holds ignores only. Do not add a global `--target`: packages under
+  different roots (fonts, zsh) would silently land in the wrong place.
+
+## Neovim Configs
+
+`nvim/` is **canonical**. `corporate-nvim/` is an alternate used on work
+machines, selected with `NVIM_CONFIG=corporate-nvim`. Only one is linked at a
+time, always as `~/.config/nvim`.
+
+When changing behaviour that should exist in both, change `nvim/` first, then
+port it. Do not fork a third copy.
+
+## Package Management
+
+`homebrew/Brewfile` is the source of truth. After installing something new:
 
 ```bash
-# Shell scripts
-shellcheck setup.sh
-shellcheck shell/*.sh
-
-# Lua files
-luacheck nvim/lua/
-
-# Python files
-flake8 --select=E9,F63,F7,F82 --show-source --statistics kitty/pass_keys.py
-flake8 --select=E9,F63,F7,F82 --show-source --statistics kitty/navigate_kitty.py
-
-# YAML files (ensure yamllint is installed)
-yamllint k9s/config.yaml
-yamllint aerospace/aerospace.toml
+brew bundle dump --force --file homebrew/Brewfile
 ```
 
----
+Review the diff before committing: the dump includes anything you installed by
+hand. Every entry is checked against formulae.brew.sh.
 
-## Code Style Guidelines
+## Code Style
 
-### General Principles
+### Shell
 
-1. **XDG Base Directory Specification**: Config files go in `$XDG_CONFIG_HOME` (`~/.config`)
-2. **No hardcoded paths**: Use environment variables like `$HOME`, `$XDG_CONFIG_HOME`
-3. **Cross-platform awareness**: Some configs are macOS-specific (Homebrew paths)
+- `#!/usr/bin/env bash`, `set -euo pipefail`
+- `setup.sh` must stay **bash 3.2 compatible** (macOS ships 3.2): no
+  associative arrays, no `mapfile`, no `${var,,}`
+- Use `[[ ]]`, `$(...)`, and quote every path
+- Quote variables and check `command -v` before calling optional tools
 
----
+### Lua (Neovim)
 
-### Lua (Neovim & Wezterm)
-
-**Style Rules** (per `.stylua.toml`):
+Per `nvim/.config/nvim/.stylua.toml`: 80 columns, 2-space indent, double quotes,
+trailing commas, no space before call parens.
 
 ```lua
--- Column width: 80
--- Indentation: 2 spaces (no tabs)
--- Quote style: Double quotes preferred
--- No space after function names: require "module"
--- Trailing commas: Yes
--- Line endings: Unix
-
--- CORRECT
 local function setup()
   vim.opt.clipboard:append("unnamedplus")
 end
 
--- INCORRECT
-local function setup( ) -- no spaces in parens
-  vim.opt.clipboard:append( 'unnamedplus' ) -- single quotes
-end
-
--- Module pattern for Wezterm
-local module = {}
-
-function module.set_up_keybindings(config)
-  -- ...
-end
-
-return module
-```
-
-**Lua LSP Configuration**:
-- Add `vim` to `diagnostics.globals` in `.luarc.json`
-- Use `vim.` functions without lint warnings
-
-**Lazy Plugin Spec Pattern**:
-```lua
-return {
-  {
-    "plugin/repo",
-    event = "VeryLazy",  -- or "BufReadPre", etc.
-    dependencies = { "dep1", "dep2" },
-    opts = {},
-    config = function(_, opts)
-      -- setup code
-    end,
-  },
-}
-```
-
----
-
-### Shell Scripts (Bash/Zsh)
-
-```bash
-# Shebang: use #!/usr/bin/env bash
-#!/usr/bin/env bash
-
-# Local variables with local
-local var="value"
-
-# Use [[ ]] for conditionals (not [ ])
-if [[ "$var" == "value" ]]; then
-  echo "match"
-fi
-
-# Check command existence before use
-if command -v brew > /dev/null; then
-  echo "brew exists"
-fi
-
-# Use $() for command substitution (not backticks)
-path=$(pwd)
-
-# Always quote variables containing paths
-ln -s "$PWD/zsh/.zshrc" "$HOME/.config/zsh/.zshrc"
-
-# Use set -e to exit on error
-set -e
-
-# Use set -u to error on undefined variables
-set -u
-```
-
----
-
-### Configuration Files
-
-**TOML** (Aerospace, Starship, stylua):
-```toml
-# Standard TOML syntax
-[section]
-key = "value"
-nested.key = 123
-
-# Arrays
-items = ["a", "b", "c"]
-```
-
-**YAML** (k9s):
-```yaml
-# Standard YAML (2-space indent)
-key: value
-nested:
-  key: value
-```
-
-**Ghostty Config**:
-```bash
-# ghostty uses key=value syntax (no quotes needed)
-font-family = Fira Code
-font-size = 12
-
-# Keybindings
-keybind = ctrl+s>r=reload_config
-```
-
-**Kitty Config**:
-```bash
-# INI-style with sections
-# Comments use #
-
-[section]
-key value
-
-# Maps
-map cmd+shift+t new_tab_with_cwd
-```
-
----
-
-### Git Configuration
-
-- Use `.gitconfig.template` for sensitive data
-- Template variables: `{{ GITHUB_EMAIL }}`, `{{ GITHUB_NAME }}`
-- Render template with `sed` before use
-
-```bash
-sed "s/{{ GITHUB_EMAIL }}/$email/g" .gitconfig.template |
-  sed "s/{{ GITHUB_NAME }}/$name/g" > .gitconfig
-```
-
----
-
-### Neovim Keymaps
-
-```lua
--- Use <leader> for user commands
-vim.keymap.set("n", "<leader>rp", function_name, { noremap = true, silent = true })
-
--- Use descriptive { desc = "" } for leader keys
 vim.keymap.set("n", "<leader>l", function()
-  conform.format({ lsp_fallback = true })
+  require("conform").format({ lsp_fallback = true })
 end, { desc = "Format file or range" })
 ```
 
----
+### Zsh
 
-### Error Handling
+- Split by lifecycle: `.zshenv` (everything, fast), `.zprofile` (login env),
+  `.zshrc` (interactive)
+- Keep `.zshrc` plugin-free; guard optional integrations with `command -v`
+- Never add a hand-rolled `PROMPT` when starship is in use
 
-**Shell**:
+## Formatting and Linting
+
 ```bash
-# Exit on error
-set -e
-
-# Print commands before executing
-set -x
-
-# Exit on undefined variable
-set -u
+stylua nvim/.config/nvim
+stylua corporate-nvim/nvim/.config/nvim
+shellcheck setup.sh macos/defaults.sh
+bash -n setup.sh
+zsh -n zsh/.zshenv zsh/.config/zsh/.zprofile zsh/.config/zsh/.zshrc
+flake8 --select=E9,F63,F7,F82 kitty/.config/kitty/*.py
+yamllint k9s/.config/k9s/config.yaml
 ```
 
-**Lua**:
-```lua
--- Use vim.validate for argument checking
-vim.validate({
-  name = { value, "string", true },
-})
+## Secrets
 
--- Use pcall for protected calls
-local ok, result = pcall(some_function, arg)
-if not ok then
-  vim.notify("Error: " .. result, vim.log.levels.ERROR)
-end
-```
+`git/.gitconfig.template` uses `{{ GITHUB_NAME }}` and `{{ GITHUB_EMAIL }}`.
+`./setup.sh render` fills them from the environment, or from the previously
+rendered file, or by prompting. Never commit the rendered `git/.gitconfig`.
 
----
+## Legacy
 
-### Dependencies
-
-**Homebrew packages** are tracked in `homebrew/leaves.txt` (formulae) and the setup script installs casks separately.
-
-To update dependencies on leaving a machine:
-```bash
-brew leaves > ./homebrew/leaves.txt
-```
-
----
-
-### Editor Setup
-
-- **EDITOR**: Set to `nvim` in `zsh/.zshrc`
-- **XDG Compliance**: All configs go to `$XDG_CONFIG_HOME`
-- **Plugins**: Use LazyVim/LazyNvim plugin manager for Neovim
+`nix/` documents the abandoned nix-darwin/home-manager setup. Nothing reads it.
+Delete it once `./setup.sh all` is verified on a fresh machine.

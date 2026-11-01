@@ -1,50 +1,83 @@
 # Lev's Personal Dotfiles
 
-Personal dotfiles, managed via Nix and GNU Stow.
+Symlinked with GNU Stow, packages from Homebrew. One `setup.sh`, no Nix.
 
-# Bootstrapping
-
-Make sure you have nix installed
-
-```
-curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
-```
-
-If installing in a fresh environment:
+## Bootstrap a New Mac
 
 ```zsh
-nix build ".#darwinConfigurations.mbp.system"
-sudo ./result/sw/bin/darwin-rebuild switch --flake .#mbp
+git clone https://github.com/lguzm77/dot-files ~/dot-files
+cd ~/dot-files
+
+# 1. Homebrew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# 2. Packages, git identity, symlinks, fonts
+GITHUB_NAME=you GITHUB_EMAIL=you@example.com ./setup.sh all
+
+# 3. Optional: macOS defaults
+./setup.sh macos
+
+# 4. Verify
+./setup.sh check
 ```
 
-That's it, you now have an environment ready for development.
+Open a new terminal afterwards so `~/.zshenv` is picked up.
 
-## Nix Configuration
+## How It Works
 
-The `./nix/` directory contains a Nix flake-based system configuration for macOS (Apple Silicon), managed alongside the Stow-based dotfiles.
+The repo mirrors `$HOME`: `nvim/.config/nvim/init.lua` becomes
+`~/.config/nvim/init.lua`. `./setup.sh` stows each package with
+`--target="$HOME"`, so paths are self-documenting.
 
-### Structure
+| Package | Lands at |
+|---|---|
+| `zsh/` | `~/.zshenv`, `~/.config/zsh/{.zprofile,.zshrc}` |
+| `git/` | `~/.gitconfig` (rendered from `.gitconfig.template`) |
+| `nvim/` | `~/.config/nvim` |
+| `kitty/` | `~/.config/kitty` |
+| `k9s/` | `~/.config/k9s` |
+| `starship/` | `~/.config/starship.toml` |
+| `fonts/` | `~/Library/Fonts` |
 
-| Path | Purpose |
-|------|---------|
-| `flake.nix` | Entry point — ties all modules together |
-| `hosts/mbp/configuration.nix` | **System-level** config: CLI packages (nixpkgs), Homebrew casks, macOS defaults |
-| `home/home.nix` | **User-level** config via home-manager: shell, git, prompt, XDG environment variables |
-| `flake.lock` | Pins exact revisions of nixpkgs, nix-darwin, and home-manager |
+`./setup.sh` is idempotent: re-running only fixes what drifted, backs up real
+files it would overwrite, and replaces dead symlinks.
 
-### Architecture
+## Neovim
 
-`flake.nix` defines a single `darwinConfiguration` named `"mbp"` for `aarch64-darwin`. It loads two module files:
+`nvim/` is the canonical config. `corporate-nvim/` is an alternate for work
+machines:
 
-1. **`./hosts/mbp/configuration.nix`** — manages system packages (`bat`, `neovim`, `ripgrep`, etc.), Homebrew casks (`brave-browser`, `raycast`), and macOS preferences (Dock auto-hide, Finder show all files).
+```zsh
+NVIM_CONFIG=corporate-nvim ./setup.sh nvim
+./setup.sh nvim        # back to the personal config
+```
 
-2. **`./home/home.nix`** — managed via home-manager's `users.levguzman`, configures Zsh (aliases, history, FZF), Git (name/email, difftool), Starship prompt, and full XDG Base Directory compliance.
+## Packages
 
-### Relationship to Stow
+`homebrew/Brewfile` is the single source of truth. To re-snapshot after
+installing something:
 
-This Nix config runs alongside the remaining Stow-managed configs (Neovim, terminal emulators, etc.). The old `setup.sh` bootstrap script has been removed — Nix now handles everything it used to (zsh config, XDG compliance, packages). The Stow packages are still activated via `stow .` for anything not yet migrated.
+```zsh
+brew bundle dump --force --file homebrew/Brewfile
+```
 
-### Todos
+## Daily Use
 
-- Migrate all Stow-managed configs (Neovim, terminal emulators, etc.) into Nix to eliminate the dual-management approach.
+```zsh
+cd ~/dot-files
+nvim .                  # edit configs in place; symlinks pick changes up
+./setup.sh stow         # re-link after adding a package
+./setup.sh check        # what's missing or dangling
+```
 
+## Layout
+
+```
+setup.sh                  bootstrap and re-sync
+homebrew/Brewfile         formulae + casks
+macos/defaults.sh         macOS defaults
+zsh/  git/  starship/     shell, git, prompt
+nvim/  corporate-nvim/    Neovim configs
+kitty/  k9s/  fonts/      terminal, k9s, Nerd Font
+nix/                      legacy nix-darwin config, unused
+```
