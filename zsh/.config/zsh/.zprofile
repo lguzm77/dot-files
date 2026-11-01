@@ -28,6 +28,11 @@ export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"
 # Local scripts
 export PATH="$XDG_CONFIG_HOME/scripts:$PATH"
 
+# LM Studio CLI (previously the only line in a stray ~/.zshrc)
+if [[ -d "$HOME/.lmstudio/bin" ]]; then
+  export PATH="$PATH:$HOME/.lmstudio/bin"
+fi
+
 # fzf
 export FZF_DEFAULT_OPTS="--style minimal --color 16 --layout=reverse --height 30% --preview='bat -p --color=always {}'"
 export FZF_CTRL_R_OPTS="--style minimal --color 16 --info inline --no-sort --no-preview"

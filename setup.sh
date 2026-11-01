@@ -120,6 +120,24 @@ clear_tree() {
   done
 }
 
+# Remove broken symlinks left in ~/.config by the old home-manager install.
+# They point at /nix/store paths that no longer exist, so nothing can be lost.
+prune_dead_nix_links() {
+  local link target
+  while IFS= read -r link; do
+    [[ -n "$link" ]] || continue
+    target="$(readlink "$link" 2>/dev/null || true)"
+    case "$target" in
+      /nix/store/*)
+        run rm -f "$link"
+        warn "pruned dead nix link $link"
+        ;;
+    esac
+  done <<EOF
+$(find "$TARGET/.config" -maxdepth 3 -type l 2>/dev/null)
+EOF
+}
+
 stow_pkg() {
   local pkg="$1" dir="${2:-$DOTFILES}" fold="${3:-fold}"
   local extra=""
@@ -229,6 +247,8 @@ install_fonts() {
 
 stow_all() {
   step "Symlink configs"
+
+  prune_dead_nix_links
 
   local pkg
   for pkg in kitty k9s starship; do
