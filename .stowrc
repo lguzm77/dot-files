@@ -1,4 +1,12 @@
---target=~/.config
---ignore=.stowrc
+# Default stow options.
+#
+# The repo mirrors $HOME, so the target is always the parent of this repo and
+# every package (nvim/, kitty/, zsh/, git/, fonts/) lands where its own path
+# says it should. ./setup.sh passes --target explicitly for clarity.
 --ignore=DS_Store
---ignore=setup.sh
+--ignore=\.stowrc
+--ignore=README\.md
+--ignore=LICENSE
+--ignore=\.gitignore
+--ignore=\.git$
+--ignore=\.template

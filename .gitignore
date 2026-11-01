@@ -1,5 +1,13 @@
+# macOS
 .DS_Store
-*.json
-**/lazy-lock.json
-**/.gitconfig
+**/.DS_Store
+
+# Rendered at bootstrap time from git/.gitconfig.template
+git/.gitconfig
+
+# Nix build output (kept until nix/ is removed)
 **/result
+
+# Editor / tool state
+**/.zcompdump
+**/.zwc

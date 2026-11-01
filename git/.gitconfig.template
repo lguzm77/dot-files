@@ -1,0 +1,34 @@
+# Rendered by ./setup.sh render -- do not edit ~/.gitconfig directly.
+# Placeholders: {{ GITHUB_NAME }} {{ GITHUB_EMAIL }}
+
+[user]
+	name = {{ GITHUB_NAME }}
+	email = {{ GITHUB_EMAIL }}
+
+[push]
+	autoSetupRemote = true
+
+[alias]
+	undo = reset --soft HEAD^
+
+[rerere]
+	enabled = true
+
+[core]
+	compression = 9
+	whitespace = error
+	editor = nvim
+
+[diff]
+	tool = kitty
+	guitool = kitty.gui
+
+[difftool]
+	prompt = false
+	trustExitCode = true
+
+[difftool "kitty"]
+	cmd = kitten diff $LOCAL $REMOTE
+
+[difftool "kitty.gui"]
+	cmd = kitten diff $LOCAL $REMOTE
