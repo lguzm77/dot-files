@@ -1,6 +1,6 @@
 ---
 name: code-review
-description: Reviews a git diff, branch, commit, or pull request for correctness, regressions, security problems, and missing tests. Use when asked to review changes, check a PR, audit a commit, or double-check work before merging.
+description: Use when the user says code review
 ---
 
 # Code review

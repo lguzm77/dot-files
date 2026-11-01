@@ -14,6 +14,7 @@ A repository's own `AGENTS.md` wins wherever the two disagree.
 - Do not add a dependency, tool, or service without asking first.
 - When the request is ambiguous, state the assumption you are making and
   proceed. Ask only when the wrong guess would be expensive or destructive.
+- Prefer the simplest approach instead of complexity.
 
 ## Verify, do not assume
 
