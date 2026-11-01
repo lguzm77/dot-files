@@ -22,16 +22,16 @@ TARGET="${HOME}"
 DRY_RUN=0
 NVIM_CONFIG="${NVIM_CONFIG:-nvim}"
 
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-NC='\033[0m'
+RED=$'\033[0;31m'
+GREEN=$'\033[0;32m'
+YELLOW=$'\033[1;33m'
+BLUE=$'\033[0;34m'
+NC=$'\033[0m'
 
-log() { echo -e "${GREEN}[ ok ]${NC} $*"; }
-warn() { echo -e "${YELLOW}[warn]${NC} $*"; }
-err() { echo -e "${RED}[fail]${NC} $*" >&2; }
-step() { echo -e "\n${BLUE}==>${NC} $*"; }
+log() { printf '%s\n' "${GREEN}[ ok ]${NC} $*"; }
+warn() { printf '%s\n' "${YELLOW}[warn]${NC} $*"; }
+err() { printf '%s\n' "${RED}[fail]${NC} $*" >&2; }
+step() { printf '\n%s\n' "${BLUE}==>${NC} $*"; }
 die() {
   err "$*"
   exit 1
@@ -39,7 +39,7 @@ die() {
 
 run() {
   if [[ "$DRY_RUN" == "1" ]]; then
-    echo -e "       ${YELLOW}dry-run:${NC} $*"
+    printf '%s\n' "       ${YELLOW}dry-run:${NC} $*"
     return 0
   fi
   "$@"
@@ -102,7 +102,7 @@ clear_tree() {
   local src="$1" dst="$2" entry name
   for entry in "$src"/* "$src"/.[!.]*; do
     [[ -e "$entry" ]] || continue
-    name="$(basename "$entry")"
+    name="${entry##*/}"
     case "$name" in
       README.md | LICENSE | .gitignore | .stowrc | .DS_Store | *.template) continue ;;
     esac
@@ -124,8 +124,7 @@ clear_tree() {
 # They point at /nix/store paths that no longer exist, so nothing can be lost.
 prune_dead_nix_links() {
   local link target
-  while IFS= read -r link; do
-    [[ -n "$link" ]] || continue
+  while IFS= read -r -d '' link; do
     target="$(readlink "$link" 2>/dev/null || true)"
     case "$target" in
       /nix/store/*)
@@ -133,9 +132,7 @@ prune_dead_nix_links() {
         warn "pruned dead nix link $link"
         ;;
     esac
-  done <<EOF
-$(find "$TARGET/.config" -maxdepth 3 -type l 2>/dev/null)
-EOF
+  done < <(find "$TARGET/.config" -maxdepth 3 -type l -print0 2>/dev/null)
 }
 
 stow_pkg() {
