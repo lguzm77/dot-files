@@ -22,16 +22,16 @@ TARGET="${HOME}"
 DRY_RUN=0
 NVIM_CONFIG="${NVIM_CONFIG:-nvim}"
 
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-NC='\033[0m'
+RED=$'\033[0;31m'
+GREEN=$'\033[0;32m'
+YELLOW=$'\033[1;33m'
+BLUE=$'\033[0;34m'
+NC=$'\033[0m'
 
-log() { printf '%b\n' "${GREEN}[ ok ]${NC} $*"; }
-warn() { printf '%b\n' "${YELLOW}[warn]${NC} $*"; }
-err() { printf '%b\n' "${RED}[fail]${NC} $*" >&2; }
-step() { printf '\n%b\n' "${BLUE}==>${NC} $*"; }
+log() { printf '%s\n' "${GREEN}[ ok ]${NC} $*"; }
+warn() { printf '%s\n' "${YELLOW}[warn]${NC} $*"; }
+err() { printf '%s\n' "${RED}[fail]${NC} $*" >&2; }
+step() { printf '\n%s\n' "${BLUE}==>${NC} $*"; }
 die() {
   err "$*"
   exit 1
@@ -39,7 +39,7 @@ die() {
 
 run() {
   if [[ "$DRY_RUN" == "1" ]]; then
-    printf '%b\n' "       ${YELLOW}dry-run:${NC} $*"
+    printf '%s\n' "       ${YELLOW}dry-run:${NC} $*"
     return 0
   fi
   "$@"
