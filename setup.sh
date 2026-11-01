@@ -336,7 +336,29 @@ check() {
     "$TARGET/.config/k9s" \
     "$TARGET/.config/starship.toml" \
     "$TARGET/.config/zsh/.zshrc" \
+    "$TARGET/.agents/AGENTS.md" \
+    "$TARGET/.config/opencode/AGENTS.md" \
+    "$TARGET/.config/opencode/agents/reviewer.md" \
+    "$TARGET/.codex/AGENTS.md" \
+    "$TARGET/.pi/agent/AGENTS.md" \
+    "$TARGET/.claude/CLAUDE.md" \
     "$TARGET/Library/Fonts/DankMonoNerdFont-Regular.otf"; do
+    if [[ -L "$path" && -e "$path" ]]; then
+      log "$path -> $(readlink "$path")"
+    elif [[ -L "$path" ]]; then
+      err "$path is a dangling symlink -> $(readlink "$path")"
+    elif [[ -e "$path" ]]; then
+      warn "$path exists but is not managed by stow"
+    else
+      warn "$path is missing"
+    fi
+  done
+
+  # Skills come and go, so walk the repo instead of hardcoding IDs that go stale.
+  local skill
+  for skill in "$DOTFILES"/agents/.agents/skills/*/; do
+    [[ -d "$skill" ]] || continue
+    path="$TARGET/.agents/skills/$(basename "$skill")/SKILL.md"
     if [[ -L "$path" && -e "$path" ]]; then
       log "$path -> $(readlink "$path")"
     elif [[ -L "$path" ]]; then
@@ -366,7 +388,7 @@ Commands:
   all       deps -> render -> stow -> nvim -> fonts   (default)
   deps      install Homebrew packages from homebrew/Brewfile
   render    render git/.gitconfig.template -> git/.gitconfig
-  stow      symlink kitty, k9s, starship, zsh, git
+  stow      symlink kitty, k9s, starship, zsh, git, agents (Codex, Claude, Pi, OpenCode)
   nvim      symlink only the Neovim config
   fonts     symlink fonts into ~/Library/Fonts
   macos     apply macOS defaults

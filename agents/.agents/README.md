@@ -12,9 +12,14 @@ Portable agent configuration: written once, read by every agent client.
     └── neovim-config/SKILL.md
 .claude/
 ├── CLAUDE.md -> ../.agents/AGENTS.md
-└── skills    -> ../.agents/skills
+└── skills/
+    ├── code-review     -> ../../.agents/skills/code-review
+    ├── commit-and-pr   -> ../../.agents/skills/commit-and-pr
+    └── neovim-config   -> ../../.agents/skills/neovim-config
 .codex/
 └── AGENTS.md -> ../.agents/AGENTS.md
+.pi/agent/
+└── AGENTS.md -> ../../.agents/AGENTS.md
 .config/opencode/
 ├── AGENTS.md -> ../../.agents/AGENTS.md
 └── agents/reviewer.md        # OpenCode-only subagent wrapper
@@ -46,6 +51,12 @@ each client's path:
 Edit `.agents/AGENTS.md`; the copies follow. Never edit through a symlink at the
 client path and expect the change to live only there.
 
+`.claude/skills` is a real directory with one symlink per skill, not a link to
+the whole `skills` tree: Claude Code installs and syncs skills of its own into
+`~/.claude/skills/`, and a directory-level link would write those into this repo
+(and then advertise them to every other client). Per-skill links keep the
+client's own state local.
+
 ## Adding a skill
 
 1. `mkdir -p .agents/skills/<id>` — the directory name is the skill ID.
@@ -76,8 +87,9 @@ might reject.
 
 ## Scope
 
-- `~/.agents/skills` — personal, applies to every project. Keep it small; a
-  permanent context cost is paid on every session.
+- `~/.agents/skills` — personal, applies to every project. Pi also discovers
+  skills from this Agent Skills location. Keep it small; a permanent context
+  cost is paid on every session.
 - `<repo>/.agents/skills` — project-specific. Prefer this for anything that
   encodes one repository's conventions.
 

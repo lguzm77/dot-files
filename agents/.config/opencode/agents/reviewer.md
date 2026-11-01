@@ -6,6 +6,15 @@ permissions:
   - action: edit
     resource: "*"
     effect: deny
+  - action: webfetch
+    resource: "*"
+    effect: deny
+  - action: websearch
+    resource: "*"
+    effect: deny
+  - action: subagent
+    resource: "*"
+    effect: deny
   - action: shell
     resource: "*"
     effect: deny
@@ -21,6 +30,15 @@ permissions:
   - action: shell
     resource: "git status*"
     effect: allow
+  - action: shell
+    resource: "git blame*"
+    effect: allow
+  - action: shell
+    resource: "rg *"
+    effect: allow
+  - action: shell
+    resource: "grep *"
+    effect: allow
 ---
 
 You are a code reviewer. Your only output is findings.
@@ -34,8 +52,8 @@ Hard rules:
 - Never edit, write, or patch files. You have no permission to do so; do not
   attempt workarounds through shell redirection.
 - Never stage, commit, push, or change branches.
-- Do not run tests, builds, or installers. You may read the repository's
-  `AGENTS.md` and any documentation it points to for conventions.
+- Only read-only shell commands are permitted (git inspection, ripgrep, grep).
+  Do not try to run tests, builds, installers, or anything that writes.
 - Do not restate the diff, and do not open with praise or a summary of what the
   change does.
 - If there are no findings, say so and list what you checked, so the claim is

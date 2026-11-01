@@ -88,14 +88,26 @@ canonical content once, provider paths as links:
 agents/.agents/AGENTS.md                  canonical guidelines
 agents/.agents/skills/<id>/SKILL.md       portable skills (Agent Skills spec)
 agents/.claude/CLAUDE.md     -> ../.agents/AGENTS.md
-agents/.claude/skills        -> ../.agents/skills
+agents/.claude/skills/<id>   -> ../../.agents/skills/<id>
 agents/.codex/AGENTS.md      -> ../.agents/AGENTS.md
+agents/.pi/agent/AGENTS.md  -> ../../.agents/AGENTS.md
 agents/.config/opencode/AGENTS.md -> ../../.agents/AGENTS.md
 agents/.config/opencode/agents/reviewer.md   OpenCode-only subagent
 ```
 
 - `~/.agents/skills` is read natively by OpenCode and Codex; Claude Code only
-  reads `~/.claude/skills`, which is why a link exists.
+  reads `~/.claude/skills`, which is why per-skill links exist there.
+- Link each skill into `~/.claude/skills` instead of linking the directory:
+  Claude Code syncs account skills into that directory, and a directory link
+  would write them into the repo and advertise them to every other client.
+- OpenCode agent files use the documented `permissions:` rule list. When an
+  agent file is symlinked into the config directory, edits to its target may
+  not trigger the file watcher; reload the location with
+  `opencode api post /api/location/reload` if the running service shows stale
+  agent settings.
+- Pi reads user-level instructions from `~/.pi/agent/AGENTS.md` and discovers
+  skills from `~/.agents/skills`; the `agents` stow package links the shared
+  instructions without folding or taking ownership of other Pi state.
 - Stow this package with `--no-folding`: `~/.codex`, `~/.agents/skills`, and
   `~/.config/opencode` collect their own state (auth, installed skills,
   `cli.json`), and folding them would put that state in the repo.
@@ -127,6 +139,11 @@ brew bundle dump --force --file homebrew/Brewfile
 
 Review the diff before committing: the dump includes anything you installed by
 hand. Every entry is checked against formulae.brew.sh.
+
+If a cask was installed outside Homebrew, `brew bundle check` lists it as
+missing and `brew bundle install` would try to replace the existing app. On
+this machine that applies to `1password` and `docker-desktop`; leave them as
+they are instead of running the bundle blindly.
 
 ## Code Style
 
