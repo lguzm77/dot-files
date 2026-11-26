@@ -13,3 +13,7 @@ export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
 
 # All remaining zsh config lives here
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+
+# Opt out of T3 Code product analytics and relay tracing (read by the desktop
+# app from the login shell at launch).
+export T3CODE_TELEMETRY_ENABLED=false
